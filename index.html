@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Bản đồ chùa/đình An Giang</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bản đồ Chùa – Đình</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 </head>
 <body>
+  <!-- Nút ẩn/hiện sidebar -->
+  <div id="sidebar-toggle">☰</div>
 
-<button id="toggleSidebar">☰</button>
-<div id="sidebar">
-  <h3>Danh sách Chùa / Đình</h3>
-  <ul id="placeList"></ul>
-</div>
-<div id="map"></div>
+  <!-- Sidebar -->
+  <div id="sidebar" class="open">
+    <h2>Danh sách Chùa – Đình</h2>
+    <ul id="location-list"></ul>
+  </div>
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script src="script.js"></script>
+  <!-- Bản đồ -->
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
