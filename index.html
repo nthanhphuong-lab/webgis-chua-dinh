@@ -9,14 +9,22 @@
 <body>
   <h2>Bản đồ Chùa & Đình An Giang</h2>
 
-  <label for="filter">Lọc địa điểm: </label>
-  <select id="filter">
-    <option value="all">Tất cả</option>
-    <option value="Đình">Đình</option>
-    <option value="Chùa">Chùa</option>
-  </select>
+  <div class="container">
+    <!-- Sidebar bên trái -->
+    <div id="sidebar">
+      <h3>Danh sách địa điểm</h3>
+      <label for="filter">Lọc địa điểm: </label>
+      <select id="filter">
+        <option value="all">Tất cả</option>
+        <option value="Đình">Đình</option>
+        <option value="Chùa">Chùa</option>
+      </select>
+      <ul id="location-list"></ul>
+    </div>
 
-  <div id="map"></div>
+    <!-- Map bên phải -->
+    <div id="map"></div>
+  </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="chua_dinh.js"></script>
