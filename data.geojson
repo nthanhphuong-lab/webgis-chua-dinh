@@ -1,0 +1,17 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Đình Châu Phú",
+        "description": "Đình thờ Nguyễn Hữu Cảnh, di tích lịch sử tại Châu Đốc.",
+        "image": "images/dinh_chau_phu.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [105.125, 10.703]
+      }
+    }
+  ]
+}
