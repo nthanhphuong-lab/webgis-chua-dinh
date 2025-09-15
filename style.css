@@ -1,47 +1,72 @@
-html, body {
-  margin:0;
-  height:100%;
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: sans-serif;
 }
+
 #map {
-  position:absolute;
-  top:0; bottom:0; right:0; left:250px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 250px; /* mặc định sidebar rộng */
 }
+
+/* Sidebar */
 #sidebar {
-  position:absolute;
-  top:0; left:0; bottom:0;
-  width:250px;
-  background:#fff;
-  overflow:auto;
-  z-index:1000;
-  padding:10px;
-  box-shadow:2px 0 5px rgba(0,0,0,0.2);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background: #fff;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+  padding: 10px;
+  transition: transform 0.3s ease;
+  overflow-y: auto;
 }
-#toggleSidebar {
-  position:absolute;
-  top:10px; left:10px;
-  z-index:1100;
-  background:#fff;
-  border:none;
-  padding:5px 10px;
-  cursor:pointer;
-  font-size:20px;
+
+#sidebar h2 {
+  margin-top: 0;
+  font-size: 18px;
+  text-align: center;
+  background: #f2f2f2;
+  padding: 8px 0;
+  border-radius: 4px;
 }
-.sidebar-hidden #map {
-  left:0;
+
+/* Sidebar đóng */
+#sidebar.closed {
+  transform: translateX(-100%);
 }
-.sidebar-hidden #sidebar {
-  display:none;
+
+/* Nút toggle */
+#sidebar-toggle {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 999;
+  background: #0078A8;
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 20px;
 }
-ul {
-  list-style:none;
-  padding:0;
-  margin:0;
+
+/* List */
+#location-list {
+  list-style: none;
+  padding: 0;
 }
-li {
-  padding:5px;
-  border-bottom:1px solid #ddd;
-  cursor:pointer;
+
+#location-list li {
+  padding: 6px 4px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
 }
-li:hover {
-  background:#f0f0f0;
+
+#location-list li:hover {
+  background: #e6f7ff;
 }
