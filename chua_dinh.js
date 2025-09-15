@@ -20,7 +20,8 @@ var chua_dinh = {
         "name": "Đình Châu Phú",
         "type": "Đình",
         "description": "Đình thờ Nguyễn Hữu Cảnh, di tích lịch sử tại Châu Đốc.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/f/f3/%C4%90%C3%ACnh_Ch%C3%A2u_Ph%C3%BA_An_Giang.jpg"
+        "image": "images/dinh_chau_phu.jpg"
+
 
       },
       "geometry": {
@@ -43,4 +44,5 @@ var chua_dinh = {
     }
   ]
 };
+
 
