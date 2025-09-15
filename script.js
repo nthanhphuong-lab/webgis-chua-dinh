@@ -1,74 +1,60 @@
-// Khởi tạo map
+// ======= LỚP NỀN ==========
+var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap'
+});
+var googleSat = L.tileLayer(
+  'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+  {
+    maxZoom:20,
+    subdomains:['mt0','mt1','mt2','mt3'],
+    attribution:'Google Satellite'
+  }
+);
+
+// ======= MAP ==========
 var map = L.map('map', {
-  zoomControl: false // tắt control mặc định
-}).setView([10.5, 105.1], 9);
-
-// Thêm control zoom ở góc phải dưới
-L.control.zoom({position:'bottomright'}).addTo(map);
-
-
-// Thêm tile layer
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; OpenStreetMap contributors'
-}).addTo(map);
-
-// Toggle sidebar
-var sidebar = document.getElementById('sidebar');
-document.getElementById('toggleSidebar').addEventListener('click', function () {
-  sidebar.classList.toggle('hidden');
-  setTimeout(function () { map.invalidateSize(); }, 300); // cập nhật lại map khi sidebar ẩn/hiện
+  center:[10.368,105.435],
+  zoom:13,
+  layers:[osm]
 });
 
-// Danh sách marker để click từ sidebar
-var markers = [];
+// ======= CONTROL LỚP ==========
+var baseLayers = {
+  "OpenStreetMap":osm,
+  "Google Satellite":googleSat
+};
+L.control.layers(baseLayers,null,{collapsed:false}).addTo(map);
 
-// Load GeoJSON
+// ======= LOAD GEOJSON TỪ FILE ==========
+var chuadinhLayer;
 fetch('data.geojson')
   .then(response => response.json())
   .then(data => {
-    L.geoJSON(data, {
-      onEachFeature: function (feature, layer) {
-        var props = feature.properties;
-        var popupContent = `<b>${props.name}</b><br>${props.description}`;
-        if (props.image) {
-          popupContent += `<br><img src="${props.image}" width="150">`;
-        }
-        layer.bindPopup(popupContent);
-
-        markers.push({layer: layer, props: props});
-      },
-      pointToLayer: function (feature, latlng) {
-        return L.marker(latlng); // marker mặc định
+    chuadinhLayer = L.geoJSON(data, {
+      onEachFeature:function(feature, layer){
+        layer.bindPopup('<b>'+feature.properties.name+'</b><br>'+feature.properties.description);
       }
     }).addTo(map);
 
-    // Tạo danh sách bên trái
-    var placeList = document.getElementById('placeList');
-    markers.forEach(m => {
-      var li = document.createElement('li');
-      li.textContent = m.props.name;
-      li.addEventListener('click', () => {
-        map.setView(m.layer.getLatLng(), 15);
-        m.layer.openPopup();
-      });
-      placeList.appendChild(li);
-    });
-
-    // Tìm kiếm
-    var searchBox = document.getElementById('searchBox');
-    searchBox.addEventListener('input', function () {
-      var keyword = this.value.toLowerCase();
-      placeList.innerHTML = '';
-      markers.forEach(m => {
-        if (m.props.name.toLowerCase().includes(keyword)) {
-          var li = document.createElement('li');
-          li.textContent = m.props.name;
-          li.addEventListener('click', () => {
-            map.setView(m.layer.getLatLng(), 15);
-            m.layer.openPopup();
-          });
-          placeList.appendChild(li);
-        }
-      });
-    });
+    fillSidebar(chuadinhLayer,'placeList');
   });
+
+// ======= ĐIỀN DANH SÁCH SIDEBAR ==========
+function fillSidebar(layer, listId){
+  var list=document.getElementById(listId);
+  list.innerHTML='';
+  layer.eachLayer(function(marker){
+    var li=document.createElement('li');
+    li.textContent=marker.feature.properties.name;
+    li.addEventListener('click',function(){
+      map.setView(marker.getLatLng(),16);
+      marker.openPopup();
+    });
+    list.appendChild(li);
+  });
+}
+
+// ======= NÚT ẨN/HIỆN SIDEBAR ==========
+document.getElementById('toggleSidebar').addEventListener('click',function(){
+  document.body.classList.toggle('sidebar-hidden');
+});
