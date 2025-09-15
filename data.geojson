@@ -5,81 +5,104 @@
       "type": "Feature",
       "properties": {
         "name": "Chùa Ông Bắc",
-        "image": "images/chua_ong_bac.jpg"
+        "description": "Ngôi chùa cổ nổi tiếng ở miền Tây"
       },
-      "geometry": { "type": "Point", "coordinates": [105.123, 10.543] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [105.209, 10.379]
+      }
     },
     {
       "type": "Feature",
       "properties": {
         "name": "Đình Mỹ Phước",
-        "image": "images/dinh_my_phuoc.jpg"
+        "description": "Đình làng truyền thống"
       },
-      "geometry": { "type": "Point", "coordinates": [105.135, 10.551] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Chùa Bà Chúa Xứ",
-        "image": "images/chua_ba_chua_xu.jpg"
-      },
-      "geometry": { "type": "Point", "coordinates": [105.138, 10.509] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Đình Tân Châu",
-        "image": "images/dinh_tan_chau.jpg"
-      },
-      "geometry": { "type": "Point", "coordinates": [105.2, 10.65] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Chùa Huỳnh Đạo",
-        "image": "images/chua_huynh_dao.jpg"
-      },
-      "geometry": { "type": "Point", "coordinates": [105.18, 10.49] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Đình Châu Phong",
-        "image": "images/dinh_chau_phong.jpg"
-      },
-      "geometry": { "type": "Point", "coordinates": [105.16, 10.57] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [105.221, 10.382]
+      }
     },
     {
       "type": "Feature",
       "properties": {
         "name": "Chùa Phước Điền",
-        "image": "images/chua_phuoc_dien.jpg"
+        "description": "Chùa nổi tiếng trên núi Sam"
       },
-      "geometry": { "type": "Point", "coordinates": [105.145, 10.53] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [105.086, 10.700]
+      }
     },
     {
       "type": "Feature",
       "properties": {
-        "name": "Đình Long Sơn",
-        "image": "images/dinh_long_son.jpg"
+        "name": "Đình Tân Châu",
+        "description": "Đình cổ miền Tây"
       },
-      "geometry": { "type": "Point", "coordinates": [105.17, 10.52] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [105.130, 10.790]
+      }
     },
     {
       "type": "Feature",
       "properties": {
-        "name": "Chùa Vĩnh Tràng",
-        "image": "images/chua_vinh_trang.jpg"
+        "name": "Chùa Bà Chúa Xứ",
+        "description": "Ngôi chùa nổi tiếng linh thiêng"
       },
-      "geometry": { "type": "Point", "coordinates": [105.19, 10.55] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [105.086, 10.700]
+      }
     },
     {
       "type": "Feature",
       "properties": {
-        "name": "Đình Bình Đức",
-        "image": "images/dinh_binh_duc.jpg"
+        "name": "Đình Bình Thạnh",
+        "description": "Đình làng cổ kính"
       },
-      "geometry": { "type": "Point", "coordinates": [105.13, 10.50] }
-    }
-  ]
-}
+      "geometry": {
+        "type": "Point",
+        "coordinates": [105.240, 10.500]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chùa Tây An",
+        "description": "Ngôi chùa với kiến trúc độc đáo"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [105.086, 10.700]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Đình Long Xuyên",
+        "description": "Đình nổi tiếng ở Long Xuyên"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [105.430, 10.370]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chùa Phước Hưng",
+        "description": "Chùa cổ của An Giang"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [105.350, 10.400]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Đình Mỹ Long",
+        "description": "Đình nổi tiếng miền Tây"
+      },
