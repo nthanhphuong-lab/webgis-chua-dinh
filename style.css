@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+h2 {
+  margin: 10px;
+  text-align: center;
+}
+
+#map {
+  height: 90vh;
+  width: 100%;
+}
+
+select {
+  display: block;
+  margin: 10px auto;
+  padding: 5px 10px;
+}
+
+/* Làm popup ảnh đẹp hơn */
+.leaflet-popup-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  margin-top: 5px;
+}
