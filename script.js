@@ -1,53 +1,63 @@
-const map = L.map('map').setView([10.5, 105.2], 10);
+// Khởi tạo map
+var map = L.map('map').setView([10.5, 105.1], 9);
 
+// Thêm tile layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-const sidebar = document.getElementById('sidebar');
-const toggleButton = document.getElementById('toggleSidebar');
-const mapDiv = document.getElementById('map');
+// Danh sách marker để click từ sidebar
+var markers = [];
 
-toggleButton.addEventListener('click', () => {
-  sidebar.classList.toggle('collapsed');
-  if (sidebar.classList.contains('collapsed')) {
-    mapDiv.style.left = '0';
-  } else {
-    mapDiv.style.left = '300px';
-  }
-  setTimeout(() => map.invalidateSize(), 310);
-});
-
-// load geojson
+// Load GeoJSON
 fetch('data.geojson')
-  .then(res => res.json())
+  .then(response => response.json())
   .then(data => {
-    const locations = data.features;
+    // Thêm marker mặc định Leaflet
+    L.geoJSON(data, {
+      onEachFeature: function (feature, layer) {
+        var props = feature.properties;
+        var popupContent = `<b>${props.name}</b><br>${props.description}`;
+        if (props.image) {
+          popupContent += `<br><img src="${props.image}" width="150">`;
+        }
+        layer.bindPopup(popupContent);
 
-    const geoLayer = L.geoJSON(data, {
-      onEachFeature: (feature, layer) => {
-        layer.bindPopup(`<b>${feature.properties.name}</b><br>${feature.properties.description}`);
+        // lưu marker để dùng cho sidebar
+        markers.push({layer: layer, props: props});
+      },
+      pointToLayer: function (feature, latlng) {
+        return L.marker(latlng); // mặc định icon
       }
     }).addTo(map);
 
-    const locationList = document.getElementById('locationList');
-    const renderList = (arr) => {
-      locationList.innerHTML = '';
-      arr.forEach(feature => {
-        const li = document.createElement('li');
-        li.textContent = feature.properties.name;
-        li.addEventListener('click', () => {
-          map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 14);
-        });
-        locationList.appendChild(li);
+    // Tạo danh sách bên trái
+    var placeList = document.getElementById('placeList');
+    markers.forEach((m, i) => {
+      var li = document.createElement('li');
+      li.textContent = m.props.name;
+      li.addEventListener('click', () => {
+        map.setView(m.layer.getLatLng(), 15);
+        m.layer.openPopup();
       });
-    };
-    renderList(locations);
-
-    document.getElementById('searchInput').addEventListener('input', (e) => {
-      const searchText = e.target.value.toLowerCase();
-      const filtered = locations.filter(f => f.properties.name.toLowerCase().includes(searchText));
-      renderList(filtered);
+      placeList.appendChild(li);
     });
-  })
-  .catch(err => console.error(err));
+
+    // Tìm kiếm
+    var searchBox = document.getElementById('searchBox');
+    searchBox.addEventListener('input', function () {
+      var keyword = this.value.toLowerCase();
+      placeList.innerHTML = '';
+      markers.forEach(m => {
+        if (m.props.name.toLowerCase().includes(keyword)) {
+          var li = document.createElement('li');
+          li.textContent = m.props.name;
+          li.addEventListener('click', () => {
+            map.setView(m.layer.getLatLng(), 15);
+            m.layer.openPopup();
+          });
+          placeList.appendChild(li);
+        }
+      });
+    });
+  });
