@@ -6,6 +6,13 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
+// Toggle sidebar
+var sidebar = document.getElementById('sidebar');
+document.getElementById('toggleSidebar').addEventListener('click', function () {
+  sidebar.classList.toggle('hidden');
+  setTimeout(function () { map.invalidateSize(); }, 300); // cập nhật lại map khi sidebar ẩn/hiện
+});
+
 // Danh sách marker để click từ sidebar
 var markers = [];
 
@@ -13,7 +20,6 @@ var markers = [];
 fetch('data.geojson')
   .then(response => response.json())
   .then(data => {
-    // Thêm marker mặc định Leaflet
     L.geoJSON(data, {
       onEachFeature: function (feature, layer) {
         var props = feature.properties;
@@ -23,17 +29,16 @@ fetch('data.geojson')
         }
         layer.bindPopup(popupContent);
 
-        // lưu marker để dùng cho sidebar
         markers.push({layer: layer, props: props});
       },
       pointToLayer: function (feature, latlng) {
-        return L.marker(latlng); // mặc định icon
+        return L.marker(latlng); // marker mặc định
       }
     }).addTo(map);
 
     // Tạo danh sách bên trái
     var placeList = document.getElementById('placeList');
-    markers.forEach((m, i) => {
+    markers.forEach(m => {
       var li = document.createElement('li');
       li.textContent = m.props.name;
       li.addEventListener('click', () => {
