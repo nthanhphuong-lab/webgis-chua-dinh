@@ -1,5 +1,11 @@
 // Khởi tạo map
-var map = L.map('map').setView([10.5, 105.1], 9);
+var map = L.map('map', {
+  zoomControl: false // tắt control mặc định
+}).setView([10.5, 105.1], 9);
+
+// Thêm control zoom ở góc phải dưới
+L.control.zoom({position:'bottomright'}).addTo(map);
+
 
 // Thêm tile layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
