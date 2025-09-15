@@ -1,64 +1,51 @@
-// ======= LỚP NỀN ==========
-var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+// Tạo map Leaflet
+const map = L.map('map').setView([10.5, 105.1], 12);
+
+// Thêm tile layer
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
   attribution: '© OpenStreetMap'
-});
-var googleSat = L.tileLayer(
-  'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
-  {
-    maxZoom:20,
-    subdomains:['mt0','mt1','mt2','mt3'],
-    attribution:'Google Satellite'
-  }
-);
+}).addTo(map);
 
-// ======= MAP ==========
-var map = L.map('map', {
-  center:[10.368,105.435],
-  zoom:13,
-  layers:[osm]
-});
-
-// ======= CONTROL LỚP ==========
-var baseLayers = {
-  "OpenStreetMap":osm,
-  "Google Satellite":googleSat
-};
-L.control.layers(baseLayers,null,{collapsed:false}).addTo(map);
-
-// ======= LOAD GEOJSON TỪ FILE ==========
-var chuadinhLayer;
+// Lấy dữ liệu GeoJSON
 fetch('data.geojson')
-  .then(response => response.json())
+  .then(res => res.json())
   .then(data => {
-    chuadinhLayer = L.geoJSON(data, {
-      onEachFeature:function(feature, layer){
-        layer.bindPopup(
-      `<b>${feature.properties.name}</b><br>${feature.properties.description}` +
-      (feature.properties.image ? `<br><img src="${feature.properties.image}" width="200">` : '')
-);
-
+    const geoLayer = L.geoJSON(data, {
+      onEachFeature: function (feature, layer) {
+        if (feature.properties && feature.properties.name) {
+          layer.bindPopup(`<b>${feature.properties.name}</b>`);
+        }
       }
     }).addTo(map);
 
-    fillSidebar(chuadinhLayer,'placeList');
-  });
-
-// ======= ĐIỀN DANH SÁCH SIDEBAR ==========
-function fillSidebar(layer, listId){
-  var list=document.getElementById(listId);
-  list.innerHTML='';
-  layer.eachLayer(function(marker){
-    var li=document.createElement('li');
-    li.textContent=marker.feature.properties.name;
-    li.addEventListener('click',function(){
-      map.setView(marker.getLatLng(),16);
-      marker.openPopup();
+    // Hiển thị danh sách
+    const listEl = document.getElementById('location-list');
+    data.features.forEach((feature, index) => {
+      const li = document.createElement('li');
+      li.textContent = feature.properties.name;
+      li.addEventListener('click', () => {
+        const coords = feature.geometry.coordinates;
+        map.setView([coords[1], coords[0]], 15);
+      });
+      listEl.appendChild(li);
     });
-    list.appendChild(li);
   });
-}
 
-// ======= NÚT ẨN/HIỆN SIDEBAR ==========
-document.getElementById('toggleSidebar').addEventListener('click',function(){
-  document.body.classList.toggle('sidebar-hidden');
+// Nút toggle sidebar
+document.getElementById('sidebar-toggle').addEventListener('click', () => {
+  const sidebar = document.getElementById('sidebar');
+  const mapDiv = document.getElementById('map');
+
+  sidebar.classList.toggle('closed');
+
+  if (sidebar.classList.contains('closed')) {
+    mapDiv.style.left = '0';
+  } else {
+    mapDiv.style.left = '250px';
+  }
+
+  setTimeout(() => {
+    map.invalidateSize();
+  }, 300);
 });
