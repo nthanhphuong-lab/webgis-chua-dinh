@@ -75,3 +75,13 @@ html, body {
   right: 0;
   bottom: 0;
 }
+#placeList li {
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+
+  /* chỉ 1 dòng, nếu dài quá cắt … */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
