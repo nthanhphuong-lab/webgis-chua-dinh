@@ -1,32 +1,107 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8">
-  <title>WebGIS Chùa & Đình An Giang</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Bản đồ Chùa & Đình An Giang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- Geocoder -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+  <!-- Measure -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-measure/dist/leaflet-measure.css" />
+  <script src="https://unpkg.com/leaflet-measure/dist/leaflet-measure.js"></script>
+
+  <!-- MiniMap -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-minimap/dist/Control.MiniMap.min.css">
+  <script src="https://unpkg.com/leaflet-minimap/dist/Control.MiniMap.min.js"></script>
+
+  <style>
+    html, body { height: 100%; margin: 0; }
+    #map { width: 100%; height: 100%; }
+    .leaflet-popup-content img {
+      max-width: 180px;
+      display: block;
+      margin-top: 5px;
+    }
+  </style>
 </head>
 <body>
-  <h2>Bản đồ Chùa & Đình An Giang</h2>
+  <div id="map"></div>
 
-  <div class="container">
-    <!-- Sidebar bên trái -->
-    <div id="sidebar">
-      <h3>Danh sách địa điểm</h3>
-      <label for="filter">Lọc địa điểm: </label>
-      <select id="filter">
-        <option value="all">Tất cả</option>
-        <option value="Đình">Đình</option>
-        <option value="Chùa">Chùa</option>
-      </select>
-      <ul id="location-list"></ul>
-    </div>
+  <script>
+    // ====== 1. Các Layer nền ======
+    const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap'
+    });
+    const esriSat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles © Esri'
+    });
 
-    <!-- Map bên phải -->
-    <div id="map"></div>
-  </div>
+    // ====== 2. Khởi tạo Map ======
+    const map = L.map('map', {
+      center: [10.7, 105.1], // chỉnh theo khu vực
+      zoom: 12,
+      layers: [osm]
+    });
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="chua_dinh.js"></script>
+    const baseMaps = {
+      "Bản đồ đường": osm,
+      "Vệ tinh ESRI": esriSat
+    };
+    L.control.layers(baseMaps).addTo(map);
+
+    // ====== 3. MiniMap ======
+    var miniMap = new L.Control.MiniMap(osm, { toggleDisplay: true }).addTo(map);
+
+    // ====== 4. Ô tìm kiếm ======
+    L.Control.geocoder().addTo(map);
+
+    // ====== 5. Measure ======
+    L.control.measure({
+      primaryLengthUnit: 'kilometers',
+      primaryAreaUnit: 'sqmeters',
+      activeColor: '#db4a29',
+      completedColor: '#9b2d14'
+    }).addTo(map);
+
+    // ====== 6. Icon riêng ======
+    const dinhIcon = L.icon({
+      iconUrl: 'images/dinh.png',
+      iconSize: [30, 30]
+    });
+    const chuaIcon = L.icon({
+      iconUrl: 'images/chua.png',
+      iconSize: [30, 30]
+    });
+
+    // ====== 7. Load GeoJSON ======
+    fetch('data/chua_dinh.geojson')
+      .then(res => res.json())
+      .then(data => {
+        L.geoJSON(data, {
+          pointToLayer: function (feature, latlng) {
+            if (feature.properties.type === "Đình") {
+              return L.marker(latlng, {icon: dinhIcon});
+            } else {
+              return L.marker(latlng, {icon: chuaIcon});
+            }
+          },
+          onEachFeature: function (feature, layer) {
+            let popupContent = `<b>${feature.properties.name}</b><br>
+              ${feature.properties.description}<br>`;
+            if (feature.properties.image) {
+              popupContent += `<img src="${feature.properties.image}">`;
+            }
+            layer.bindPopup(popupContent);
+          }
+        }).addTo(map);
+      });
+  </script>
 </body>
 </html>
