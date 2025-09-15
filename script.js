@@ -32,7 +32,11 @@ fetch('data.geojson')
   .then(data => {
     chuadinhLayer = L.geoJSON(data, {
       onEachFeature:function(feature, layer){
-        layer.bindPopup('<b>'+feature.properties.name+'</b><br>'+feature.properties.description);
+        layer.bindPopup(
+      `<b>${feature.properties.name}</b><br>${feature.properties.description}` +
+      (feature.properties.image ? `<br><img src="${feature.properties.image}" width="200">` : '')
+);
+
       }
     }).addTo(map);
 
