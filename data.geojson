@@ -4,92 +4,82 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Đình Châu Phú",
-        "description": "Đình thờ Nguyễn Hữu Cảnh tại Châu Đốc",
-        "image": "images/dinh_chau_phu.jpg"
-      },
-      "geometry": { "type": "Point", "coordinates": [105.435, 10.368] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Chùa Ông Bắc",
-        "description": "Chùa nổi tiếng tại Châu Đốc",
         "image": "images/chua_ong_bac.jpg"
       },
-      "geometry": { "type": "Point", "coordinates": [105.445, 10.370] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Chùa Hang",
-        "description": "Chùa cổ nằm dưới chân núi Sam",
-        "image": "images/chua_hang.jpg"
-      },
-      "geometry": { "type": "Point", "coordinates": [105.075, 10.680] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Miếu Bà Chúa Xứ",
-        "description": "Điểm hành hương nổi tiếng núi Sam",
-        "image": "images/mieu_ba_chua_xu.jpg"
-      },
-      "geometry": { "type": "Point", "coordinates": [105.079, 10.683] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Chùa Tây An",
-        "description": "Chùa Tây An Cổ Tự tại chân núi Sam",
-        "image": "images/chua_tay_an.jpg"
-      },
-      "geometry": { "type": "Point", "coordinates": [105.077, 10.681] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Đình Bình Đức",
-        "description": "Đình cổ ở phường Bình Đức, Long Xuyên",
-        "image": "images/dinh_binh_duc.jpg"
-      },
-      "geometry": { "type": "Point", "coordinates": [105.441, 10.367] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Chùa Phước Thành",
-        "description": "Chùa tại phường Mỹ Phước, Long Xuyên",
-        "image": "images/chua_phuoc_thanh.jpg"
-      },
-      "geometry": { "type": "Point", "coordinates": [105.430, 10.380] }
+      "geometry": { "type": "Point", "coordinates": [105.123, 10.543] }
     },
     {
       "type": "Feature",
       "properties": {
         "name": "Đình Mỹ Phước",
-        "description": "Đình truyền thống tại Mỹ Phước",
         "image": "images/dinh_my_phuoc.jpg"
       },
-      "geometry": { "type": "Point", "coordinates": [105.431, 10.383] }
+      "geometry": { "type": "Point", "coordinates": [105.135, 10.551] }
     },
     {
       "type": "Feature",
       "properties": {
-        "name": "Chùa Bửu Sơn",
-        "description": "Chùa Phật giáo Hòa Hảo",
-        "image": "images/chua_buu_son.jpg"
+        "name": "Chùa Bà Chúa Xứ",
+        "image": "images/chua_ba_chua_xu.jpg"
       },
-      "geometry": { "type": "Point", "coordinates": [105.160, 10.430] }
+      "geometry": { "type": "Point", "coordinates": [105.138, 10.509] }
     },
     {
       "type": "Feature",
       "properties": {
         "name": "Đình Tân Châu",
-        "description": "Đình cổ ở thị xã Tân Châu",
         "image": "images/dinh_tan_chau.jpg"
       },
-      "geometry": { "type": "Point", "coordinates": [105.130, 10.790] }
+      "geometry": { "type": "Point", "coordinates": [105.2, 10.65] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chùa Huỳnh Đạo",
+        "image": "images/chua_huynh_dao.jpg"
+      },
+      "geometry": { "type": "Point", "coordinates": [105.18, 10.49] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Đình Châu Phong",
+        "image": "images/dinh_chau_phong.jpg"
+      },
+      "geometry": { "type": "Point", "coordinates": [105.16, 10.57] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chùa Phước Điền",
+        "image": "images/chua_phuoc_dien.jpg"
+      },
+      "geometry": { "type": "Point", "coordinates": [105.145, 10.53] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Đình Long Sơn",
+        "image": "images/dinh_long_son.jpg"
+      },
+      "geometry": { "type": "Point", "coordinates": [105.17, 10.52] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chùa Vĩnh Tràng",
+        "image": "images/chua_vinh_trang.jpg"
+      },
+      "geometry": { "type": "Point", "coordinates": [105.19, 10.55] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Đình Bình Đức",
+        "image": "images/dinh_binh_duc.jpg"
+      },
+      "geometry": { "type": "Point", "coordinates": [105.13, 10.50] }
     }
   ]
 }
