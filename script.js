@@ -12,12 +12,17 @@ fetch('data.geojson')
   .then(res => res.json())
   .then(data => {
     const geoLayer = L.geoJSON(data, {
-      onEachFeature: function (feature, layer) {
-        if (feature.properties && feature.properties.name) {
-          layer.bindPopup(`<b>${feature.properties.name}</b>`);
-        }
-      }
-    }).addTo(map);
+      // Thêm popup có ảnh
+const geoLayer = L.geoJSON(data, {
+  onEachFeature: function (feature, layer) {
+    if (feature.properties && feature.properties.name) {
+      const name = feature.properties.name;
+      const img = feature.properties.image ?
+        `<br><img src="${feature.properties.image}" alt="${name}" style="width:100%;max-width:200px;border-radius:5px;">` : '';
+      layer.bindPopup(`<b>${name}</b>${img}`);
+    }
+  }
+}).addTo(map);
 
     // Hiển thị danh sách
     const listEl = document.getElementById('location-list');
