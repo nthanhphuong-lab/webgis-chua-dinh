@@ -33,29 +33,24 @@ fetch('data.geojson')
 
     // Hiển thị danh sách bên sidebar
     const locationList = document.getElementById('locationList');
-    locationList.innerHTML = '';
-    locations.forEach(feature => {
-      const li = document.createElement('li');
-      li.textContent = feature.properties.name;
-      li.addEventListener('click', () => {
-        map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 14);
+    const renderList = (arr) => {
+      locationList.innerHTML = '';
+      arr.forEach(feature => {
+        const li = document.createElement('li');
+        li.textContent = feature.properties.name;
+        li.addEventListener('click', () => {
+          map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 14);
+        });
+        locationList.appendChild(li);
       });
-      locationList.appendChild(li);
-    });
+    };
+    renderList(locations);
 
     // Tìm kiếm
     document.getElementById('searchInput').addEventListener('input', (e) => {
       const searchText = e.target.value.toLowerCase();
-      locationList.innerHTML = '';
-      locations
-        .filter(f => f.properties.name.toLowerCase().includes(searchText))
-        .forEach(feature => {
-          const li = document.createElement('li');
-          li.textContent = feature.properties.name;
-          li.addEventListener('click', () => {
-            map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 14);
-          });
-          locationList.appendChild(li);
-        });
+      const filtered = locations.filter(f => f.properties.name.toLowerCase().includes(searchText));
+      renderList(filtered);
     });
-  });
+  })
+  .catch(err => console.error(err));
