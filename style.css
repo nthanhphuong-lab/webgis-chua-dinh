@@ -3,23 +3,30 @@ html, body {
   padding: 0;
   height: 100%;
   font-family: Arial, sans-serif;
+  overflow: hidden; /* ngăn scroll */
 }
 
+/* container chính */
 #map {
-  height: 100%;
-  width: calc(100% - 300px);
-  float: right;
-  transition: width 0.3s ease;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 300px; /* chừa chỗ cho sidebar */
+  transition: left 0.3s ease;
 }
 
 .sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 300px;
+  bottom: 0;
   background: #fff;
-  height: 100%;
-  float: left;
   overflow-y: auto;
-  transition: transform 0.3s ease;
   border-right: 1px solid #ddd;
+  transition: transform 0.3s ease;
+  z-index: 999; /* trên map */
 }
 
 .sidebar.collapsed {
