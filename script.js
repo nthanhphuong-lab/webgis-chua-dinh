@@ -1,37 +1,35 @@
-// Khởi tạo map
 const map = L.map('map').setView([10.5, 105.2], 10);
 
-// Tile layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-// Sidebar toggle
 const sidebar = document.getElementById('sidebar');
-document.getElementById('toggleSidebar').addEventListener('click', () => {
+const toggleButton = document.getElementById('toggleSidebar');
+const mapDiv = document.getElementById('map');
+
+toggleButton.addEventListener('click', () => {
   sidebar.classList.toggle('collapsed');
   if (sidebar.classList.contains('collapsed')) {
-    document.getElementById('map').style.width = '100%';
+    mapDiv.style.left = '0';
   } else {
-    document.getElementById('map').style.width = 'calc(100% - 300px)';
+    mapDiv.style.left = '300px';
   }
   setTimeout(() => map.invalidateSize(), 310);
 });
 
-// Load GeoJSON
+// load geojson
 fetch('data.geojson')
   .then(res => res.json())
   .then(data => {
     const locations = data.features;
 
-    // Thêm marker
     const geoLayer = L.geoJSON(data, {
       onEachFeature: (feature, layer) => {
         layer.bindPopup(`<b>${feature.properties.name}</b><br>${feature.properties.description}`);
       }
     }).addTo(map);
 
-    // Hiển thị danh sách bên sidebar
     const locationList = document.getElementById('locationList');
     const renderList = (arr) => {
       locationList.innerHTML = '';
@@ -46,7 +44,6 @@ fetch('data.geojson')
     };
     renderList(locations);
 
-    // Tìm kiếm
     document.getElementById('searchInput').addEventListener('input', (e) => {
       const searchText = e.target.value.toLowerCase();
       const filtered = locations.filter(f => f.properties.name.toLowerCase().includes(searchText));
