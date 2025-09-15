@@ -1,81 +1,59 @@
-// Khởi tạo bản đồ
-var map = L.map('map').setView([10.5, 105.1], 9);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: '&copy; OpenStreetMap contributors'
-}).addTo(map);
-
-// Dữ liệu GeoJSON
-var geojsonData = {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Đình Châu Phú",
-        "type": "Đình",
-        "description": "Đình thờ Nguyễn Hữu Cảnh, di tích lịch sử tại Châu Đốc.",
-        "image": "images/dinh_chau_phu.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [105.1168, 10.7023]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Chùa Xá Lợi",
-        "type": "Chùa",
-        "description": "Ngôi chùa nổi tiếng tại Long Xuyên.",
-        "image": "images/chua_xa_loi.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [105.4248, 10.3682]
-      }
-    }
-  ]
-};
-
-// Hàm hiển thị popup
-function onEachFeature(feature, layer) {
-  layer.bindPopup(
-    "<h3>" + feature.properties.name + "</h3>" +
-    "<p>" + feature.properties.description + "</p>" +
-    "<img src='" + feature.properties.image + "' width='200'/>"
-  );
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
 }
 
-// Hiển thị tất cả
-var layerGroup = L.geoJSON(geojsonData, { onEachFeature: onEachFeature }).addTo(map);
+h2 {
+  margin: 10px;
+  text-align: center;
+}
 
-// Lọc theo dropdown
-document.getElementById('filter').addEventListener('change', function () {
-  var selected = this.value;
+.container {
+  display: flex;
+  height: 90vh;
+}
 
-  // Xóa các layer cũ
-  map.eachLayer(function (layer) {
-    if (layer instanceof L.GeoJSON) {
-      map.removeLayer(layer);
-    }
-  });
+/* Sidebar */
+#sidebar {
+  width: 250px;
+  overflow-y: auto;
+  background: #f8f8f8;
+  padding: 10px;
+  border-right: 1px solid #ccc;
+}
 
-  // Tải lại tile layer OSM
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
+#sidebar h3 {
+  margin-top: 0;
+  text-align: center;
+}
 
-  // Lọc dữ liệu
-  var filtered = {
-    "type": "FeatureCollection",
-    "features": geojsonData.features.filter(function (f) {
-      return selected === 'all' || f.properties.type === selected;
-    })
-  };
+#location-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
 
-  // Vẽ lại
-  L.geoJSON(filtered, { onEachFeature: onEachFeature }).addTo(map);
-});
+#location-list li {
+  padding: 5px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+#location-list li:hover {
+  background: #e0e0e0;
+}
+
+/* Map */
+#map {
+  flex: 1;
+}
+
+/* Popup ảnh */
+.leaflet-popup-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  margin-top: 5px;
+}
