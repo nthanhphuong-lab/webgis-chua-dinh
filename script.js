@@ -71,12 +71,41 @@ fetch('data.geojson')
 
 
 // Render danh sách từ mảng items (hoặc từ filtered list)
+// Render danh sách từ mảng items (không có thumbnail)
 function renderList(listItems) {
   listEl.innerHTML = '';
   if (!listItems || listItems.length === 0) {
     listEl.innerHTML = '<div style="padding:12px;color:#666">Không có kết quả</div>';
     return;
   }
+
+  listItems.forEach((it, i) => {
+    const props = it.feature.properties || {};
+    const div = document.createElement('div');
+    div.className = 'item';
+
+    const title = document.createElement('div');
+    title.className = 'title';
+    title.textContent = props.name || '(Không tên)';
+
+    const desc = document.createElement('div');
+    desc.className = 'desc';
+    desc.textContent = props.description || '';
+
+    div.appendChild(title);
+    div.appendChild(desc);
+
+    // click => zoom + open popup
+    div.addEventListener('click', () => {
+      const m = it.marker;
+      map.setView(m.getLatLng(), 15);
+      m.openPopup();
+    });
+
+    listEl.appendChild(div);
+  });
+}
+
 
   listItems.forEach((it, i) => {
     const props = it.feature.properties || {};
