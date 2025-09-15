@@ -1,82 +1,48 @@
 html, body {
-  margin: 0;
-  padding: 0;
   height: 100%;
+  margin: 0;
   font-family: Arial, sans-serif;
-  overflow: hidden; /* ngăn scroll */
 }
 
-/* container chính */
-#map {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 300px; /* chừa chỗ cho sidebar */
-  transition: left 0.3s ease;
-}
-
-.sidebar {
+#sidebar {
   position: absolute;
   top: 0;
   left: 0;
-  width: 300px;
-  bottom: 0;
-  background: #fff;
+  width: 250px;
+  height: 100%;
   overflow-y: auto;
-  border-right: 1px solid #ddd;
-  transition: transform 0.3s ease;
-  z-index: 999; /* trên map */
+  background: #f9f9f9;
+  border-right: 1px solid #ccc;
+  padding: 10px;
+  z-index: 1000;
 }
 
-.sidebar.collapsed {
-  transform: translateX(-100%);
+#map {
+  position: absolute;
+  top: 0;
+  left: 250px; /* để map bên phải sidebar */
+  right: 0;
+  bottom: 0;
 }
 
-.sidebar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 12px;
-  background: #f0f0f0;
-  border-bottom: 1px solid #ccc;
+#searchBox {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
 }
 
-.sidebar-header h2 {
-  font-size: 16px;
-  margin: 0;
-}
-
-.toggle-btn {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 4px 8px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-#searchInput {
-  width: 90%;
-  margin: 8px auto;
-  display: block;
-  padding: 6px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-#locationList {
+#placeList {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-#locationList li {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+#placeList li {
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
   cursor: pointer;
 }
 
-#locationList li:hover {
-  background: #f9f9f9;
+#placeList li:hover {
+  background: #eee;
 }
