@@ -1,1 +1,32 @@
 
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Đình Châu Phú",
+        "type": "Đình",
+        "description": "Đình thờ Nguyễn Hữu Cảnh, di tích lịch sử tại Châu Đốc.",
+        "image": "images/dinh_chau_phu.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [105.086, 10.700] 
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chùa Tây An",
+        "type": "Chùa",
+        "description": "Chùa nổi tiếng tại Núi Sam.",
+        "image": "images/chua_tay_an.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [105.089, 10.695] 
+      }
+    }
+  ]
+}
