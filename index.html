@@ -1,159 +1,21 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<title>Bản đồ Chùa & Đình An Giang</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- Leaflet -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-<style>
-html, body {
-  height: 100%;
-  margin: 0;
-  display: flex; /* Tạo bố cục 2 cột */
-  font-family: Arial, sans-serif;
-}
-
-/* Sidebar bên trái */
-#sidebar {
-  width: 250px;
-  background: #f7f7f7;
-  overflow-y: auto;
-  border-right: 1px solid #ccc;
-  padding: 10px;
-}
-
-/* Map bên phải */
-#map {
-  flex: 1; /* chiếm phần còn lại */
-  height: 100%;
-}
-
-h2 {
-  font-size: 16px;
-  margin-top: 0;
-}
-
-#filter {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 5px;
-}
-
-.place-item {
-  cursor: pointer;
-  padding: 4px;
-  border-bottom: 1px solid #ddd;
-}
-
-.place-item:hover {
-  background: #e3e3e3;
-}
-.leaflet-popup-content img {
-  max-width: 200px;
-  border-radius: 8px;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bản đồ Chùa Đình An Giang</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="sidebar">
+    <h2>Danh sách Chùa / Đình</h2>
+    <input type="text" id="searchBox" placeholder="Tìm kiếm...">
+    <ul id="placeList"></ul>
+  </div>
+  <div id="map"></div>
 
-<div id="sidebar">
-  <h2>Danh sách</h2>
-  <select id="filter">
-    <option value="all">Tất cả</option>
-    <option value="Đình">Đình</option>
-    <option value="Chùa">Chùa</option>
-  </select>
-  <div id="list"></div>
-</div>
-
-<div id="map"></div>
-
-<script>
-// ========== 1. Map & Layer nền ==========
-const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap'
-});
-const map = L.map('map', {
-  center: [10.7, 105.1],
-  zoom: 12,
-  layers: [osm]
-});
-
-// ========== 2. Icon ==========
-const dinhIcon = L.icon({ iconUrl: 'images/dinh.png', iconSize: [30,30] });
-const chuaIcon = L.icon({ iconUrl: 'images/chua.png', iconSize: [30,30] });
-
-// ========== 3. Load GeoJSON ==========
-let allFeatures = [];
-let geojsonLayer;
-
-fetch('data/chua_dinh.geojson')
-.then(res => res.json())
-.then(data => {
-  allFeatures = data.features; // lưu toàn bộ features
-  renderMarkers(allFeatures);  // vẽ marker
-  renderList(allFeatures);     // vẽ danh sách
-  map.fitBounds(geojsonLayer.getBounds());
-});
-
-// ========== 4. Vẽ marker ==========
-function renderMarkers(features) {
-  if (geojsonLayer) {
-    map.removeLayer(geojsonLayer);
-  }
-  geojsonLayer = L.geoJSON(features, {
-    pointToLayer: (feature, latlng) => {
-      let icon = feature.properties.type === "Đình" ? dinhIcon : chuaIcon;
-      return L.marker(latlng, {icon: icon});
-    },
-    onEachFeature: (feature, layer) => {
-      let popupContent = `
-        <b>${feature.properties.name}</b><br>
-        ${feature.properties.description}<br>
-        ${feature.properties.image ? `<img src="${feature.properties.image}">` : ''}
-      `;
-      layer.bindPopup(popupContent);
-    }
-  }).addTo(map);
-}
-
-// ========== 5. Danh sách bên trái ==========
-function renderList(features) {
-  const listDiv = document.getElementById('list');
-  listDiv.innerHTML = '';
-  features.forEach(f => {
-    const div = document.createElement('div');
-    div.className = 'place-item';
-    div.innerHTML = `<b>${f.properties.name}</b> (${f.properties.type})`;
-    div.onclick = () => {
-      const coords = f.geometry.coordinates;
-      map.setView([coords[1], coords[0]], 16);
-    };
-    listDiv.appendChild(div);
-  });
-}
-
-// ========== 6. Bộ lọc ==========
-document.getElementById('filter').addEventListener('change', e => {
-  const val = e.target.value;
-  let filtered;
-  if (val === 'all') {
-    filtered = allFeatures;
-  } else {
-    filtered = allFeatures.filter(f => f.properties.type === val);
-  }
-  renderMarkers(filtered);
-  renderList(filtered);
-  if (filtered.length > 0) {
-    const bounds = L.geoJSON(filtered).getBounds();
-    map.fitBounds(bounds);
-  }
-});
-</script>
-
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
