@@ -15,12 +15,17 @@ html, body {
   border-right: 1px solid #ccc;
   padding: 10px;
   z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+#sidebar.hidden {
+  transform: translateX(-100%);
 }
 
 #map {
   position: absolute;
   top: 0;
-  left: 250px; /* để map bên phải sidebar */
+  left: 0;
   right: 0;
   bottom: 0;
 }
@@ -29,6 +34,7 @@ html, body {
   width: 100%;
   padding: 5px;
   margin-bottom: 10px;
+  box-sizing: border-box; /* giúp không tràn */
 }
 
 #placeList {
@@ -45,4 +51,18 @@ html, body {
 
 #placeList li:hover {
   background: #eee;
+}
+
+/* Nút toggle */
+#toggleSidebar {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1500;
+  padding: 5px 10px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
