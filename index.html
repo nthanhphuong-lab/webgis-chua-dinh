@@ -1,40 +1,25 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>WebGIS - Chùa & Đình An Giang</title>
-
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-
-  <!-- Your CSS -->
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bản đồ Chùa – Đình</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
 </head>
 <body>
-  <!-- SIDEBAR -->
-  <aside id="sidebar">
-    <header class="sidebar-header">
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
       <h2>Danh sách Chùa – Đình</h2>
-      <!-- nút ẩn/hiện nằm trong header, không che tiêu đề -->
-      <button id="btnToggle" aria-label="Ẩn/Hiện danh sách">☰</button>
-    </header>
-
-    <!-- search -->
-    <div class="search-wrap">
-      <input id="searchBox" type="search" placeholder="Tìm tên chùa / đình..." />
+      <button id="toggleSidebar" class="toggle-btn">☰</button>
     </div>
+    <input type="text" id="searchInput" placeholder="Tìm tên chùa / đình...">
+    <ul id="locationList"></ul>
+  </div>
 
-    <!-- danh sách -->
-    <div id="list"></div>
-  </aside>
-
-  <!-- MAP -->
   <div id="map"></div>
 
-  <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <!-- Your JS -->
   <script src="script.js"></script>
 </body>
 </html>
