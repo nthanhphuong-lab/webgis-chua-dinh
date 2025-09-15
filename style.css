@@ -1,16 +1,20 @@
-body, html {
-  margin: 0;
-  padding: 0;
+/* cơ bản */
+html, body {
   height: 100%;
-  font-family: sans-serif;
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
+
+/* MAP: khi sidebar mở thì left = sidebar width; khi đóng left = 0 */
+:root { --sidebar-w: 300px; }
 
 #map {
   position: absolute;
   top: 0;
   bottom: 0;
   right: 0;
-  left: 250px; /* mặc định sidebar rộng */
+  left: var(--sidebar-w);
+  transition: left 0.28s ease;
 }
 
 /* Sidebar */
@@ -18,55 +22,114 @@ body, html {
   position: absolute;
   top: 0;
   left: 0;
-  width: 250px;
+  width: var(--sidebar-w);
   height: 100%;
-  background: #fff;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+  background: #ffffff;
+  box-shadow: 2px 0 6px rgba(0,0,0,0.15);
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Header with toggle button at right (won't overlap title) */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 10px;
-  transition: transform 0.3s ease;
-  overflow-y: auto;
+  background: #f2f6f9;
+  border-bottom: 1px solid #e1e6ea;
+}
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-#sidebar h2 {
-  margin-top: 0;
-  font-size: 18px;
-  text-align: center;
-  background: #f2f2f2;
-  padding: 8px 0;
+/* Toggle button inside header */
+#btnToggle {
+  border: none;
+  background: #0078a8;
+  color: white;
+  padding: 6px 10px;
   border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
-/* Sidebar đóng */
-#sidebar.closed {
-  transform: translateX(-100%);
-}
-
-/* Nút toggle */
-#sidebar-toggle {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 999;
-  background: #0078A8;
-  color: #fff;
+/* Search box */
+.search-wrap {
   padding: 8px 10px;
+  border-bottom: 1px solid #eee;
+}
+#searchBox {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
   border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* List area */
+#list {
+  overflow-y: auto;
+  padding: 6px;
+  flex: 1;
+}
+.item {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid #f0f0f0;
   cursor: pointer;
-  font-size: 20px;
+}
+.item:hover { background: #eef7ff; }
+
+/* thumbnail */
+.item .thumb {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #ddd;
+  flex-shrink: 0;
 }
 
-/* List */
-#location-list {
-  list-style: none;
-  padding: 0;
+/* text */
+.item .meta {
+  overflow: hidden;
+}
+.item .meta .title {
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.item .meta .desc {
+  font-size: 12px;
+  color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-#location-list li {
-  padding: 6px 4px;
-  border-bottom: 1px solid #ccc;
-  cursor: pointer;
+/* Khi sidebar đóng: map chiếm hết */
+body.sidebar-closed #map { left: 0; }
+body.sidebar-closed #sidebar { transform: translateX(-100%); }
+
+/* popup image style */
+.leaflet-popup-content img {
+  max-width: 220px;
+  border-radius: 6px;
+  display: block;
+  margin-top: 6px;
 }
 
-#location-list li:hover {
-  background: #e6f7ff;
-}
+/* cho control zoom ra góc phải dưới (không che sidebar) */
+.leaflet-control-zoom { z-index: 1300; }
