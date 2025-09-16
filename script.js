@@ -17,7 +17,7 @@ document.getElementById('toggleSidebar').addEventListener('click', function () {
 // Danh sách marker
 var markers = [];
 
-// Tạo popup slideshow
+// Tạo popup slideshow với modal ảnh lớn
 function createPopupContent(props) {
   if (!props.images || props.images.length === 0) {
     return `<h3>${props.name}</h3><p>${props.description}</p>`;
@@ -26,12 +26,11 @@ function createPopupContent(props) {
   var content = `<h3>${props.name}</h3><p>${props.description}</p>`;
   content += `<div class="popup-slideshow">
     <button class="prev">&lt;</button>
-    <img src="${props.images[0]}" width="200">
+    <img src="${props.images[0]}" width="200" class="popup-image">
     <button class="next">&gt;</button>
   </div>
   <p id="photoCounter">1/${props.images.length}</p>`;
 
-  // Script slideshow trong popup
   setTimeout(() => {
     var popup = document.querySelector('.popup-slideshow');
     if (!popup) return;
@@ -53,7 +52,22 @@ function createPopupContent(props) {
       imgTag.src = props.images[idx];
       counter.textContent = (idx+1)+"/"+props.images.length;
     });
-  }, 100); // chạy sau khi popup render
+
+    // Click vào ảnh mở modal lớn
+    imgTag.addEventListener('click', function(e){
+      e.stopPropagation();
+      var modal = document.getElementById('imageModal');
+      var modalImg = document.getElementById('modalImg');
+      modal.style.display = "block";
+      modalImg.src = props.images[idx];
+    });
+
+    // Đóng modal
+    document.getElementById('closeModal').onclick = function() {
+      document.getElementById('imageModal').style.display = "none";
+    }
+  }, 100);
+
   return content;
 }
 
@@ -65,7 +79,7 @@ fetch('data.geojson')
       pointToLayer: (feature, latlng) => L.marker(latlng),
       onEachFeature: (feature, layer) => {
         var props = feature.properties;
-        layer.bindPopup(createPopupContent(props), {maxWidth: 250});
+        layer.bindPopup(createPopupContent(props), {maxWidth: 300});
         markers.push({layer, props});
       }
     }).addTo(map);
