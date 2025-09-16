@@ -41,11 +41,14 @@ Papa.parse(csvUrl, {
   complete: function (results) {
     const rows = results.data;
     rows.forEach(row => {
-      if (!row.lat || !row.lng) return; // bỏ nếu thiếu tọa độ
+      // Ép lat/lng sang dạng số
+      if (!row.lat || !row.lng) return;
 
-      let lat = parseFloat(row.lat);
-      let lng = parseFloat(row.lng);
-      if (isNaN(lat) || isNaN(lng)) return; // tránh lỗi số
+      let latStr = String(row.lat).replace(',', '.').trim();
+      let lngStr = String(row.lng).replace(',', '.').trim();
+      let lat = parseFloat(latStr);
+      let lng = parseFloat(lngStr);
+      if (isNaN(lat) || isNaN(lng)) return;
 
       let images = row.images ? row.images.split(';').map(i => i.trim()) : [];
 
