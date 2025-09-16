@@ -34,7 +34,7 @@ html, body {
   width: 100%;
   padding: 5px;
   margin-bottom: 10px;
-  box-sizing: border-box; /* giúp không tràn */
+  box-sizing: border-box;
 }
 
 #placeList {
@@ -53,12 +53,11 @@ html, body {
   background: #eee;
 }
 
-/* Nút toggle nằm góc phải trên */
 #toggleSidebar {
   position: absolute;
   top: 10px;
-  right: 10px; /* đổi từ left sang right */
-  z-index: 1500; /* cao hơn leaflet controls */
+  right: 10px;
+  z-index: 1500;
   padding: 6px 10px;
   background: #007bff;
   color: #fff;
@@ -67,12 +66,25 @@ html, body {
   cursor: pointer;
 }
 
-/* Dời map sang phải khi sidebar mở */
-#map {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+/* Slideshow popup */
+.popup-slideshow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.popup-slideshow img {
+  display: block;
+  margin: 0 5px;
+  max-width: 100%;
+  max-height: 150px;
+}
+
+.popup-slideshow button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 2px 6px;
+  cursor: pointer;
+  border-radius: 3px;
+}
