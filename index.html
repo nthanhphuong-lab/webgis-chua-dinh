@@ -3,26 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bản đồ Chùa Đình An Giang</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <title>WebGIS Chùa – Đình An Giang</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 </head>
 <body>
-  <div id="sidebar">
-    <h2>Danh sách Chùa / Đình</h2>
+  <header>
+    <h1>Danh sách Chùa – Đình An Giang</h1>
     <input type="text" id="searchBox" placeholder="Tìm kiếm...">
-    <ul id="placeList"></ul>
+  </header>
+  <div id="container">
+    <div id="sidebar">
+      <ul id="placeList"></ul>
+    </div>
+    <div id="map"></div>
   </div>
 
-  <button id="toggleSidebar">☰ Danh sách</button>
-  <div id="map"></div>
-
-  <!-- Modal ảnh lớn -->
-  <div id="imageModal" class="modal">
+  <!-- Modal hiển thị ảnh lớn -->
+  <div id="modal" class="modal">
     <span class="close">&times;</span>
-    <img id="modalImage" src="">
-    <button id="prevImage" class="nav-btn">❮</button>
-    <button id="nextImage" class="nav-btn">❯</button>
+    <img class="modal-content" id="modalImage">
+    <a class="prev">&#10094;</a>
+    <a class="next">&#10095;</a>
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
