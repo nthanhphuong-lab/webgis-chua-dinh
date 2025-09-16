@@ -25,7 +25,7 @@ function showModalImage(index) {
 }
 
 // === 3. Đọc CSV từ Google Sheets ===
-const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtuCf5kDrCceF7-oAI1IKNh2vjR3HCKtwKOROB1Swz2bRwCdqpki7kQqT_DwecG77ckhxmO7LgUdJ2/pub?gid=0&single=true&output=csv'; // Thay link CSV public
+const csvUrl = 'LINK_CSV_PUBLIC'; // Thay link CSV public
 
 var locations = [];
 var markers = [];
@@ -33,33 +33,34 @@ var markers = [];
 Papa.parse(csvUrl, {
   download: true,
   header: true,
+  skipEmptyLines: true, // loại bỏ dòng trống
   complete: function(results) {
-    // Lọc bỏ dòng trống và dữ liệu thiếu
-    locations = results.data.filter(row => row.name && row.lat && row.lng);
+    // Lọc dữ liệu sạch: chỉ lấy các row có name, lat, lng
+    locations = results.data.map(row => ({
+      name: row['name'] ? row['name'].trim() : null,
+      description: row['description'] ? row['description'].trim() : '',
+      lat: parseFloat(row['lat']),
+      lng: parseFloat(row['lng']),
+      images: row['images'] ? row['images'].split(';').map(i => i.trim()) : []
+    })).filter(r => r.name && !isNaN(r.lat) && !isNaN(r.lng));
 
     // Tạo marker
-    locations.forEach((row, index) => {
-      let lat = parseFloat(row.lat);
-      let lng = parseFloat(row.lng);
-      if(isNaN(lat) || isNaN(lng)) return;
-
-      let images = row.images ? row.images.split(';').map(i => i.trim()) : [];
-
-      let popupContent = `<b>${row.name}</b><br>${row.description || ''}`;
-      if(images.length > 0) {
-        popupContent += `<div class="popup-images">`;
-        images.forEach((img, idx) => {
-          popupContent += `<img src="${img}" data-index="${idx}" data-images='${JSON.stringify(images)}'>`;
+    locations.forEach((loc, idx) => {
+      var popupContent = `<b>${loc.name}</b><br>${loc.description}`;
+      if(loc.images.length > 0){
+        popupContent += '<div class="popup-images">';
+        loc.images.forEach((img, i) => {
+          popupContent += `<img src="${img}" data-index="${i}" data-images='${JSON.stringify(loc.images)}'>`;
         });
-        popupContent += `</div>`;
+        popupContent += '</div>';
       }
 
-      let marker = L.marker([lat, lng]).addTo(map).bindPopup(popupContent);
+      let marker = L.marker([loc.lat, loc.lng]).addTo(map).bindPopup(popupContent);
       markers.push(marker);
     });
 
-    // Click ảnh trong popup
-    map.on('popupopen', function(e){
+    // Click ảnh popup
+    map.on('popupopen', e => {
       var popup = e.popup._contentNode;
       if(popup){
         popup.querySelectorAll('.popup-images img').forEach(imgEl => {
@@ -73,18 +74,17 @@ Papa.parse(csvUrl, {
       }
     });
 
-    // === Tạo sidebar danh sách ===
+    // === Sidebar danh sách ===
     const placeList = document.getElementById('placeList');
-
     function renderList(keyword = '') {
       placeList.innerHTML = '';
       locations.forEach((loc, idx) => {
-        if(!loc.name) return; // tránh lỗi undefined
+        if(!loc.name) return;
         if(loc.name.toLowerCase().includes(keyword.toLowerCase())){
           let li = document.createElement('li');
           li.textContent = loc.name;
           li.addEventListener('click', () => {
-            map.setView([parseFloat(loc.lat), parseFloat(loc.lng)], 15);
+            map.setView([loc.lat, loc.lng], 15);
             markers[idx].openPopup();
           });
           placeList.appendChild(li);
