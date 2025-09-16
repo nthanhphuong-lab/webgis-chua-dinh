@@ -14,8 +14,8 @@ document.getElementById('toggleSidebar').addEventListener('click', function () {
   setTimeout(() => { map.invalidateSize(); }, 300);
 });
 
-var markers = []; // Danh sách marker
-var currentRoute = null; // tuyến đường hiện tại
+// Danh sách marker
+var markers = [];
 
 // Modal ảnh lớn
 var modal = document.getElementById('imageModal');
@@ -24,36 +24,34 @@ var modalTitle = document.getElementById('modalTitle');
 var modalDesc = document.getElementById('modalDesc');
 var currentImages = [];
 var currentIndex = 0;
+var routeControl = null;
 
 document.querySelector('.modal .close').onclick = () => { modal.style.display = 'none'; };
 document.getElementById('prevImage').onclick = () => showModalImage(currentIndex - 1);
 document.getElementById('nextImage').onclick = () => showModalImage(currentIndex + 1);
 
-// Hiển thị ảnh slideshow
+// Nút Chỉ đường trong modal
+document.getElementById('modalRouteBtn').onclick = () => {
+  if (!userLatLng || !currentRouteDestination) return alert("Không xác định được vị trí!");
+  drawRoute(userLatLng, currentRouteDestination);
+};
+
 function showModalImage(index) {
   if (index < 0) index = currentImages.length - 1;
   if (index >= currentImages.length) index = 0;
   currentIndex = index;
   modalImage.src = currentImages[currentIndex];
+  modalTitle.textContent = currentImages[currentIndex + "_title"] || "";
+  modalDesc.textContent = currentImages[currentIndex + "_desc"] || "";
 }
 
-// Vẽ tuyến đường màu xanh
-function drawRoute(userLatLng, destination) {
-  if (currentRoute) map.removeControl(currentRoute);
-  currentRoute = L.Routing.control({
-    waypoints: [
-      L.latLng(userLatLng.lat, userLatLng.lng),
-      L.latLng(destination.lat, destination.lng)
-    ],
-    routeWhileDragging: false,
-    show: false,
-    addWaypoints: false,
-    lineOptions: {
-      styles: [{ color: 'blue', opacity: 0.8, weight: 5 }]
-    },
-    createMarker: function() { return null; } // không vẽ marker mặc định
-  }).addTo(map);
-}
+// Vị trí người dùng
+var userLatLng = null;
+navigator.geolocation.getCurrentPosition(pos => {
+  userLatLng = [pos.coords.latitude, pos.coords.longitude];
+}, err => {
+  console.warn("Không thể lấy vị trí hiện tại:", err.message);
+});
 
 // Load GeoJSON
 fetch('data.geojson')
@@ -65,6 +63,7 @@ fetch('data.geojson')
       },
       onEachFeature: function(feature, layer) {
         var props = feature.properties;
+        // Popup content
         var popupContent = `<b>${props.name}</b><br>${props.description}`;
         if (props.images && props.images.length > 0) {
           popupContent += `<div class="popup-images">`;
@@ -73,6 +72,7 @@ fetch('data.geojson')
           });
           popupContent += `</div>`;
         }
+        popupContent += `<button class="popup-route-btn" style="margin-top:5px;padding:5px 10px;">Chỉ đường</button>`;
         layer.bindPopup(popupContent);
         markers.push({ layer: layer, props: props });
       }
@@ -80,9 +80,14 @@ fetch('data.geojson')
 
     map.fitBounds(geoLayer.getBounds());
 
-    // Xử lý click ảnh trong popup
+    // Click ảnh trong popup (chỉ khi click thật sự)
     map.on('popupopen', function (e) {
       var popup = e.popup._contentNode;
+      // Xóa listener cũ
+      popup.querySelectorAll('.popup-images img').forEach(imgEl => {
+        imgEl.replaceWith(imgEl.cloneNode(true));
+      });
+      // Gắn listener mới
       popup.querySelectorAll('.popup-images img').forEach(imgEl => {
         imgEl.addEventListener('click', () => {
           currentImages = JSON.parse(imgEl.getAttribute('data-images'));
@@ -91,6 +96,14 @@ fetch('data.geojson')
           modal.style.display = 'block';
         });
       });
+
+      // Nút Chỉ đường trong popup
+      var routeBtn = popup.querySelector('.popup-route-btn');
+      routeBtn.onclick = () => {
+        currentRouteDestination = e.popup._latlng;
+        if (!userLatLng) return alert("Không xác định được vị trí hiện tại!");
+        drawRoute(userLatLng, currentRouteDestination);
+      };
     });
 
     // Tạo danh sách bên trái
@@ -104,27 +117,11 @@ fetch('data.geojson')
           li.style.cursor = 'pointer';
           li.addEventListener('click', () => {
             map.setView(m.layer.getLatLng(), 15);
-            // Lấy vị trí hiện tại của người dùng
-            if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(pos => {
-                var userLatLng = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-                drawRoute(userLatLng, { lat: m.layer.getLatLng().lat, lng: m.layer.getLatLng().lng });
-              }, err => {
-                alert('Không thể lấy vị trí hiện tại.');
-              });
-            } else {
-              alert('Trình duyệt không hỗ trợ định vị.');
-            }
-
-            // Hiển thị slideshow modal ảnh
-            if (m.props.images && m.props.images.length > 0) {
-              currentImages = m.props.images;
-              currentIndex = 0;
-              modalTitle.textContent = m.props.name;
-              modalDesc.textContent = m.props.description;
-              showModalImage(currentIndex);
-              modal.style.display = 'block';
-            }
+            m.layer.openPopup();
+            // Vẽ tuyến đường từ vị trí hiện tại
+            currentRouteDestination = m.layer.getLatLng();
+            if (!userLatLng) return alert("Không xác định được vị trí hiện tại!");
+            drawRoute(userLatLng, currentRouteDestination);
           });
           placeList.appendChild(li);
         }
@@ -134,7 +131,4 @@ fetch('data.geojson')
 
     // Tìm kiếm
     document.getElementById('searchBox').addEventListener('input', function () {
-      renderList(this.value);
-    });
-  })
-  .catch(err => console.error('Lỗi load data.geojson:', err));
+      renderList
