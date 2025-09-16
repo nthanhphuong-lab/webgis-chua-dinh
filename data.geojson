@@ -1,177 +1,35 @@
 {
   "type": "FeatureCollection",
   "features": [
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Đình Châu Phú",
-        "description": "Đình thờ Nguyễn Hữu Cảnh, di tích lịch sử tại Châu Đốc, An Giang.",
-        "images": ["images/dinh_chau_phu_1.jpg","images/dinh_chau_phu_2.jpg"]
-      },
-      "geometry": { "type": "Point", "coordinates": [105.1111, 10.7058] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Đình Mỹ Đức",
-        "description": "Đình làng Mỹ Đức – nơi thờ thần Thành Hoàng, huyện Châu Phú, An Giang.",
-        "images": ["images/dinh_my_duc_1.jpg","images/dinh_my_duc_2.jpg"]
-      },
-      "geometry": { "type": "Point", "coordinates": [105.1905, 10.5850] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Đình Tân Châu",
-        "description": "Đình Tân Châu – Di tích văn hóa, huyện Tân Châu, An Giang.",
-        "images": ["images/dinh_tan_chau_1.jpg","images/dinh_tan_chau_2.jpg"]
-      },
-      "geometry": { "type": "Point", "coordinates": [105.2070, 10.8220] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Chùa Bà Chúa Xứ",
-        "description": "Chùa nổi tiếng linh thiêng ở Núi Sam – Châu Đốc, An Giang.",
-        "images": ["images/chua_ba_chua_xu_1.jpg","images/chua_ba_chua_xu_2.jpg"]
-      },
-      "geometry": { "type": "Point", "coordinates": [105.0768, 10.6793] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Chùa Hang",
-        "description": "Chùa Hang (Phước Điền tự) nằm trên triền Núi Sam, Châu Đốc, An Giang.",
-        "images": ["images/chua_hang_1.jpg","images/chua_hang_2.jpg"]
-      },
-      "geometry": { "type": "Point", "coordinates": [105.0775, 10.6785] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Chùa Phật Lớn",
-        "description": "Chùa Phật Lớn, ngôi chùa lớn tại Rạch Giá, Kiên Giang.",
-        "images": ["images/chua_phat_lon_1.jpg","images/chua_phat_lon_2.jpg"]
-      },
-      "geometry": { "type": "Point", "coordinates": [105.1167, 10.0139] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Đình Bình An",
-        "description": "Đình Bình An, di tích lịch sử văn hóa tại Rạch Giá, Kiên Giang.",
-        "images": ["images/dinh_binh_an_1.jpg","images/dinh_binh_an_2.jpg"]
-      },
-      "geometry": { "type": "Point", "coordinates": [105.1140, 10.0180] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Chùa Tam Bảo (Hà Tiên)",
-        "description": "Chùa Tam Bảo, ngôi chùa cổ tại Hà Tiên, Kiên Giang.",
-        "images": ["images/chua_tam_bao_ha_tien_1.jpg","images/chua_tam_bao_ha_tien_2.jpg"]
-      },
-      "geometry": { "type": "Point", "coordinates": [104.4885, 10.4120] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Chùa Tam Bảo (Rạch Giá)",
-        "description": "Chùa Tam Bảo, ngôi chùa cổ tại Rạch Giá, Kiên Giang.",
-        "images": ["images/chua_tam_bao_rach_gia_1.jpg","images/chua_tam_bao_rach_gia_2.jpg"]
-      },
-      "geometry": { "type": "Point", "coordinates": [105.1150, 10.0150] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Đình Bình Mỹ",
-        "description": "Đình Bình Mỹ, di tích lịch sử tại huyện Châu Thành, Kiên Giang.",
-        "images": ["images/dinh_binh_my_1.jpg","images/dinh_binh_my_2.jpg"]
-      },
-      "geometry": { "type": "Point", "coordinates": [105.1023, 10.2356] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Chùa Phước Hưng",
-        "description": "Chùa Phước Hưng, ngôi chùa cổ tại huyện Giồng Riềng, Kiên Giang.",
-        "images": ["images/chua_phuoc_hung_1.jpg","images/chua_phuoc_hung_2.jpg"]
-      },
-      "geometry": { "type": "Point", "coordinates": [105.2374, 9.9765] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Đình Vĩnh Hòa",
-        "description": "Đình Vĩnh Hòa, di tích lịch sử tại huyện Châu Thành, Kiên Giang.",
-        "images": ["images/dinh_vinh_hoa_1.jpg","images/dinh_vinh_hoa_2.jpg"]
-      },
-      "geometry": { "type": "Point", "coordinates": [105.0912, 10.1587] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Chùa Linh Sơn",
-        "description": "Chùa Linh Sơn, ngôi chùa nổi tiếng tại huyện Hòn Đất, Kiên Giang.",
-        "images": ["images/chua_linh_son_1.jpg","images/chua_linh_son_2.jpg"]
-      },
-      "geometry": { "type": "Point", "coordinates": [105.2431, 9.9503] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Đình Vĩnh Tuy",
-        "description": "Đình Vĩnh Tuy, di tích lịch sử tại huyện Gò Quao, Kiên Giang.",
-        "images": ["images/dinh_vinh_tuy_1.jpg","images/dinh_vinh_tuy_2.jpg"]
-      },
-      "geometry": { "type": "Point", "coordinates": [105.2715, 9.9074] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Chùa Phổ Quang",
-        "description": "Chùa Phổ Quang, ngôi chùa cổ tại huyện U Minh Thượng, Kiên Giang.",
-        "images": ["images/chua_pho_quang_1.jpg","images/chua_pho_quang_2.jpg"]
-      },
-      "geometry": { "type": "Point", "coordinates": [105.3128, 9.8762] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Đình Tân Hưng",
-        "description": "Đình Tân Hưng, di tích lịch sử tại huyện Tân Hưng, Kiên Giang.",
-        "images": ["images/dinh_tan_hung_1.jpg","images/dinh_tan_hung_2.jpg"]
-      },
-      "geometry": { "type": "Point", "coordinates": [105.3542, 9.8451] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Chùa Kim Sơn",
-        "description": "Chùa Kim Sơn, ngôi chùa nổi tiếng tại huyện An Minh, Kiên Giang.",
-        "images": ["images/chua_kim_son_1.jpg","images/chua_kim_son_2.jpg"]
-      },
-      "geometry": { "type": "Point", "coordinates": [105.3960, 9.8140] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Đình Tân An",
-        "description": "Đình Tân An, di tích lịch sử tại huyện Tân An, Kiên Giang.",
-        "images": ["images/dinh_tan_an_1.jpg","images/dinh_tan_an_2.jpg"]
-      },
-      "geometry": { "type": "Point", "coordinates": [105.4376, 9.7829] }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Chùa Bảo Quang",
-        "description": "Chùa Bảo Quang, ngôi chùa cổ tại huyện Kiên Lương, Kiên Giang.",
-        "images": ["images/chua_bao_quang_1.jpg","images/chua_bao_quang_2.jpg"]
-      },
-      "geometry": { "type": "Point", "coordinates": [105.4792, 9.7518] }
-    }
-    // Thêm tiếp cho đủ 30 điểm tương tự, không có dấu } thừa
+    { "type": "Feature", "properties": { "name": "Đình Châu Phú", "description": "Đình thờ Nguyễn Hữu Cảnh, di tích lịch sử tại Châu Đốc, An Giang.", "images": ["images/dinh_chau_phu_1.jpg","images/dinh_chau_phu_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.1111, 10.7058] } },
+    { "type": "Feature", "properties": { "name": "Đình Mỹ Đức", "description": "Đình làng Mỹ Đức – nơi thờ thần Thành Hoàng, huyện Châu Phú, An Giang.", "images": ["images/dinh_my_duc_1.jpg","images/dinh_my_duc_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.1905, 10.5850] } },
+    { "type": "Feature", "properties": { "name": "Đình Tân Châu", "description": "Đình Tân Châu – di tích văn hóa, huyện Tân Châu, An Giang.", "images": ["images/dinh_tan_chau_1.jpg","images/dinh_tan_chau_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.2070, 10.8220] } },
+    { "type": "Feature", "properties": { "name": "Chùa Bà Chúa Xứ", "description": "Chùa linh thiêng ở Núi Sam – Châu Đốc, An Giang.", "images": ["images/chua_ba_chua_xu_1.jpg","images/chua_ba_chua_xu_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.0768, 10.6793] } },
+    { "type": "Feature", "properties": { "name": "Chùa Hang", "description": "Chùa Hang (Phước Điền tự) trên triền Núi Sam, Châu Đốc, An Giang.", "images": ["images/chua_hang_1.jpg","images/chua_hang_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.0775, 10.6785] } },
+    { "type": "Feature", "properties": { "name": "Chùa Phật Lớn", "description": "Chùa Phật Lớn, một trong những ngôi chùa lớn tại Rạch Giá, Kiên Giang.", "images": ["images/chua_phat_lon_1.jpg","images/chua_phat_lon_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.1167, 10.0139] } },
+    { "type": "Feature", "properties": { "name": "Đình Bình An", "description": "Đình Bình An, di tích lịch sử văn hóa tại Rạch Giá, Kiên Giang.", "images": ["images/dinh_binh_an_1.jpg","images/dinh_binh_an_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.1140, 10.0180] } },
+    { "type": "Feature", "properties": { "name": "Chùa Tam Bảo (Hà Tiên)", "description": "Chùa Tam Bảo, ngôi chùa cổ tại Hà Tiên, Kiên Giang.", "images": ["images/chua_tam_bao_ha_tien_1.jpg","images/chua_tam_bao_ha_tien_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [104.4885, 10.4120] } },
+    { "type": "Feature", "properties": { "name": "Chùa Tam Bảo (Rạch Giá)", "description": "Chùa Tam Bảo, ngôi chùa cổ tại Rạch Giá, Kiên Giang.", "images": ["images/chua_tam_bao_rach_gia_1.jpg","images/chua_tam_bao_rach_gia_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.1150, 10.0150] } },
+    { "type": "Feature", "properties": { "name": "Đình Bình Mỹ", "description": "Đình Bình Mỹ, di tích lịch sử tại huyện Châu Thành, Kiên Giang.", "images": ["images/dinh_binh_my_1.jpg","images/dinh_binh_my_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.1023, 10.2356] } },
+    { "type": "Feature", "properties": { "name": "Chùa Phước Hưng", "description": "Chùa Phước Hưng, ngôi chùa cổ tại huyện Giồng Riềng, Kiên Giang.", "images": ["images/chua_phuoc_hung_1.jpg","images/chua_phuoc_hung_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.2374, 9.9765] } },
+    { "type": "Feature", "properties": { "name": "Đình Vĩnh Hòa", "description": "Đình Vĩnh Hòa, di tích lịch sử tại huyện Châu Thành, Kiên Giang.", "images": ["images/dinh_vinh_hoa_1.jpg","images/dinh_vinh_hoa_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.0912, 10.1587] } },
+    { "type": "Feature", "properties": { "name": "Chùa Linh Sơn", "description": "Chùa Linh Sơn, ngôi chùa nổi tiếng tại huyện Hòn Đất, Kiên Giang.", "images": ["images/chua_linh_son_1.jpg","images/chua_linh_son_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.2431, 9.9503] } },
+    { "type": "Feature", "properties": { "name": "Đình Vĩnh Tuy", "description": "Đình Vĩnh Tuy, di tích lịch sử tại huyện Gò Quao, Kiên Giang.", "images": ["images/dinh_vinh_tuy_1.jpg","images/dinh_vinh_tuy_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.2715, 9.9074] } },
+    { "type": "Feature", "properties": { "name": "Chùa Phổ Quang", "description": "Chùa Phổ Quang, ngôi chùa cổ tại huyện U Minh Thượng, Kiên Giang.", "images": ["images/chua_pho_quang_1.jpg","images/chua_pho_quang_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.3128, 9.8762] } },
+    { "type": "Feature", "properties": { "name": "Đình Tân Hưng", "description": "Đình Tân Hưng, di tích lịch sử tại huyện Tân Hưng, Kiên Giang.", "images": ["images/dinh_tan_hung_1.jpg","images/dinh_tan_hung_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.3542, 9.8451] } },
+    { "type": "Feature", "properties": { "name": "Chùa Kim Sơn", "description": "Chùa Kim Sơn, ngôi chùa nổi tiếng tại huyện An Minh, Kiên Giang.", "images": ["images/chua_kim_son_1.jpg","images/chua_kim_son_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.3960, 9.8140] } },
+    { "type": "Feature", "properties": { "name": "Đình Tân An", "description": "Đình Tân An, di tích lịch sử tại huyện Tân An, Kiên Giang.", "images": ["images/dinh_tan_an_1.jpg","images/dinh_tan_an_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.4376, 9.7829] } },
+    { "type": "Feature", "properties": { "name": "Chùa Bảo Quang", "description": "Chùa Bảo Quang, ngôi chùa cổ tại huyện Kiên Lương, Kiên Giang.", "images": ["images/chua_bao_quang_1.jpg","images/chua_bao_quang_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.4792, 9.7518] } },
+    { "type": "Feature", "properties": { "name": "Đình An Hòa", "description": "Đình An Hòa, di tích văn hóa tại An Phú, An Giang.", "images": ["images/dinh_an_hoa_1.jpg","images/dinh_an_hoa_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.1234, 10.7321] } },
+    { "type": "Feature", "properties": { "name": "Chùa Phước Điền", "description": "Chùa Phước Điền, ngôi chùa cổ tại Long Xuyên, An Giang.", "images": ["images/chua_phuoc_dien_1.jpg","images/chua_phuoc_dien_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.4162, 10.3830] } },
+    { "type": "Feature", "properties": { "name": "Đình Mỹ Hòa", "description": "Đình Mỹ Hòa, di tích lịch sử tại Châu Thành, An Giang.", "images": ["images/dinh_my_hoa_1.jpg","images/dinh_my_hoa_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.2556, 10.4321] } },
+    { "type": "Feature", "properties": { "name": "Chùa Giồng Lớn", "description": "Chùa Giồng Lớn tại huyện Tân Châu, An Giang.", "images": ["images/chua_giong_lon_1.jpg","images/chua_giong_lon_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.2120, 10.8110] } },
+    { "type": "Feature", "properties": { "name": "Đình Mỹ Phú", "description": "Đình Mỹ Phú tại huyện Châu Phú, An Giang.", "images": ["images/dinh_my_phu_1.jpg","images/dinh_my_phu_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.1802, 10.5901] } },
+    { "type": "Feature", "properties": { "name": "Chùa Vạn Linh", "description": "Chùa Vạn Linh tại Châu Đốc, An Giang.", "images": ["images/chua_van_linh_1.jpg","images/chua_van_linh_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.0701, 10.6805] } },
+    { "type": "Feature", "properties": { "name": "Đình Thạnh Mỹ", "description": "Đình Thạnh Mỹ tại Tịnh Biên, An Giang.", "images": ["images/dinh_thanh_my_1.jpg","images/dinh_thanh_my_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.1250, 10.5560] } },
+    { "type": "Feature", "properties": { "name": "Chùa Linh Thứu", "description": "Chùa Linh Thứu tại Kiên Lương, Kiên Giang.", "images": ["images/chua_linh_thuu_1.jpg","images/chua_linh_thuu_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.4900, 9.7520] } },
+    { "type": "Feature", "properties": { "name": "Đình Kiên Hòa", "description": "Đình Kiên Hòa tại Kiên Lương, Kiên Giang.", "images": ["images/dinh_kien_hoa_1.jpg","images/dinh_kien_hoa_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.4820, 9.7580] } },
+    { "type": "Feature", "properties": { "name": "Chùa Phước Long", "description": "Chùa Phước Long tại Hòn Đất, Kiên Giang.", "images": ["images/chua_phuoc_long_1.jpg","images/chua_phuoc_long_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.2450, 9.9490] } },
+    { "type": "Feature", "properties": { "name": "Đình Tân Phú", "description": "Đình Tân Phú tại Giồng Riềng, Kiên Giang.", "images": ["images/dinh_tan_phu_1.jpg","images/dinh_tan_phu_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.2400, 9.9750] } }
   ]
 }
