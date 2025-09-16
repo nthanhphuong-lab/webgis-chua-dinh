@@ -6,10 +6,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 let featureGroup = L.featureGroup().addTo(map);
 
-// Biến lưu để chỉ đường
-let routingLine = null;
-let startLatLng = null;
-
 // Lấy dữ liệu GeoJSON
 fetch('data.geojson')
   .then(res => res.json())
@@ -39,10 +35,6 @@ function loadFeatures(geojson) {
       imgs.forEach((img, i) => {
         popupContent += `<img src="${img}" style="width:100px;cursor:pointer;" onclick="openModal(${JSON.stringify(imgs)},${i})">`;
       });
-
-      // Thêm nút chọn điểm để chỉ đường
-      popupContent += `<br><button onclick="selectStart(${feature.geometry.coordinates[1]},${feature.geometry.coordinates[0]})">Chọn làm điểm đầu</button>`;
-      popupContent += `<button onclick="routeTo(${feature.geometry.coordinates[1]},${feature.geometry.coordinates[0]})">Chỉ đường tới đây</button>`;
 
       layer.bindPopup(popupContent);
       layer.addTo(featureGroup);
@@ -88,20 +80,3 @@ nextBtn.onclick = function () {
   currentIndex = (currentIndex + 1) % currentImages.length;
   showImage();
 };
-
-// ==== Chỉ đường ====
-function selectStart(lat, lng) {
-  startLatLng = [lat, lng];
-  alert('Đã chọn điểm đầu!');
-}
-
-function routeTo(lat, lng) {
-  if (!startLatLng) {
-    alert('Hãy chọn điểm đầu trước');
-    return;
-  }
-  if (routingLine) map.removeLayer(routingLine);
-
-  routingLine = L.polyline([startLatLng, [lat, lng]], {color: 'blue'}).addTo(map);
-  map.fitBounds(routingLine.getBounds());
-}
