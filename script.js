@@ -25,7 +25,7 @@ function showModalImage(index) {
 }
 
 // === 3. Đọc CSV từ Google Sheets ===
-const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtuCf5kDrCceF7-oAI1IKNh2vjR3HCKtwKOROB1Swz2bRwCdqpki7kQqT_DwecG77ckhxmO7LgUdJ2/pub?gid=0&single=true&output=csv'; // Thay link CSV public
+const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtuCf5kDrCceF7-oAI1IKNh2vjR3HCKtwKOROB1Swz2bRwCdqpki7kQqT_DwecG77ckhxmO7LgUdJ2/pub?gid=0&single=true&output=csv';
 
 var locations = [];
 var markers = [];
@@ -33,16 +33,17 @@ var markers = [];
 Papa.parse(csvUrl, {
   download: true,
   header: true,
-  skipEmptyLines: true, // loại bỏ dòng trống
+  skipEmptyLines: true,
   complete: function(results) {
-    // Lọc dữ liệu sạch: chỉ lấy các row có name, lat, lng
-    locations = results.data.map(row => ({
-      name: row['name'] ? row['name'].trim() : null,
-      description: row['description'] ? row['description'].trim() : '',
-      lat: parseFloat(row['lat']),
-      lng: parseFloat(row['lng']),
-      images: row['images'] ? row['images'].split(';').map(i => i.trim()) : []
-    })).filter(r => r.name && !isNaN(r.lat) && !isNaN(r.lng));
+    // Lọc dữ liệu sạch
+    locations = results.data.map(row => {
+      const name = row['name'] ? row['name'].replace(/\u00A0/g, ' ').trim() : null;
+      const description = row['description'] ? row['description'].replace(/\u00A0/g, ' ').trim() : '';
+      const lat = parseFloat(row['lat']);
+      const lng = parseFloat(row['lng']);
+      const images = row['images'] ? row['images'].split(';').map(i => i.trim()) : [];
+      return { name, description, lat, lng, images };
+    }).filter(r => r.name && !isNaN(r.lat) && !isNaN(r.lng));
 
     // Tạo marker
     locations.forEach((loc, idx) => {
