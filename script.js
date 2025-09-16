@@ -1,133 +1,94 @@
+// Khởi tạo bản đồ
 var map = L.map('map', { zoomControl: false }).setView([10.5, 105.1], 9);
-L.control.zoom({position:'bottomright'}).addTo(map);
+L.control.zoom({ position: 'bottomright' }).addTo(map);
 
+// Thêm tile layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
+// Toggle sidebar
 var sidebar = document.getElementById('sidebar');
 document.getElementById('toggleSidebar').addEventListener('click', function () {
   sidebar.classList.toggle('hidden');
-  setTimeout(() => map.invalidateSize(), 300);
+  setTimeout(() => { map.invalidateSize(); }, 300);
 });
 
-var markers = [];
+var markers = []; // Danh sách marker
 
-// Popup nhỏ
-function createPopupContent(props) {
-  if (!props.images || props.images.length === 0) {
-    return `<h3>${props.name}</h3><p>${props.description}</p>`;
-  }
-  return `<h3>${props.name}</h3><p>${props.description}</p>
-    <div class="popup-slideshow">
-      <button class="prev">&lt;</button>
-      <img src="${props.images[0]}" width="200" class="popup-image">
-      <button class="next">&gt;</button>
-    </div>
-    <p class="photoCounter">1/${props.images.length}</p>`;
+// Modal ảnh lớn
+var modal = document.getElementById('imageModal');
+var modalImage = document.getElementById('modalImage');
+var currentImages = [];
+var currentIndex = 0;
+
+document.querySelector('.modal .close').onclick = () => { modal.style.display = 'none'; };
+document.getElementById('prevImage').onclick = () => showModalImage(currentIndex - 1);
+document.getElementById('nextImage').onclick = () => showModalImage(currentIndex + 1);
+
+function showModalImage(index) {
+  if (index < 0) index = currentImages.length - 1;
+  if (index >= currentImages.length) index = 0;
+  currentIndex = index;
+  modalImage.src = currentImages[currentIndex];
 }
 
 // Load GeoJSON
 fetch('data.geojson')
-  .then(res => res.json())
+  .then(r => r.json())
   .then(data => {
     L.geoJSON(data, {
-      pointToLayer: (feature, latlng) => L.marker(latlng),
-      onEachFeature: (feature, layer) => {
-        layer.bindPopup(createPopupContent(feature.properties), {maxWidth: 300});
-        markers.push({layer, props: feature.properties});
-      }
+      onEachFeature: function (feature, layer) {
+        var props = feature.properties;
+        // Tạo popup content
+        var popupContent = `<b>${props.name}</b><br>${props.description}`;
+        if (props.images && props.images.length > 0) {
+          popupContent += `<div class="popup-images">`;
+          props.images.forEach((img, idx) => {
+            popupContent += `<img src="${img}" data-index="${idx}" data-images='${JSON.stringify(props.images)}'>`;
+          });
+          popupContent += `</div>`;
+        }
+        layer.bindPopup(popupContent);
+        markers.push({ layer: layer, props: props });
+      },
+      pointToLayer: (feature, latlng) => L.marker(latlng)
     }).addTo(map);
 
-    // Sidebar
-    var placeList = document.getElementById('placeList');
-    function renderList(items) {
-      placeList.innerHTML = '';
-      items.forEach(m => {
-        var li = document.createElement('li');
-        li.textContent = m.props.name;
-        li.addEventListener('click', () => {
-          map.setView(m.layer.getLatLng(), 15);
-          m.layer.openPopup();
+    // Xử lý click ảnh trong popup (event delegation)
+    map.on('popupopen', function (e) {
+      var popup = e.popup._contentNode;
+      popup.querySelectorAll('.popup-images img').forEach(imgEl => {
+        imgEl.addEventListener('click', () => {
+          currentImages = JSON.parse(imgEl.getAttribute('data-images'));
+          currentIndex = parseInt(imgEl.getAttribute('data-index'));
+          showModalImage(currentIndex);
+          modal.style.display = 'block';
         });
-        placeList.appendChild(li);
+      });
+    });
+
+    // Tạo danh sách bên trái
+    var placeList = document.getElementById('placeList');
+    function renderList(keyword = '') {
+      placeList.innerHTML = '';
+      markers.forEach(m => {
+        if (m.props.name.toLowerCase().includes(keyword.toLowerCase())) {
+          var li = document.createElement('li');
+          li.textContent = m.props.name;
+          li.addEventListener('click', () => {
+            map.setView(m.layer.getLatLng(), 15);
+            m.layer.openPopup();
+          });
+          placeList.appendChild(li);
+        }
       });
     }
-    renderList(markers);
+    renderList();
 
-    document.getElementById('searchBox').addEventListener('input', function(){
-      var keyword = this.value.toLowerCase();
-      var filtered = markers.filter(m => m.props.name.toLowerCase().includes(keyword));
-      renderList(filtered);
+    // Tìm kiếm
+    document.getElementById('searchBox').addEventListener('input', function () {
+      renderList(this.value);
     });
-
-    // Popup nhỏ mở: gán slideshow và modal lớn
-    map.on('popupopen', function(e){
-      var popupNode = e.popup.getElement();
-      if (!popupNode) return;
-      var props = markers.find(m => m.layer.getPopup() === e.popup)?.props;
-      if (!props) return;
-
-      var imgTag = popupNode.querySelector('img.popup-image');
-      var prevBtn = popupNode.querySelector('.prev');
-      var nextBtn = popupNode.querySelector('.next');
-      var counter = popupNode.querySelector('.photoCounter');
-      var idx = 0;
-
-      prevBtn?.addEventListener('click', function(ev){
-        ev.stopPropagation();
-        idx = (idx - 1 + props.images.length) % props.images.length;
-        imgTag.src = props.images[idx];
-        counter.textContent = (idx+1)+"/"+props.images.length;
-      });
-      nextBtn?.addEventListener('click', function(ev){
-        ev.stopPropagation();
-        idx = (idx + 1) % props.images.length;
-        imgTag.src = props.images[idx];
-        counter.textContent = (idx+1)+"/"+props.images.length;
-      });
-
-      // Click ảnh popup → modal lớn
-      imgTag?.addEventListener('click', function(ev){
-        ev.stopPropagation();
-        openModal(props.images, idx);
-      });
-    });
-  });
-
-// Modal lớn
-var modal = document.getElementById('imageModal');
-var modalImg = document.getElementById('modalImg');
-var modalIdx = 0;
-var modalImages = [];
-
-function openModal(images, index){
-  modalImages = images;
-  modalIdx = index;
-  modalImg.src = modalImages[modalIdx];
-  modal.style.display = "flex";
-}
-
-// Next / Prev modal lớn
-function modalNext() {
-  modalIdx = (modalIdx + 1) % modalImages.length;
-  modalImg.src = modalImages[modalIdx];
-}
-function modalPrev() {
-  modalIdx = (modalIdx - 1 + modalImages.length) % modalImages.length;
-  modalImg.src = modalImages[modalIdx];
-}
-
-// Thêm nút Next / Prev vào modal
-var controlsDiv = document.createElement('div');
-controlsDiv.className = "modal-controls";
-controlsDiv.innerHTML = `<button id="modalPrev">&lt; Prev</button><button id="modalNext">Next &gt;</button>`;
-modal.appendChild(controlsDiv);
-
-document.getElementById('modalNext').onclick = modalNext;
-document.getElementById('modalPrev').onclick = modalPrev;
-
-// Đóng modal
-document.getElementById('closeModal').onclick = function(){
-  modal.style.display = "none";
-};
+  })
+  .catch(err => console.error('Lỗi load data.geojson:', err));
