@@ -5,8 +5,8 @@
       "type": "Feature",
       "properties": {
         "name": "Đình Châu Phú",
-        "description": "Đình thờ Nguyễn Hữu Cảnh, di tích lịch sử tại Châu Đốc.",
-        "images": ["images/dinh_chau_phu_1.jpg","images/dinh_chau_phu_2.jpg"]
+        "description": "Đình thờ Nguyễn Hữu Cảnh, di tích lịch sử tại Châu Đốc, An Giang.",
+        "images": ["images/dinh_chau_phu_1.jpg", "images/dinh_chau_phu_2.jpg"]
       },
       "geometry": { "type": "Point", "coordinates": [105.1111, 10.7058] }
     },
@@ -14,8 +14,8 @@
       "type": "Feature",
       "properties": {
         "name": "Đình Mỹ Đức",
-        "description": "Đình làng Mỹ Đức – nơi thờ thần Thành Hoàng, huyện Châu Phú.",
-        "images": ["images/dinh_my_duc_1.jpg","images/dinh_my_duc_2.jpg"]
+        "description": "Đình làng Mỹ Đức – nơi thờ thần Thành Hoàng, huyện Châu Phú, An Giang.",
+        "images": ["images/dinh_my_duc_1.jpg", "images/dinh_my_duc_2.jpg"]
       },
       "geometry": { "type": "Point", "coordinates": [105.1905, 10.5850] }
     },
@@ -23,8 +23,8 @@
       "type": "Feature",
       "properties": {
         "name": "Đình Tân Châu",
-        "description": "Đình Tân Châu – Di tích văn hóa, huyện Tân Châu.",
-        "images": ["images/dinh_tan_chau_1.jpg","images/dinh_tan_chau_2.jpg"]
+        "description": "Đình Tân Châu – Di tích văn hóa, huyện Tân Châu, An Giang.",
+        "images": ["images/dinh_tan_chau_1.jpg", "images/dinh_tan_chau_2.jpg"]
       },
       "geometry": { "type": "Point", "coordinates": [105.2070, 10.8220] }
     },
@@ -32,19 +32,132 @@
       "type": "Feature",
       "properties": {
         "name": "Chùa Bà Chúa Xứ",
-        "description": "Chùa nổi tiếng linh thiêng ở Núi Sam – Châu Đốc.",
-        "images": ["images/chua_ba_chua_xu_1.jpg","images/chua_ba_chua_xu_2.jpg"]
+        "description": "Chùa nổi tiếng linh thiêng ở Núi Sam – Châu Đốc, An Giang.",
+        "images": ["images/chua_ba_chua_xu_1.jpg", "images/chua_ba_chua_xu_2.jpg"]
       },
       "geometry": { "type": "Point", "coordinates": [105.0768, 10.6793] }
     },
     {
       "type": "Feature",
       "properties": {
-        "name": "Chùa Hang",
-        "description": "Chùa Hang (Phước Điền tự) nằm trên triền Núi Sam, Châu Đốc.",
-        "images": ["images/chua_hang_1.jpg","images/chua_hang_2.jpg"]
+        "name": "Chùa Hang (Phước Điền Tự)",
+        "description": "Chùa Hang, tên chữ Phước Điền Tự, tọa lạc nơi triền núi Sam, thành phố Châu Đốc; là một danh lam của tỉnh An Giang và là một Di tích Lịch sử cấp quốc gia.",
+        "images": ["images/chua_hang_1.jpg", "images/chua_hang_2.jpg"]
       },
       "geometry": { "type": "Point", "coordinates": [105.0775, 10.6785] }
-    }
-  ]
-}
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chùa Vạn Linh",
+        "description": "Chùa Vạn Linh, tọa lạc trên núi Cấm, huyện Tịnh Biên, An Giang, nổi bật với kiến trúc độc đáo và khung cảnh thiên nhiên hùng vĩ.",
+        "images": ["images/chua_van_linh_1.jpg", "images/chua_van_linh_2.jpg"]
+      },
+      "geometry": { "type": "Point", "coordinates": [105.2521, 10.3968] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chùa Phước Lâm",
+        "description": "Chùa Phước Lâm, tọa lạc tại thành phố Long Xuyên, An Giang, nổi bật với kiến trúc cổ kính và không gian thanh tịnh.",
+        "images": ["images/chua_phuoc_lam_1.jpg", "images/chua_phuoc_lam_2.jpg"]
+      },
+      "geometry": { "type": "Point", "coordinates": [105.4342, 10.3845] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chùa Tà Pạ",
+        "description": "Chùa Tà Pạ, nằm trên núi Tà Pạ, huyện Tri Tôn, An Giang, nổi tiếng với phong cảnh thiên nhiên và không khí mát mẻ.",
+        "images": ["images/chua_ta_pa_1.jpg", "images/chua_ta_pa_2.jpg"]
+      },
+      "geometry": { "type": "Point", "coordinates": [105.1773, 10.4654] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chùa Phi Lai",
+        "description": "Chùa Phi Lai, tọa lạc tại huyện Châu Thành, An Giang, nổi bật với kiến trúc độc đáo và không gian yên bình.",
+        "images": ["images/chua_phi_lai_1.jpg", "images/chua_phi_lai_2.jpg"]
+      },
+      "geometry": { "type": "Point", "coordinates": [105.3589, 10.4186] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chùa Tam Bảo (Hà Tiên)",
+        "description": "Chùa Tam Bảo, ngôi chùa cổ tại Hà Tiên, Kiên Giang, nổi tiếng với kiến trúc Khmer đặc trưng và không gian thanh tịnh.",
+        "images": ["images/chua_tam_bao_ha_tien_1.jpg", "images/chua_tam_bao_ha_tien_2.jpg"]
+      },
+      "geometry": { "type": "Point", "coordinates": [104.4885, 10.4120] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chùa Tam Bảo (Rạch Giá)",
+        "description": "Chùa Tam Bảo, ngôi chùa cổ tại Rạch Giá, Kiên Giang, nổi tiếng với kiến trúc Khmer đặc trưng và không gian thanh tịnh.",
+        "images": ["images/chua_tam_bao_rach_gia_1.jpg", "images/chua_tam_bao_rach_gia_2.jpg"]
+      },
+      "geometry": { "type": "Point", "coordinates": [105.1150, 10.0150] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chùa Phật Lớn",
+        "description": "Chùa Phật Lớn, một trong những ngôi chùa lớn tại Rạch Giá, Kiên Giang, nổi bật với kiến trúc đồ sộ và không gian linh thiêng.",
+        "images": ["images/chua_phat_lon_1.jpg", "images/chua_phat_lon_2.jpg"]
+      },
+      "geometry": { "type": "Point", "coordinates": [105.1167, 10.0139] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chùa Hang (Kiên Giang)",
+        "description": "Chùa Hang, tọa lạc tại huyện Kiên Lương, Kiên Giang, nổi tiếng với kiến trúc độc đáo và không gian yên bình.",
+        "images": ["images/chua_hang_kien_giang_1.jpg", "images/chua_hang_kien_giang_2.jpg"]
+      },
+      "geometry": { "type": "Point", "coordinates": [104.9820, 9.9650] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chùa Gióng Ke",
+        "description": "Chùa Gióng Ke, tọa lạc tại huyện Kiên Lương, Kiên Giang, nổi tiếng với không gian thanh tịnh và phong cảnh thiên nhiên.",
+        "images": ["images/chua_giong_ke_1.jpg", "images/chua_giong_ke_2.jpg"]
+      },
+      "geometry": { "type": "Point", "coordinates": [104.9775, 9.9550] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chùa Phước Sơn",
+        "description": "Chùa Phước Sơn, tọa lạc tại huyện Giang Thành, Kiên Giang, nổi bật với kiến trúc độc đáo và không gian yên bình.",
+        "images": ["images/chua_phuoc_son_1.jpg", "images/chua_phuoc_son_2.jpg"]
+      },
+      "geometry": { "type": "Point", "coordinates": [104.9845, 9.8750] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chùa Vĩnh Hòa",
+        "description": "Chùa Vĩnh Hòa, tọa lạc tại huyện Châu Thành, Kiên Giang, nổi bật với kiến trúc cổ kính và không gian thanh tịnh.",
+        "images": ["images/chua_vinh_hoa_1.jpg", "images/chua_vinh_hoa_2.jpg"]
+      },
+      "geometry": { "type": "Point", "coordinates": [105.0167, 9.9700] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chùa Minh Hưng",
+        "description": "Chùa Minh Hưng, tọa lạc tại huyện An Minh, Kiên Giang, nổi bật với kiến trúc độc đáo và không gian yên bình.",
+        "images": ["images/chua_minh_hung_1.jpg", "images/chua_minh_hung_2.jpg"]
+      },
+      "geometry": { "type": "Point", "coordinates": [105.0525, 9.8500] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chùa An Sơn",
+        "description
+::contentReference[oaicite:1]{index=1}
+ 
