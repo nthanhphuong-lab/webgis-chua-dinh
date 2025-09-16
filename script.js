@@ -41,13 +41,15 @@ Papa.parse(csvUrl, {
   complete: function (results) {
     const rows = results.data;
     rows.forEach(row => {
-      if (!row.Lat || !row.Lng) return; // bỏ nếu thiếu tọa độ
+      if (!row.lat || !row.lng) return; // bỏ nếu thiếu tọa độ
 
-      let lat = parseFloat(row.Lat);
-      let lng = parseFloat(row.Lng);
-      let images = row.Images ? row.Images.split(';').map(i => i.trim()) : [];
+      let lat = parseFloat(row.lat);
+      let lng = parseFloat(row.lng);
+      if (isNaN(lat) || isNaN(lng)) return; // tránh lỗi số
 
-      var popupContent = `<b>${row.Name}</b><br>${row.Description || ''}`;
+      let images = row.images ? row.images.split(';').map(i => i.trim()) : [];
+
+      var popupContent = `<b>${row.name}</b><br>${row.description || ''}`;
       if (images.length > 0) {
         popupContent += `<div class="popup-images">`;
         images.forEach((img, idx) => {
@@ -57,7 +59,7 @@ Papa.parse(csvUrl, {
       }
 
       var marker = L.marker([lat, lng]).addTo(map).bindPopup(popupContent);
-      markers.push({ layer: marker, props: { name: row.Name, images: images } });
+      markers.push({ layer: marker, props: { name: row.name, images: images } });
     });
 
     // Xử lý click ảnh trong popup
