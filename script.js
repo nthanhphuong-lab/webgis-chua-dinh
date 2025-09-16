@@ -1,138 +1,133 @@
-html, body {
-  height: 100%;
-  margin: 0;
-  font-family: Arial, sans-serif;
+var map = L.map('map', { zoomControl: false }).setView([10.5, 105.1], 9);
+L.control.zoom({position:'bottomright'}).addTo(map);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+var sidebar = document.getElementById('sidebar');
+document.getElementById('toggleSidebar').addEventListener('click', function () {
+  sidebar.classList.toggle('hidden');
+  setTimeout(() => map.invalidateSize(), 300);
+});
+
+var markers = [];
+
+// Popup nhỏ
+function createPopupContent(props) {
+  if (!props.images || props.images.length === 0) {
+    return `<h3>${props.name}</h3><p>${props.description}</p>`;
+  }
+  return `<h3>${props.name}</h3><p>${props.description}</p>
+    <div class="popup-slideshow">
+      <button class="prev">&lt;</button>
+      <img src="${props.images[0]}" width="200" class="popup-image">
+      <button class="next">&gt;</button>
+    </div>
+    <p class="photoCounter">1/${props.images.length}</p>`;
 }
 
-#sidebar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 250px;
-  height: 100%;
-  overflow-y: auto;
-  background: #f9f9f9;
-  border-right: 1px solid #ccc;
-  padding: 10px;
-  z-index: 1000;
-  transition: transform 0.3s ease;
+// Load GeoJSON
+fetch('data.geojson')
+  .then(res => res.json())
+  .then(data => {
+    L.geoJSON(data, {
+      pointToLayer: (feature, latlng) => L.marker(latlng),
+      onEachFeature: (feature, layer) => {
+        layer.bindPopup(createPopupContent(feature.properties), {maxWidth: 300});
+        markers.push({layer, props: feature.properties});
+      }
+    }).addTo(map);
+
+    // Sidebar
+    var placeList = document.getElementById('placeList');
+    function renderList(items) {
+      placeList.innerHTML = '';
+      items.forEach(m => {
+        var li = document.createElement('li');
+        li.textContent = m.props.name;
+        li.addEventListener('click', () => {
+          map.setView(m.layer.getLatLng(), 15);
+          m.layer.openPopup();
+        });
+        placeList.appendChild(li);
+      });
+    }
+    renderList(markers);
+
+    document.getElementById('searchBox').addEventListener('input', function(){
+      var keyword = this.value.toLowerCase();
+      var filtered = markers.filter(m => m.props.name.toLowerCase().includes(keyword));
+      renderList(filtered);
+    });
+
+    // Popup nhỏ mở: gán slideshow và modal lớn
+    map.on('popupopen', function(e){
+      var popupNode = e.popup.getElement();
+      if (!popupNode) return;
+      var props = markers.find(m => m.layer.getPopup() === e.popup)?.props;
+      if (!props) return;
+
+      var imgTag = popupNode.querySelector('img.popup-image');
+      var prevBtn = popupNode.querySelector('.prev');
+      var nextBtn = popupNode.querySelector('.next');
+      var counter = popupNode.querySelector('.photoCounter');
+      var idx = 0;
+
+      prevBtn?.addEventListener('click', function(ev){
+        ev.stopPropagation();
+        idx = (idx - 1 + props.images.length) % props.images.length;
+        imgTag.src = props.images[idx];
+        counter.textContent = (idx+1)+"/"+props.images.length;
+      });
+      nextBtn?.addEventListener('click', function(ev){
+        ev.stopPropagation();
+        idx = (idx + 1) % props.images.length;
+        imgTag.src = props.images[idx];
+        counter.textContent = (idx+1)+"/"+props.images.length;
+      });
+
+      // Click ảnh popup → modal lớn
+      imgTag?.addEventListener('click', function(ev){
+        ev.stopPropagation();
+        openModal(props.images, idx);
+      });
+    });
+  });
+
+// Modal lớn
+var modal = document.getElementById('imageModal');
+var modalImg = document.getElementById('modalImg');
+var modalIdx = 0;
+var modalImages = [];
+
+function openModal(images, index){
+  modalImages = images;
+  modalIdx = index;
+  modalImg.src = modalImages[modalIdx];
+  modal.style.display = "flex";
 }
 
-#sidebar.hidden {
-  transform: translateX(-100%);
+// Next / Prev modal lớn
+function modalNext() {
+  modalIdx = (modalIdx + 1) % modalImages.length;
+  modalImg.src = modalImages[modalIdx];
+}
+function modalPrev() {
+  modalIdx = (modalIdx - 1 + modalImages.length) % modalImages.length;
+  modalImg.src = modalImages[modalIdx];
 }
 
-#map {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
+// Thêm nút Next / Prev vào modal
+var controlsDiv = document.createElement('div');
+controlsDiv.className = "modal-controls";
+controlsDiv.innerHTML = `<button id="modalPrev">&lt; Prev</button><button id="modalNext">Next &gt;</button>`;
+modal.appendChild(controlsDiv);
 
-#searchBox {
-  width: 100%;
-  padding: 5px;
-  margin-bottom: 10px;
-  box-sizing: border-box;
-}
+document.getElementById('modalNext').onclick = modalNext;
+document.getElementById('modalPrev').onclick = modalPrev;
 
-#placeList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#placeList li {
-  padding: 5px;
-  border-bottom: 1px solid #ddd;
-  cursor: pointer;
-}
-
-#placeList li:hover {
-  background: #eee;
-}
-
-#toggleSidebar {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 1500;
-  padding: 6px 10px;
-  background: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-/* Slideshow popup */
-.popup-slideshow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.popup-slideshow img {
-  display: block;
-  margin: 0 5px;
-  max-width: 100%;
-  max-height: 150px;
-  cursor: pointer;
-}
-
-.popup-slideshow button {
-  background-color: #007bff;
-  border: none;
-  color: white;
-  padding: 2px 6px;
-  cursor: pointer;
-  border-radius: 3px;
-}
-
-/* Modal ảnh lớn */
-#imageModal {
-  display: none;
-  position: fixed;
-  z-index: 5000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-#imageModal img {
-  max-width: 90%;
-  max-height: 80%;
-}
-
-#imageModal .modal-controls {
-  margin-top: 10px;
-}
-
-#imageModal .modal-controls button {
-  background-color: #007bff;
-  border: none;
-  color: #fff;
-  padding: 6px 12px;
-  margin: 0 10px;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-#imageModal span {
-  position: absolute;
-  top: 20px;
-  right: 35px;
-  color: #fff;
-  font-size: 40px;
-  font-weight: bold;
-  cursor: pointer;
-}
+// Đóng modal
+document.getElementById('closeModal').onclick = function(){
+  modal.style.display = "none";
+};
