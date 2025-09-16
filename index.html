@@ -4,17 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bản đồ Chùa Đình An Giang</title>
+
+  <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <!-- CSS riêng -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="sidebar">
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
     <h2>Danh sách Chùa / Đình</h2>
     <input type="text" id="searchBox" placeholder="Tìm kiếm...">
     <ul id="placeList"></ul>
   </div>
 
-  <button id="toggleSidebar">☰ Danh sách</button>
+  <!-- Nút toggle -->
+  <button id="toggleSidebar" class="toggle-btn">☰ Danh sách</button>
+
+  <!-- Map -->
   <div id="map"></div>
 
   <!-- Modal ảnh lớn -->
@@ -25,8 +32,11 @@
     <button id="nextImage" class="nav-btn">❯</button>
   </div>
 
+  <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- PapaParse -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <!-- JS riêng -->
   <script src="script.js"></script>
 </body>
 </html>
