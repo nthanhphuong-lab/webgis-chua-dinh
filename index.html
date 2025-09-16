@@ -1,54 +1,30 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>WebGIS Chùa - Đình An Giang</title>
-
-  <!-- Leaflet -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-
-  <!-- Leaflet MarkerCluster -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
-
-  <!-- Leaflet Routing Machine -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
-
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bản đồ Chùa Đình An Giang</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
-  <div id="sidebar">
-    <h2>Danh sách Chùa / Đình</h2>
-    <input id="searchBox" placeholder="Tìm kiếm..." />
-    <div id="countInfo"></div>
-    <ul id="placeList"></ul>
-    <div id="hint">Click tên địa điểm để zoom và mở popup. Trong popup có nút "Chỉ đường".</div>
-  </div>
-
-  <button id="toggleSidebar">☰ Danh sách</button>
+  <h1>Bản đồ Chùa & Đình An Giang</h1>
   <div id="map"></div>
-
-  <!-- Modal ảnh lớn -->
-  <div id="imageModal" class="modal" aria-hidden="true">
-    <span class="close" id="closeModal">&times;</span>
-    <img id="modalImage" src="" alt="Hình lớn">
-    <div class="modal-controls">
-      <button id="modalPrev">❮</button>
-      <span id="modalCounter"></span>
-      <button id="modalNext">❯</button>
-    </div>
+  <div id="sidebar">
+    <h2>Danh sách địa điểm</h2>
+    <ul id="locationList"></ul>
   </div>
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Modal slideshow -->
+  <div id="imageModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImage">
+    <div id="caption"></div>
+    <a class="prev">&#10094;</a>
+    <a class="next">&#10095;</a>
+  </div>
 
-  <!-- MarkerCluster -->
-  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-
-  <!-- Routing Machine -->
-  <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
-
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
