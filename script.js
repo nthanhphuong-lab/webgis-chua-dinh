@@ -13,19 +13,18 @@ document.getElementById('toggleSidebar').addEventListener('click', function () {
 
 var markers = [];
 
-// Tạo popup content
+// Popup nhỏ
 function createPopupContent(props) {
   if (!props.images || props.images.length === 0) {
     return `<h3>${props.name}</h3><p>${props.description}</p>`;
   }
-  var content = `<h3>${props.name}</h3><p>${props.description}</p>
-  <div class="popup-slideshow">
-    <button class="prev">&lt;</button>
-    <img src="${props.images[0]}" width="200" class="popup-image">
-    <button class="next">&gt;</button>
-  </div>
-  <p class="photoCounter">1/${props.images.length}</p>`;
-  return content;
+  return `<h3>${props.name}</h3><p>${props.description}</p>
+    <div class="popup-slideshow">
+      <button class="prev">&lt;</button>
+      <img src="${props.images[0]}" width="200" class="popup-image">
+      <button class="next">&gt;</button>
+    </div>
+    <p class="photoCounter">1/${props.images.length}</p>`;
 }
 
 // Load GeoJSON
@@ -56,14 +55,13 @@ fetch('data.geojson')
     }
     renderList(markers);
 
-    // Tìm kiếm
     document.getElementById('searchBox').addEventListener('input', function(){
       var keyword = this.value.toLowerCase();
       var filtered = markers.filter(m => m.props.name.toLowerCase().includes(keyword));
       renderList(filtered);
     });
 
-    // Popup open event để gán slideshow + modal
+    // Popup nhỏ mở: gán slideshow và modal lớn
     map.on('popupopen', function(e){
       var popupNode = e.popup.getElement();
       if (!popupNode) return;
@@ -89,16 +87,47 @@ fetch('data.geojson')
         counter.textContent = (idx+1)+"/"+props.images.length;
       });
 
-      // Click ảnh mở modal lớn
+      // Click ảnh popup → modal lớn
       imgTag?.addEventListener('click', function(ev){
         ev.stopPropagation();
-        document.getElementById('imageModal').style.display = "block";
-        document.getElementById('modalImg').src = props.images[idx];
+        openModal(props.images, idx);
       });
     });
   });
 
+// Modal lớn
+var modal = document.getElementById('imageModal');
+var modalImg = document.getElementById('modalImg');
+var modalIdx = 0;
+var modalImages = [];
+
+function openModal(images, index){
+  modalImages = images;
+  modalIdx = index;
+  modalImg.src = modalImages[modalIdx];
+  modal.style.display = "flex";
+}
+
+// Next / Prev modal lớn
+function modalNext() {
+  modalIdx = (modalIdx + 1) % modalImages.length;
+  modalImg.src = modalImages[modalIdx];
+}
+function modalPrev() {
+  modalIdx = (modalIdx - 1 + modalImages.length) % modalImages.length;
+  modalImg.src = modalImages[modalIdx];
+}
+
+// Thêm nút Next / Prev vào modal
+var controlsDiv = document.createElement('div');
+controlsDiv.className = "modal-controls";
+controlsDiv.innerHTML = `<button id="modalPrev">&lt; Prev</button><button id="modalNext">Next &gt;</button>`;
+modal.appendChild(controlsDiv);
+
+document.getElementById('modalNext').onclick = modalNext;
+document.getElementById('modalPrev').onclick = modalPrev;
+
 // Đóng modal
 document.getElementById('closeModal').onclick = function(){
-  document.getElementById('imageModal').style.display = "none";
+  modal.style.display = "none";
 };
