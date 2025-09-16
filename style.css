@@ -1,94 +1,119 @@
-body, html {
+html, body {
+  height: 100%;
   margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: sans-serif;
+  font-family: Arial, sans-serif;
 }
 
-#map {
-  height: 100%;
-  width: 100%;
-}
-
+/* Sidebar */
 #sidebar {
   position: absolute;
   top: 0;
   left: 0;
-  width: 300px;
+  width: 250px;
   height: 100%;
-  background: #fff;
   overflow-y: auto;
+  background: #f9f9f9;
+  border-right: 1px solid #ccc;
   padding: 10px;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.3);
   z-index: 1000;
+  transition: transform 0.3s ease;
 }
 
 #sidebar.hidden {
-  left: -310px;
-  transition: left 0.3s;
+  transform: translateX(-100%);
 }
 
+/* Map */
+#map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Search box */
+#searchBox {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+/* Danh sách địa điểm */
+#placeList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#placeList li {
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+#placeList li:hover {
+  background: #eee;
+}
+
+/* Nút toggle */
 #toggleSidebar {
   position: absolute;
   top: 10px;
-  left: 10px;
-  z-index: 1100;
-  background: #fff;
-  border: 1px solid #ccc;
-  padding: 5px 10px;
+  right: 10px;
+  z-index: 1500;
+  padding: 6px 10px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
 
-#locationList li {
+/* Popup slideshow */
+.popup-images img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin: 2px;
   cursor: pointer;
-  margin: 5px 0;
-  list-style: none;
-  padding: 5px;
-  border-bottom: 1px solid #eee;
+  border-radius: 4px;
 }
 
-#locationList li:hover {
-  background: #f0f0f0;
-}
-
+/* Modal ảnh lớn */
 .modal {
   display: none;
   position: fixed;
   z-index: 2000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background: rgba(0,0,0,0.7);
+  padding-top: 50px;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background-color: rgba(0,0,0,0.9);
 }
-
 .modal img {
   display: block;
-  margin: 50px auto;
-  max-width: 80%;
+  margin: auto;
+  max-width: 90%;
   max-height: 80%;
 }
-
 .modal .close {
   position: absolute;
-  top: 20px;
-  right: 40px;
-  font-size: 40px;
+  top: 20px; right: 35px;
   color: #fff;
+  font-size: 40px;
+  font-weight: bold;
   cursor: pointer;
 }
-
 .nav-btn {
   position: absolute;
   top: 50%;
-  font-size: 40px;
-  color: #fff;
-  background: transparent;
+  color: white;
+  font-size: 30px;
+  background: rgba(0,0,0,0.5);
   border: none;
+  padding: 10px;
   cursor: pointer;
   transform: translateY(-50%);
 }
-
 #prevImage { left: 20px; }
 #nextImage { right: 20px; }
