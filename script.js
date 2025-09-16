@@ -11,7 +11,7 @@ let locations = [];
 let markers = [];
 
 // Lấy dữ liệu CSV từ Google Sheets
-const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtuCf5kDrCceF7-oAI1IKNh2vjR3HCKtwKOROB1Swz2bRwCdqpki7kQqT_DwecG77ckhxmO7LgUdJ2/pub?gid=0&single=true&output=csvC'; // thay link CSV public ở đây
+const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtuCf5kDrCceF7-oAI1IKNh2vjR3HCKtwKOROB1Swz2bRwCdqpki7kQqT_DwecG77ckhxmO7LgUdJ2/pub?gid=0&single=true&output=csv'; // thay link CSV public ở đây
 
 Papa.parse(csvUrl, {
   download: true,
