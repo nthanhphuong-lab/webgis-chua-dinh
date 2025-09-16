@@ -6,60 +6,45 @@
       "properties": {
         "name": "Đình Châu Phú",
         "description": "Đình thờ Nguyễn Hữu Cảnh, di tích lịch sử tại Châu Đốc.",
-        "image": "images/dinh_chau_phu.jpg"
+        "images": ["images/dinh_chau_phu_1.jpg","images/dinh_chau_phu_2.jpg"]
       },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [105.1111, 10.7058]
-      }
+      "geometry": { "type": "Point", "coordinates": [105.1111, 10.7058] }
     },
     {
       "type": "Feature",
       "properties": {
         "name": "Đình Mỹ Đức",
         "description": "Đình làng Mỹ Đức – nơi thờ thần Thành Hoàng, huyện Châu Phú.",
-        "image": "images/dinh_my_duc.jpg"
+        "images": ["images/dinh_my_duc_1.jpg","images/dinh_my_duc_2.jpg"]
       },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [105.1905, 10.5850]
-      }
+      "geometry": { "type": "Point", "coordinates": [105.1905, 10.5850] }
     },
     {
       "type": "Feature",
       "properties": {
         "name": "Đình Tân Châu",
         "description": "Đình Tân Châu – Di tích văn hóa, huyện Tân Châu.",
-        "image": "images/dinh_tan_chau.jpg"
+        "images": ["images/dinh_tan_chau_1.jpg","images/dinh_tan_chau_2.jpg"]
       },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [105.2070, 10.8220]
-      }
+      "geometry": { "type": "Point", "coordinates": [105.2070, 10.8220] }
     },
     {
       "type": "Feature",
       "properties": {
         "name": "Chùa Bà Chúa Xứ",
         "description": "Chùa nổi tiếng linh thiêng ở Núi Sam – Châu Đốc.",
-        "image": "images/chua_ba_chua_xu.jpg"
+        "images": ["images/chua_ba_chua_xu_1.jpg","images/chua_ba_chua_xu_2.jpg"]
       },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [105.0768, 10.6793]
-      }
+      "geometry": { "type": "Point", "coordinates": [105.0768, 10.6793] }
     },
     {
       "type": "Feature",
       "properties": {
         "name": "Chùa Hang",
         "description": "Chùa Hang (Phước Điền tự) nằm trên triền Núi Sam, Châu Đốc.",
-        "image": "images/chua_hang.jpg"
+        "images": ["images/chua_hang_1.jpg","images/chua_hang_2.jpg"]
       },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [105.0775, 10.6785]
-      }
+      "geometry": { "type": "Point", "coordinates": [105.0775, 10.6785] }
     }
   ]
 }
