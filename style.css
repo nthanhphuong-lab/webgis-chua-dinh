@@ -4,6 +4,7 @@ html, body {
   font-family: Arial, sans-serif;
 }
 
+/* Sidebar */
 #sidebar {
   position: absolute;
   top: 0;
@@ -22,6 +23,7 @@ html, body {
   transform: translateX(-100%);
 }
 
+/* Map */
 #map {
   position: absolute;
   top: 0;
@@ -30,6 +32,7 @@ html, body {
   bottom: 0;
 }
 
+/* Search box */
 #searchBox {
   width: 100%;
   padding: 5px;
@@ -37,22 +40,22 @@ html, body {
   box-sizing: border-box;
 }
 
+/* Danh sách địa điểm */
 #placeList {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-
 #placeList li {
   padding: 5px;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
 }
-
 #placeList li:hover {
   background: #eee;
 }
 
+/* Nút toggle */
 #toggleSidebar {
   position: absolute;
   top: 10px;
@@ -66,56 +69,51 @@ html, body {
   cursor: pointer;
 }
 
-/* Slideshow popup */
-.popup-slideshow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.popup-slideshow img {
-  display: block;
-  margin: 0 5px;
-  max-width: 100%;
-  max-height: 150px;
+/* Popup slideshow */
+.popup-images img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin: 2px;
   cursor: pointer;
-}
-
-.popup-slideshow button {
-  background-color: #007bff;
-  border: none;
-  color: white;
-  padding: 2px 6px;
-  cursor: pointer;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 /* Modal ảnh lớn */
-#imageModal {
+.modal {
   display: none;
   position: fixed;
-  z-index: 5000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.8);
+  z-index: 2000;
+  padding-top: 50px;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background-color: rgba(0,0,0,0.9);
 }
-
-#imageModal img {
+.modal img {
   display: block;
-  margin: 50px auto;
+  margin: auto;
   max-width: 90%;
-  max-height: 90%;
+  max-height: 80%;
 }
-
-#imageModal span {
+.modal .close {
   position: absolute;
-  top: 20px;
-  right: 35px;
+  top: 20px; right: 35px;
   color: #fff;
   font-size: 40px;
   font-weight: bold;
   cursor: pointer;
 }
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  color: white;
+  font-size: 30px;
+  background: rgba(0,0,0,0.5);
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+#prevImage { left: 20px; }
+#nextImage { right: 20px; }
