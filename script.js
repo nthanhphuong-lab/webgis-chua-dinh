@@ -25,7 +25,7 @@ function showModalImage(index) {
 }
 
 // === 3. Đọc CSV từ Google Sheets ===
-const csvUrl = 'LINK_CSV_PUBLIC'; // Thay link CSV public
+const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtuCf5kDrCceF7-oAI1IKNh2vjR3HCKtwKOROB1Swz2bRwCdqpki7kQqT_DwecG77ckhxmO7LgUdJ2/pub?gid=0&single=true&output=csv'; // Thay link CSV public
 
 var locations = [];
 var markers = [];
