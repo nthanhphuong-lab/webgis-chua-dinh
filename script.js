@@ -37,23 +37,27 @@ function showModalImage(index) {
 fetch('data.geojson')
   .then(r => r.json())
   .then(data => {
-    L.geoJSON(data, {
-      onEachFeature: function (feature, layer) {
+    var geoLayer = L.geoJSON(data, {
+      pointToLayer: function(feature, latlng) {
+        return L.marker(latlng); // đảm bảo return marker
+      },
+      onEachFeature: function(feature, layer) {
         var props = feature.properties;
         // Tạo popup content
         var popupContent = `<b>${props.name}</b><br>${props.description}`;
         if (props.images && props.images.length > 0) {
           popupContent += `<div class="popup-images">`;
           props.images.forEach((img, idx) => {
-            popupContent += `<img src="${img}" data-index="${idx}" data-images='${JSON.stringify(props.images)}'>`;
+            popupContent += `<img src="${img}" data-index="${idx}" data-images='${JSON.stringify(props.images)}' style="cursor:pointer;width:50px;margin:2px;">`;
           });
           popupContent += `</div>`;
         }
         layer.bindPopup(popupContent);
         markers.push({ layer: layer, props: props });
-      },
-      pointToLayer: (feature, latlng) => L.marker(latlng)
+      }
     }).addTo(map);
+
+    map.fitBounds(geoLayer.getBounds());
 
     // Xử lý click ảnh trong popup (event delegation)
     map.on('popupopen', function (e) {
@@ -75,20 +79,3 @@ fetch('data.geojson')
       markers.forEach(m => {
         if (m.props.name.toLowerCase().includes(keyword.toLowerCase())) {
           var li = document.createElement('li');
-          li.textContent = m.props.name;
-          li.addEventListener('click', () => {
-            map.setView(m.layer.getLatLng(), 15);
-            m.layer.openPopup();
-          });
-          placeList.appendChild(li);
-        }
-      });
-    }
-    renderList();
-
-    // Tìm kiếm
-    document.getElementById('searchBox').addEventListener('input', function () {
-      renderList(this.value);
-    });
-  })
-  .catch(err => console.error('Lỗi load data.geojson:', err));
