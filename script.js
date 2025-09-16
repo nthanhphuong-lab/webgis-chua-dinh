@@ -131,4 +131,24 @@ fetch('data.geojson')
 
     // Tìm kiếm
     document.getElementById('searchBox').addEventListener('input', function () {
-      renderList
+      renderList(this.value);
+    });
+
+  })
+  .catch(err => console.error('Lỗi load data.geojson:', err));
+
+// Vẽ tuyến đường
+var currentRouteDestination = null;
+function drawRoute(from, to) {
+  if (routeControl) {
+    map.removeControl(routeControl);
+  }
+  routeControl = L.Routing.control({
+    waypoints: [
+      L.latLng(from[0], from[1]),
+      L.latLng(to.lat || to[0], to.lng || to[1])
+    ],
+    routeWhileDragging: false,
+    show: true
+  }).addTo(map);
+}
