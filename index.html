@@ -3,40 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bản đồ Chùa – Đình An Giang</title>
+  <title>Bản đồ Chùa Đình An Giang</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-  <style>
-    body { margin:0; font-family:Arial,sans-serif;}
-    #map { width:70%; height:100vh; float:left;}
-    #sidebar { width:30%; height:100vh; overflow:auto; float:left; padding:10px; box-sizing:border-box;}
-    .place-item { padding:8px; border-bottom:1px solid #ccc; cursor:pointer;}
-    .place-item:hover { background:#f0f0f0;}
-  </style>
 </head>
 <body>
+  <div id="sidebar">
+    <h2>Danh sách Chùa / Đình</h2>
+    <input type="text" id="searchBox" placeholder="Tìm kiếm...">
+    <ul id="placeList"></ul>
+  </div>
 
-<div id="map"></div>
-<div id="sidebar">
-  <h2>Danh sách Chùa – Đình</h2>
-  <div id="placeList"></div>
-</div>
+  <button id="toggleSidebar">☰ Danh sách</button>
+  <div id="map"></div>
 
-<!-- Modal ảnh lớn -->
-<div id="imageModal" class="modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); text-align:center;">
-  <span class="close" style="position:absolute; top:20px; right:30px; color:white; font-size:40px; cursor:pointer;">&times;</span>
-  
-  <!-- Nút trước -->
-  <a id="prevImage" style="position:absolute; top:50%; left:30px; color:white; font-size:50px; cursor:pointer; user-select:none;">❮</a>
-  
-  <!-- Ảnh lớn -->
-  <img id="modalImage" src="" alt="Ảnh lớn" style="max-width:90%; max-height:90%; margin-top:50px; border-radius:10px;">
-  
-  <!-- Nút sau -->
-  <a id="nextImage" style="position:absolute; top:50%; right:30px; color:white; font-size:50px; cursor:pointer; user-select:none;">❯</a>
-</div>
+  <!-- Modal ảnh lớn -->
+  <div id="imageModal" class="modal">
+    <span class="close">&times;</span>
+    <img id="modalImage" src="">
+    <button id="prevImage" class="nav-btn">❮</button>
+    <button id="nextImage" class="nav-btn">❯</button>
+  </div>
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script src="script.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
