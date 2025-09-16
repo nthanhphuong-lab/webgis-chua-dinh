@@ -1,106 +1,71 @@
-// === 1. Khởi tạo bản đồ ===
-var map = L.map('map').setView([10.7, 105.1], 10);
+// Tạo bản đồ
+const map = L.map('map').setView([10.3759, 105.4194], 10);
 
+// Tile layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-// === 2. Modal ảnh lớn ===
-var modal = document.getElementById('imageModal');
-var modalImage = document.getElementById('modalImage');
-var currentImages = [];
-var currentIndex = 0;
+// Khai báo biến lưu locations và markers
+let locations = [];
+let markers = [];
 
-if(modal) {
-  document.querySelector('.modal .close').onclick = () => { modal.style.display = 'none'; };
-  document.getElementById('prevImage').onclick = () => showModalImage(currentIndex - 1);
-  document.getElementById('nextImage').onclick = () => showModalImage(currentIndex + 1);
-}
-
-function showModalImage(index) {
-  if(index < 0) index = currentImages.length -1;
-  if(index >= currentImages.length) index = 0;
-  currentIndex = index;
-  modalImage.src = currentImages[currentIndex];
-}
-
-// === 3. Đọc CSV từ Google Sheets ===
-const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtuCf5kDrCceF7-oAI1IKNh2vjR3HCKtwKOROB1Swz2bRwCdqpki7kQqT_DwecG77ckhxmO7LgUdJ2/pub?gid=0&single=true&output=csv';
-
-var locations = [];
-var markers = [];
+// Lấy dữ liệu CSV từ Google Sheets
+const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtuCf5kDrCceF7-oAI1IKNh2vjR3HCKtwKOROB1Swz2bRwCdqpki7kQqT_DwecG77ckhxmO7LgUdJ2/pub?gid=0&single=true&output=csvC'; // thay link CSV public ở đây
 
 Papa.parse(csvUrl, {
   download: true,
   header: true,
-  skipEmptyLines: true,
-  complete: function(results) {
-    // Lọc dữ liệu sạch
-    locations = results.data.map(row => {
-      const name = row['name'] ? row['name'].replace(/\u00A0/g, ' ').trim() : null;
-      const description = row['description'] ? row['description'].replace(/\u00A0/g, ' ').trim() : '';
-      const lat = parseFloat(row['lat']);
-      const lng = parseFloat(row['lng']);
-      const images = row['images'] ? row['images'].split(';').map(i => i.trim()) : [];
-      return { name, description, lat, lng, images };
-    }).filter(r => r.name && !isNaN(r.lat) && !isNaN(r.lng));
-
-    // Tạo marker
-    locations.forEach((loc, idx) => {
-      var popupContent = `<b>${loc.name}</b><br>${loc.description}`;
-      if(loc.images.length > 0){
-        popupContent += '<div class="popup-images">';
-        loc.images.forEach((img, i) => {
-          popupContent += `<img src="${img}" data-index="${i}" data-images='${JSON.stringify(loc.images)}'>`;
-        });
-        popupContent += '</div>';
-      }
-
-      let marker = L.marker([loc.lat, loc.lng]).addTo(map).bindPopup(popupContent);
-      markers.push(marker);
-    });
-
-    // Click ảnh popup
-    map.on('popupopen', e => {
-      var popup = e.popup._contentNode;
-      if(popup){
-        popup.querySelectorAll('.popup-images img').forEach(imgEl => {
-          imgEl.addEventListener('click', () => {
-            currentImages = JSON.parse(imgEl.getAttribute('data-images'));
-            currentIndex = parseInt(imgEl.getAttribute('data-index'));
-            showModalImage(currentIndex);
-            modal.style.display = 'block';
-          });
-        });
-      }
-    });
-
-    // === Sidebar danh sách ===
-    const placeList = document.getElementById('placeList');
-    function renderList(keyword = '') {
-      placeList.innerHTML = '';
-      locations.forEach((loc, idx) => {
-        if(!loc.name) return;
-        if(loc.name.toLowerCase().includes(keyword.toLowerCase())){
-          let li = document.createElement('li');
-          li.textContent = loc.name;
-          li.addEventListener('click', () => {
-            map.setView([loc.lat, loc.lng], 15);
-            markers[idx].openPopup();
-          });
-          placeList.appendChild(li);
-        }
-      });
-    }
-
-    renderList();
-
-    // Tìm kiếm
-    const searchBox = document.getElementById('searchBox');
-    if(searchBox){
-      searchBox.addEventListener('input', function(){
-        renderList(this.value);
-      });
-    }
+  complete: function (results) {
+    locations = results.data.filter(row => row.lat && row.lng); // bỏ hàng trống
+    renderMarkers(locations);
+    renderList(locations);
   }
+});
+
+// Render markers lên bản đồ
+function renderMarkers(data) {
+  markers.forEach(marker => map.removeLayer(marker));
+  markers = [];
+
+  data.forEach(loc => {
+    let lat = parseFloat(loc.lat);
+    let lng = parseFloat(loc.lng);
+    let name = loc.name || 'Không tên';
+
+    if (!isNaN(lat) && !isNaN(lng)) {
+      let marker = L.marker([lat, lng])
+        .addTo(map)
+        .bindPopup(`<b>${name}</b><br>${loc.desc || ''}`);
+      markers.push(marker);
+    }
+  });
+}
+
+// Render danh sách bên sidebar
+function renderList(data) {
+  const list = document.getElementById('locationList');
+  list.innerHTML = '';
+
+  data.forEach((loc, index) => {
+    if (!loc || !loc.name) return; // tránh lỗi undefined
+
+    const li = document.createElement('li');
+    li.textContent = loc.name;
+    li.onclick = () => {
+      map.setView([parseFloat(loc.lat), parseFloat(loc.lng)], 15);
+      markers[index].openPopup();
+    };
+    list.appendChild(li);
+  });
+}
+
+// Tìm kiếm
+document.getElementById('search').addEventListener('input', function () {
+  const searchText = this.value.toLowerCase();
+  const filtered = locations.filter(loc => {
+    return loc.name && loc.name.toLowerCase().includes(searchText);
+  });
+  renderMarkers(filtered);
+  renderList(filtered);
 });
