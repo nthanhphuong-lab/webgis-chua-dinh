@@ -22,8 +22,6 @@
     { "type": "Feature", "properties": { "name": "Chùa Bảo Quang", "description": "Chùa Bảo Quang, ngôi chùa cổ tại huyện Kiên Lương, Kiên Giang.", "images": ["images/chua_bao_quang_1.jpg","images/chua_bao_quang_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.4792, 9.7518] } },
     { "type": "Feature", "properties": { "name": "Đình An Hòa", "description": "Đình An Hòa, di tích văn hóa tại An Phú, An Giang.", "images": ["images/dinh_an_hoa_1.jpg","images/dinh_an_hoa_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.1234, 10.7321] } },
     { "type": "Feature", "properties": { "name": "Chùa Phước Điền", "description": "Chùa Phước Điền, ngôi chùa cổ tại Long Xuyên, An Giang.", "images": ["images/chua_phuoc_dien_1.jpg","images/chua_phuoc_dien_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.4162, 10.3830] } },
-    
-    // ===== Thêm 20 địa điểm mới =====
     { "type": "Feature", "properties": { "name": "Chùa Vạn Linh", "description": "Chùa Vạn Linh trên Núi Cấm, Tịnh Biên, An Giang.", "images": ["images/chua_van_linh_1.jpg","images/chua_van_linh_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.2295, 10.4263] } },
     { "type": "Feature", "properties": { "name": "Chùa Tây An Cổ Tự", "description": "Chùa Tây An Cổ Tự trên Núi Sam, Châu Đốc, An Giang.", "images": ["images/chua_tay_an_1.jpg","images/chua_tay_an_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.0778, 10.6790] } },
     { "type": "Feature", "properties": { "name": "Chùa Koh Kas", "description": "Chùa Koh Kas, ngôi chùa Khmer tại Tri Tôn, An Giang.", "images": ["images/chua_koh_kas_1.jpg","images/chua_koh_kas_2.jpg"] }, "geometry": { "type": "Point", "coordinates": [105.2250, 10.5333] } },
