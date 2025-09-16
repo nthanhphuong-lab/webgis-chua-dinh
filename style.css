@@ -1,95 +1,118 @@
 html, body {
-  margin: 0;
-  padding: 0;
   height: 100%;
+  margin: 0;
   font-family: Arial, sans-serif;
 }
-header {
-  background: #007bff;
-  color: white;
-  padding: 10px;
-  text-align: center;
-}
-#searchBox {
-  width: 90%;
-  padding: 5px;
-  margin-top: 5px;
-}
-#container {
-  display: flex;
-  height: calc(100% - 90px);
-}
+
+/* Sidebar */
 #sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 250px;
-  overflow-y: auto;
-  background: #f7f7f7;
-  padding: 10px;
-}
-#map {
-  flex: 1;
   height: 100%;
+  overflow-y: auto;
+  background: #f9f9f9;
+  border-right: 1px solid #ccc;
+  padding: 10px;
+  z-index: 1000;
+  transition: transform 0.3s ease;
 }
+#sidebar.hidden {
+  transform: translateX(-100%);
+}
+
+/* Map */
+#map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Search box */
+#searchBox {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+/* Danh sách địa điểm */
 #placeList {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 #placeList li {
-  padding: 8px;
-  border-bottom: 1px solid #ccc;
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
   cursor: pointer;
 }
 #placeList li:hover {
-  background: #ddd;
+  background: #eee;
 }
 
-/* Popup images small thumbnails */
+/* Nút toggle */
+#toggleSidebar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1500;
+  padding: 6px 10px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Popup slideshow */
 .popup-images img {
   width: 60px;
   height: 60px;
+  object-fit: cover;
   margin: 2px;
   cursor: pointer;
-  object-fit: cover;
+  border-radius: 4px;
 }
 
-/* Modal for big image */
+/* Modal ảnh lớn */
 .modal {
   display: none;
   position: fixed;
-  z-index: 9999;
-  padding-top: 60px;
+  z-index: 2000;
+  padding-top: 50px;
   left: 0; top: 0;
   width: 100%; height: 100%;
-  overflow: auto;
+  overflow: hidden;
   background-color: rgba(0,0,0,0.9);
 }
-.modal-content {
+.modal img {
   display: block;
   margin: auto;
   max-width: 90%;
   max-height: 80%;
 }
-.close {
+.modal .close {
   position: absolute;
-  top: 15px; right: 35px;
-  color: #fff; font-size: 40px;
+  top: 20px; right: 35px;
+  color: #fff;
+  font-size: 40px;
   font-weight: bold;
   cursor: pointer;
 }
-.prev, .next {
-  cursor: pointer;
+.nav-btn {
   position: absolute;
   top: 50%;
-  width: auto;
-  padding: 16px;
-  margin-top: -50px;
   color: white;
-  font-weight: bold;
-  font-size: 40px;
-  user-select: none;
+  font-size: 30px;
+  background: rgba(0,0,0,0.5);
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  transform: translateY(-50%);
 }
-.prev { left: 0; }
-.next { right: 0; }
-.prev:hover, .next:hover, .close:hover {
-  color: #999;
-}
+#prevImage { left: 20px; }
+#nextImage { right: 20px; }
