@@ -18,16 +18,7 @@ document.getElementById('toggleSidebar').addEventListener('click', function () {
 function showDetailPanel(props){
   document.getElementById('detailPanel').classList.remove('hidden');
   document.getElementById('detailTitle').textContent = props.name;
-  document.getElementById('detailDesc').textContent = props.description;
-  let imgDiv = document.getElementById('detailImages');
-  imgDiv.innerHTML = '';
-  (props.images || []).forEach(img=>{
-    let i = document.createElement('img');
-    i.src = img;
-    i.style.width = '80px';
-    i.style.margin = '2px';
-    imgDiv.appendChild(i);
-  });
+  document.getElementById('detailDesc').textContent = props.detail || props.description || '';
 }
 document.getElementById('closeDetail').onclick = () => {
   document.getElementById('detailPanel').classList.add('hidden');
@@ -98,7 +89,7 @@ fetch('data.geojson')
       },
       onEachFeature: function(feature, layer) {
         var props = feature.properties;
-        // Tạo popup content
+        // Popup content
         var popupContent = `<b>${props.name}</b><br>${props.description}`;
         if (props.images && props.images.length > 0) {
           popupContent += `<div class="popup-images">`;
