@@ -10,41 +10,38 @@
 </head>
 <body>
   <div id="sidebar">
-  <h2>Danh sách Chùa / Đình</h2>
-  <input type="text" id="searchBox" placeholder="Tìm kiếm...">
-  <ul id="placeList"></ul>
-  <div id="detailPanel" class="hidden">
-    <button id="closeDetail">Đóng</button>
-    <h3 id="detailTitle"></h3>
-    <p id="detailDesc"></p>
-    <div id="detailImages"></div>
-  </div>
-</div>
+    <h2>Danh sách Chùa / Đình</h2>
+    <input type="text" id="searchBox" placeholder="Tìm kiếm...">
+    <ul id="placeList"></ul>
 
+    <!-- Panel chi tiết -->
+    <div id="detailPanel" class="hidden">
+      <button id="closeDetail">Đóng</button>
+      <h3 id="detailTitle"></h3>
+      <p id="detailDesc"></p>
+      <div id="detailImages"></div>
+    </div>
+  </div>
 
   <button id="toggleSidebar">☰ Danh sách</button>
   <div id="map"></div>
 
- <!-- Modal ảnh lớn nâng cao -->
-<!-- Modal ảnh lớn nâng cao -->
-<div id="imageModal" class="modal">
-  <span class="close">&times;</span>
-  <h2 id="modalTitle" style="color:white;text-align:center;"></h2>
-  <p id="modalDesc" style="color:white;text-align:center;"></p>
-  <img id="modalImage" src="">
-  <button id="prevImage" class="nav-btn">❮</button>
-  <button id="nextImage" class="nav-btn">❯</button>
-  <button id="modalRouteBtn" style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%);padding:8px 15px;background:#007bff;color:white;border:none;border-radius:5px;cursor:pointer;">Chỉ đường</button>
-</div>
-
+  <!-- Modal ảnh lớn -->
+  <div id="imageModal" class="modal">
+    <span class="close">&times;</span>
+    <h2 id="modalTitle" style="color:white;text-align:center;"></h2>
+    <p id="modalDesc" style="color:white;text-align:center;"></p>
+    <img id="modalImage" src="">
+    <button id="prevImage" class="nav-btn">❮</button>
+    <button id="nextImage" class="nav-btn">❯</button>
+    <button id="modalRouteBtn" style="position:absolute;bottom:20px;left:50%;
+      transform:translateX(-50%);
+      padding:8px 15px;background:#007bff;
+      color:white;border:none;border-radius:5px;cursor:pointer;">Chỉ đường</button>
+  </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
