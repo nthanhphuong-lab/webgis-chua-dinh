@@ -127,31 +127,39 @@ html, body {
 #clearRouteBtn:hover {
   background:#d32f2f;
 }
+/* =================== DETAIL PANEL =================== */
 #detailPanel {
-  margin-top:10px;
-  padding:10px;
-  background:#f0f0f0;
-  border-top:1px solid #ccc;
-  max-height:200px;
-  overflow-y:auto;
+  background: #fff;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  margin-top: 10px;
 }
 #detailPanel.hidden {
-  display:none;
+  display: none;
 }
-#detailImages img {
-  width:60px;
-  height:60px;
-  object-fit:cover;
-  margin:2px;
-  border-radius:4px;
+#detailPanel h3 {
+  margin: 5px 0;
+  font-size: 16px;
+}
+#detailPanel p {
+  font-size: 14px;
+  margin: 5px 0 10px 0;
+}
+#detailPanel #detailImages img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin: 2px;
+  border-radius: 4px;
 }
 #closeDetail {
-  float:right;
-  padding:3px 6px;
-  background:#d33;
-  color:white;
-  border:none;
-  border-radius:3px;
-  cursor:pointer;
+  float: right;
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  margin-bottom: 5px;
 }
-
