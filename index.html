@@ -10,10 +10,17 @@
 </head>
 <body>
   <div id="sidebar">
-    <h2>Danh sách Chùa / Đình</h2>
-    <input type="text" id="searchBox" placeholder="Tìm kiếm...">
-    <ul id="placeList"></ul>
+  <h2>Danh sách Chùa / Đình</h2>
+  <input type="text" id="searchBox" placeholder="Tìm kiếm...">
+  <ul id="placeList"></ul>
+  <div id="detailPanel" class="hidden">
+    <button id="closeDetail">Đóng</button>
+    <h3 id="detailTitle"></h3>
+    <p id="detailDesc"></p>
+    <div id="detailImages"></div>
   </div>
+</div>
+
 
   <button id="toggleSidebar">☰ Danh sách</button>
   <div id="map"></div>
@@ -36,6 +43,7 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
