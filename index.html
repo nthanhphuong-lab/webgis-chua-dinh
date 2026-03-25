@@ -7,24 +7,27 @@
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+<button id="toggleSidebar">☰ Bộ lọc / Danh sách</button>
 <div id="sidebar">
   <h2>Danh sách Thần Miếu</h2>
-  <label>Loại Thần:
-    <select id="filterLoai">
-      <option value="">Tất cả</option>
-    </select>
-  </label>
-  <label>Tộc người:
-    <select id="filterToc">
-      <option value="">Tất cả</option>
-    </select>
-  </label>
-  <label>Phường/Xã:
-    <select id="filterPhuongXa">
-      <option value="">Tất cả</option>
-    </select>
-  </label>
-  <button id="resetFilter">Reset Filter</button>
+  <div id="filters">
+    <label>Loại Thần:
+      <select id="filterLoai">
+        <option value="">Tất cả</option>
+      </select>
+    </label>
+    <label>Tộc người:
+      <select id="filterToc">
+        <option value="">Tất cả</option>
+      </select>
+    </label>
+    <label>Phường/Xã:
+      <select id="filterPhuongXa">
+        <option value="">Tất cả</option>
+      </select>
+    </label>
+    <button id="resetFilter">Reset</button>
+  </div>
   <ul id="placeList"></ul>
 </div>
 
