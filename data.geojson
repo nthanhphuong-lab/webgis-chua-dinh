@@ -2,118 +2,76 @@
   "type": "FeatureCollection",
   "features": [
     {
-      "type":"Feature",
-      "geometry":{"type":"Point","coordinates":[105.1167,10.7025]},
-      "properties":{
-        "id":"chua_ong_cd",
-        "loaithanchu":"Chùa Hoa",
-        "toc":"Quan Công",
-        "diadanh":"Châu Đốc",
-        "detai":"Trường",
-        "machua":"301030316",
-        "giaimachua":"Miếu, Quan Công, Phường Châu Đốc",
-        "tenuutien":"Quan Thánh Đế Quân",
-        "phone":"0983942119",
-        "tendanhSach":"Miếu Quan Đế",
-        "linkMap":"https://maps.app.goo.gl/vdXKRMCNg8nxwYZHA",
-        "linkCSDL":"",
-        "diachiChiTiet":"Tại số 8, đường Lê Minh Ngươn, thị xã Long Xuyên."
-      }
+      "type": "Feature",
+      "properties": {
+        "loai": "08",
+        "toc": "6",
+        "diadanh": "30307",
+        "detai": "Trường",
+        "machua": "308630307",
+        "giaimachu": "Miếu, Quan Công, Quảng Đông, Phường Long Xuyên",
+        "tenUuTien": "Quan Thánh Đế Quân",
+        "phone": "098 394 21 19",
+        "tendanhSach": "Miếu Quan Đế",
+        "linkMap": "https://maps.app.goo.gl/vdXKRMCNg8nxwYZHA",
+        "linkCSDL": "",
+        "diachiChiTiet": "Tại số 8, đường Lê Minh Ngươn, thị xã Long Xuyên."
+      },
+      "geometry": {"type": "Point","coordinates":[105.4340,10.3820]}
     },
     {
-      "type":"Feature",
-      "geometry":{"type":"Point","coordinates":[105.435,10.384]},
-      "properties":{
-        "id":"thien_hau_lx",
-        "loaithanchu":"Chùa Hoa",
-        "toc":"Thiên Hậu",
-        "diadanh":"Long Xuyên",
-        "detai":"Trường",
-        "machua":"303010000",
-        "giaimachua":"Miếu Bà Thiên Hậu",
-        "tenuutien":"Thiên Hậu Thánh Mẫu",
-        "phone":"",
-        "tendanhSach":"Miếu Bà Thiên Hậu Long Xuyên",
-        "linkMap":"https://maps.app.goo.gl/example2",
-        "linkCSDL":"",
-        "diachiChiTiet":"Long Xuyên, An Giang."
-      }
+      "type": "Feature",
+      "properties": {
+        "loai": "00",
+        "toc": "5",
+        "diadanh": "30742",
+        "detai": "Trường, Luận án",
+        "machua": "500530742",
+        "giaimachu": "Từ đường, Không rõ, Phúc Kiến, Phường Rạch Giá",
+        "tenUuTien": "",
+        "phone": "0919 181 190",
+        "tendanhSach": "Di Tích Lịch Sử Lăng Mộ Hội Đồng Suông",
+        "linkMap": "https://maps.app.goo.gl/QdKacasTfVRaeQSq5",
+        "linkCSDL": "",
+        "diachiChiTiet": "Đường Số 3, Khu Nam, Rạch Giá, Kiên Giang, Việt Nam"
+      },
+      "geometry": {"type": "Point","coordinates":[105.0833,10.0125]}
     },
     {
-      "type":"Feature",
-      "geometry":{"type":"Point","coordinates":[105.082,10.687]},
-      "properties":{
-        "id":"phuoc_an_cd",
-        "loaithanchu":"Hội quán",
-        "toc":"Người Hoa",
-        "diadanh":"Châu Đốc",
-        "detai":"Trường",
-        "machua":"302030000",
-        "giaimachua":"Hội quán Phước An",
-        "tenuutien":"Phước An",
-        "phone":"",
-        "tendanhSach":"Hội quán Phước An",
-        "linkMap":"https://maps.app.goo.gl/example3",
-        "linkCSDL":"",
-        "diachiChiTiet":"Châu Đốc, An Giang."
-      }
+      "type": "Feature",
+      "properties": {
+        "loai": "01",
+        "toc": "0",
+        "diadanh": "30316",
+        "detai": "Trường",
+        "machua": "301030316",
+        "giaimachu": "Miếu, Bà Mã Châu - Thiên Hậu Thánh Mẫu, Không rõ, Phường Châu Đốc",
+        "tenUuTien": "Thiên Hậu Thánh Mẫu",
+        "phone": "",
+        "tendanhSach": "Thiên Hậu Thánh Mẫu (Thánh miếu)",
+        "linkMap": "https://maps.app.goo.gl/edTGLvuVXY6dh1tw9",
+        "linkCSDL": "",
+        "diachiChiTiet": "Ấp Châu Long 1, xã Vĩnh Mỹ, thị xã Châu Đốc."
+      },
+      "geometry": {"type": "Point","coordinates":[105.1257,10.7081]}
     },
     {
-      "type":"Feature",
-      "geometry":{"type":"Point","coordinates":[105.1,10.69]},
-      "properties":{
-        "id":"tam_son_cd",
-        "loaithanchu":"Chùa Hoa",
-        "toc":"Phật giáo",
-        "diadanh":"Châu Đốc",
-        "detai":"Trường",
-        "machua":"301030001",
-        "giaimachua":"Chùa Tam Sơn",
-        "tenuutien":"Phật",
-        "phone":"",
-        "tendanhSach":"Chùa Tam Sơn",
-        "linkMap":"https://maps.app.goo.gl/example4",
-        "linkCSDL":"",
-        "diachiChiTiet":"Châu Đốc, An Giang."
-      }
-    },
-    {
-      "type":"Feature",
-      "geometry":{"type":"Point","coordinates":[105.12,10.71]},
-      "properties":{
-        "id":"quan_de_cd",
-        "loaithanchu":"Chùa Hoa",
-        "toc":"Quan Công",
-        "diadanh":"Châu Đốc",
-        "detai":"Trường",
-        "machua":"308830316",
-        "giaimachua":"Miếu Quan Đế",
-        "tenuutien":"Quan Công",
-        "phone":"",
-        "tendanhSach":"Miếu Quan Đế",
-        "linkMap":"https://maps.app.goo.gl/example5",
-        "linkCSDL":"",
-        "diachiChiTiet":"Châu Đốc, An Giang."
-      }
-    },
-    {
-      "type":"Feature",
-      "geometry":{"type":"Point","coordinates":[105.43,10.39]},
-      "properties":{
-        "id":"phuoc_kien_rg",
-        "loaithanchu":"Hội quán",
-        "toc":"Phúc Kiến",
-        "diadanh":"Rạch Giá",
-        "detai":"Trường",
-        "machua":"302030469",
-        "giaimachua":"Hội quán Phước Kiến",
-        "tenuutien":"Phúc Kiến",
-        "phone":"",
-        "tendanhSach":"Hội quán Phước Kiến",
-        "linkMap":"https://maps.app.goo.gl/example6",
-        "linkCSDL":"",
-        "diachiChiTiet":"Rạch Giá, Kiên Giang."
-      }
+      "type": "Feature",
+      "properties": {
+        "loai": "01",
+        "toc": "0",
+        "diadanh": "31018",
+        "detai": "Trường",
+        "machua": "301031018",
+        "giaimachu": "Miếu, Bà Mã Châu - Thiên Hậu Thánh Mẫu, Không rõ, Xã An Minh",
+        "tenUuTien": "",
+        "phone": "",
+        "tendanhSach": "Miếu bà Mã Châu",
+        "linkMap": "https://maps.app.goo.gl/9DibQ3rwrowjuzKaA",
+        "linkCSDL": "",
+        "diachiChiTiet": "Tổ 9, khu phố 1, thị trấn Thứ 11"
+      },
+      "geometry": {"type": "Point","coordinates":[105.1500,9.9500]}
     }
   ]
 }
