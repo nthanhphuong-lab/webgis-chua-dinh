@@ -1,5 +1,10 @@
 // ===== MAP =====
-var map = L.map('map').setView([10.5, 105.3], 9);
+var map = L.map('map', {
+  zoomControl: false // tắt zoom mặc định để custom vị trí
+}).setView([10.5, 105.3], 9);
+
+// Thêm zoom control góc phải trên
+L.control.zoom({ position: 'topright' }).addTo(map);
 
 // Base layers
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
@@ -65,7 +70,7 @@ function renderList(data) {
 
   data.forEach(f => {
     let li = document.createElement("li");
-    li.innerText = f.properties.tendanhSach; // hiển thị tên danh sách
+    li.innerText = f.properties.tendanhSach;
 
     li.onclick = () => {
       let lat = f.geometry.coordinates[1];
