@@ -13,12 +13,12 @@ Promise.all([
   populateList(dataFeatures);
 });
 
-// Map và markers
 let map, markersLayer;
 
 function initMap() {
   map = L.map('map').setView([10.3791, 105.4317], 10);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'&copy; OSM'}).addTo(map);
+
   markersLayer = L.geoJSON(dataFeatures, {
     onEachFeature: (f, layer)=>{
       const p = f.properties;
@@ -33,11 +33,10 @@ function initMap() {
   }).addTo(map);
 }
 
-// Populate menu lọc
 function populateFilters() {
   const selectLoai = document.getElementById('filterLoai');
   loai.forEach(l=>selectLoai.innerHTML+=`<option value="${l.id}">${l.name}</option>`);
-  
+
   const selectToc = document.getElementById('filterToc');
   toc.forEach(t=>selectToc.innerHTML+=`<option value="${t.id}">${t.name}</option>`);
 
@@ -59,7 +58,6 @@ function populateFilters() {
   };
 }
 
-// Apply filter
 function applyFilter() {
   const fLoai = document.getElementById('filterLoai').value;
   const fToc = document.getElementById('filterToc').value;
@@ -89,7 +87,6 @@ function applyFilter() {
   populateList(filtered);
 }
 
-// Populate danh sách địa điểm
 function populateList(features) {
   const ul = document.getElementById('placeList');
   ul.innerHTML = '';
