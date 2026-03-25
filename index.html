@@ -2,25 +2,29 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Web GIS Thần Miếu An Giang</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-<link rel="stylesheet" href="style.css">
+<title>Bản đồ Thần Miếu</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <div id="sidebar">
-  <h2>Bộ lọc dữ liệu</h2>
-  <label>Loại Thần Chủ:</label>
-  <select id="filterLoai"><option value="">Tất cả</option></select>
-  <label>Tộc Người:</label>
-  <select id="filterToc"><option value="">Tất cả</option></select>
-  <label>Phường/Xã:</label>
-  <select id="filterXa"><option value="">Tất cả</option></select>
-  <h3>Danh sách</h3>
-  <ul id="datalist"></ul>
+  <h2>Danh sách Thần Miếu</h2>
+  <label>Loại Thần:
+    <select id="filterLoai">
+      <option value="">Tất cả</option>
+    </select>
+  </label>
+  <label>Tộc người:
+    <select id="filterToc">
+      <option value="">Tất cả</option>
+    </select>
+  </label>
+  <ul id="placeList"></ul>
 </div>
+
 <div id="map"></div>
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
