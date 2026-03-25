@@ -32,15 +32,13 @@ body, html {
   transform: translateX(-100%);
 }
 
-#toggleSidebar {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 1100;
+#sidebar button#toggleSidebar {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 5px;
+  cursor: pointer;
   background: #fff;
   border: 1px solid #ccc;
-  padding: 5px 10px;
-  cursor: pointer;
 }
 
 #filters {
