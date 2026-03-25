@@ -1,12 +1,57 @@
 {
-  "type": "Feature",
-  "geometry": { "type": "Point", "coordinates": [105.432, 10.379] },
-  "properties": {
-    "Loai": "01",
-    "Toc": "6",
-    "DiaDanh": "30307",
-    "TenDanhSach": "Miếu Quan Đế",
-    "DiaChi": "Tại số 8, đường Lê Minh Ngươn...",
-    "LinkMap": "https://maps.app.goo.gl/vdXKRMCNg8nxwYZHA"
-  }
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.432, 10.379] },
+      "properties": {
+        "Loai": "01",
+        "Toc": "6",
+        "DiaDanh": "30307",
+        "TenDanhSach": "Miếu Quan Đế",
+        "DiaChi": "Tại số 8, đường Lê Minh Ngươn, TP Long Xuyên",
+        "LinkMap": "https://maps.app.goo.gl/vdXKRMCNg8nxwYZHA",
+        "HinhAnh": "images/mieu1.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.433, 10.380] },
+      "properties": {
+        "Loai": "02",
+        "Toc": "5",
+        "DiaDanh": "30742",
+        "TenDanhSach": "Đền Bảo Sanh",
+        "DiaChi": "Phường Rạch Giá, An Giang",
+        "LinkMap": "https://maps.app.goo.gl/example2",
+        "HinhAnh": "images/mieu2.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.430, 10.378] },
+      "properties": {
+        "Loai": "08",
+        "Toc": "7",
+        "DiaDanh": "30316",
+        "TenDanhSach": "Miếu Quan Công",
+        "DiaChi": "Phường Châu Đốc, An Giang",
+        "LinkMap": "https://maps.app.goo.gl/example3",
+        "HinhAnh": "images/mieu3.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.431, 10.377] },
+      "properties": {
+        "Loai": "09",
+        "Toc": "4",
+        "DiaDanh": "31018",
+        "TenDanhSach": "Đền Táo Quân",
+        "DiaChi": "Xã An Minh, An Giang",
+        "LinkMap": "https://maps.app.goo.gl/example4",
+        "HinhAnh": "images/mieu4.jpg"
+      }
+    }
+  ]
 }
