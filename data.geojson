@@ -1,77 +1,60 @@
 {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "properties": {
-        "loai": "08",
-        "toc": "6",
-        "diadanh": "30307",
-        "detai": "Trường",
-        "machua": "308630307",
-        "giaimachu": "Miếu, Quan Công, Quảng Đông, Phường Long Xuyên",
-        "tenUuTien": "Quan Thánh Đế Quân",
-        "phone": "098 394 21 19",
-        "tendanhSach": "Miếu Quan Đế",
-        "linkMap": "https://maps.app.goo.gl/vdXKRMCNg8nxwYZHA",
-        "linkCSDL": "",
-        "diachiChiTiet": "Tại số 8, đường Lê Minh Ngươn, thị xã Long Xuyên."
-      },
-      "geometry": {"type": "Point","coordinates":[105.4340,10.3820]}
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "loai": "00",
-        "toc": "5",
-        "diadanh": "30742",
-        "detai": "Trường, Luận án",
-        "machua": "500530742",
-        "giaimachu": "Từ đường, Không rõ, Phúc Kiến, Phường Rạch Giá",
-        "tenUuTien": "",
-        "phone": "0919 181 190",
-        "tendanhSach": "Di Tích Lịch Sử Lăng Mộ Hội Đồng Suông",
-        "linkMap": "https://maps.app.goo.gl/QdKacasTfVRaeQSq5",
-        "linkCSDL": "",
-        "diachiChiTiet": "Đường Số 3, Khu Nam, Rạch Giá, Kiên Giang, Việt Nam"
-      },
-      "geometry": {"type": "Point","coordinates":[105.0833,10.0125]}
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "loai": "01",
-        "toc": "0",
-        "diadanh": "30316",
-        "detai": "Trường",
-        "machua": "301030316",
-        "giaimachu": "Miếu, Bà Mã Châu - Thiên Hậu Thánh Mẫu, Không rõ, Phường Châu Đốc",
-        "tenUuTien": "Thiên Hậu Thánh Mẫu",
-        "phone": "",
-        "tendanhSach": "Thiên Hậu Thánh Mẫu (Thánh miếu)",
-        "linkMap": "https://maps.app.goo.gl/edTGLvuVXY6dh1tw9",
-        "linkCSDL": "",
-        "diachiChiTiet": "Ấp Châu Long 1, xã Vĩnh Mỹ, thị xã Châu Đốc."
-      },
-      "geometry": {"type": "Point","coordinates":[105.1257,10.7081]}
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "loai": "01",
-        "toc": "0",
-        "diadanh": "31018",
-        "detai": "Trường",
-        "machua": "301031018",
-        "giaimachu": "Miếu, Bà Mã Châu - Thiên Hậu Thánh Mẫu, Không rõ, Xã An Minh",
-        "tenUuTien": "",
-        "phone": "",
-        "tendanhSach": "Miếu bà Mã Châu",
-        "linkMap": "https://maps.app.goo.gl/9DibQ3rwrowjuzKaA",
-        "linkCSDL": "",
-        "diachiChiTiet": "Tổ 9, khu phố 1, thị trấn Thứ 11"
-      },
-      "geometry": {"type": "Point","coordinates":[105.1500,9.9500]}
+"type": "FeatureCollection",
+"features": [
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [105.4325, 10.3815] },
+    "properties": {
+      "ten": "Quan Thánh Đế Quân",
+      "loai": "08",
+      "toc": "6",
+      "diadanh": "30307",
+      "diachi": "Tại số 8, đường Lê Minh Ngươn, Long Xuyên"
     }
-  ]
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [105.1142, 9.9783] },
+    "properties": {
+      "ten": "Chùa Bà Thiên Hậu",
+      "loai": "01",
+      "toc": "0",
+      "diadanh": "30316",
+      "diachi": "Ấp Châu Long 1, xã Vĩnh Mỹ, Châu Đốc"
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [105.1340, 9.9285] },
+    "properties": {
+      "ten": "Vệ Thủy Miếu",
+      "loai": "00",
+      "toc": "4",
+      "diadanh": "30316",
+      "diachi": "242 Đường Châu Long, Châu Đốc"
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [105.2100, 9.9100] },
+    "properties": {
+      "ten": "Miếu Bảo Sanh",
+      "loai": "02",
+      "toc": "0",
+      "diadanh": "30469",
+      "diachi": "Xã Mỹ Đức, huyện Châu Phú"
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [105.2150, 9.9350] },
+    "properties": {
+      "ten": "Chùa Ông Bổn",
+      "loai": "07",
+      "toc": "3",
+      "diadanh": "30742",
+      "diachi": "41 Quang Trung, Rạch Giá"
+    }
+  }
+]
 }
