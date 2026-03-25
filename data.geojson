@@ -1,66 +1,77 @@
-[
-  {
-    "Loai":"08",
-    "Toc":"6",
-    "DiaDanh":"30307",
-    "DeTai":"Trường",
-    "MaChua":"308630307",
-    "GiaiMaChua":"Miếu, Quan Công, Quảng Đông, Phường Long Xuyên",
-    "TenUuTien":"Quan Thánh Đế Quân",
-    "Phone":"0983942119",
-    "TenDanhSach":"Miếu Quan Đế",
-    "LinkMap":"https://maps.google.com/?q=10.3791,105.4317",
-    "LinkCSDL":"",
-    "DiaChi":"Tại số 8, đường Lê Minh Ngươn, thị xã Long Xuyên",
-    "lat":10.3791,
-    "lng":105.4317
-  },
-  {
-    "Loai":"00",
-    "Toc":"5",
-    "DiaDanh":"30742",
-    "DeTai":"Trường, Luận án",
-    "MaChua":"500530742",
-    "GiaiMaChua":"Từ đường, Không rõ, Phúc Kiến, Phường Rạch Giá",
-    "TenUuTien":"",
-    "Phone":"0919181190",
-    "TenDanhSach":"Di Tích Lịch Sử Lăng Mộ Hội Đồng Suông",
-    "LinkMap":"https://maps.google.com/?q=9.9937,105.1282",
-    "LinkCSDL":"",
-    "DiaChi":"Đường Số 3, Khu Nam, Rạch Giá, Kiên Giang, Việt Nam",
-    "lat":9.9937,
-    "lng":105.1282
-  },
-  {
-    "Loai":"01",
-    "Toc":"0",
-    "DiaDanh":"30316",
-    "DeTai":"Trường",
-    "MaChua":"301030316",
-    "GiaiMaChua":"Miếu, Bà Mã Châu - Thiên Hậu Thánh Mẫu, Không rõ, Phường Châu Đốc",
-    "TenUuTien":"Thiên Hậu Thánh Mẫu",
-    "Phone":"",
-    "TenDanhSach":"Thiên Hậu Thánh Mẫu (Thánh miếu)",
-    "LinkMap":"https://maps.google.com/?q=10.6874,105.1167",
-    "LinkCSDL":"",
-    "DiaChi":"Ấp Châu Long 1, xã Vĩnh Mỹ, thị xã Châu Đốc",
-    "lat":10.6874,
-    "lng":105.1167
-  },
-  {
-    "Loai":"01",
-    "Toc":"0",
-    "DiaDanh":"31018",
-    "DeTai":"Trường",
-    "MaChua":"301031018",
-    "GiaiMaChua":"Miếu, Bà Mã Châu - Thiên Hậu Thánh Mẫu, Không rõ, Xã An Minh",
-    "TenUuTien":"",
-    "Phone":"",
-    "TenDanhSach":"Miếu Bà Mã Châu",
-    "LinkMap":"https://maps.google.com/?q=9.8833,104.9850",
-    "LinkCSDL":"",
-    "DiaChi":"Tổ 9, khu phố 1, thị trấn Thứ 11",
-    "lat":9.8833,
-    "lng":104.9850
-  }
-]
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point","coordinates":[105.4317,10.3791]},
+      "properties": {
+        "Loai":"08",
+        "Toc":"6",
+        "DiaDanh":"30307",
+        "DeTai":"Trường",
+        "MaChua":"308630307",
+        "GiaiMaChua":"Miếu, Quan Công, Quảng Đông, Phường Long Xuyên",
+        "TenUuTien":"Quan Thánh Đế Quân",
+        "Phone":"0983942119",
+        "TenDanhSach":"Miếu Quan Đế",
+        "LinkMap":"https://maps.google.com/?q=10.3791,105.4317",
+        "LinkCSDL":"",
+        "DiaChi":"Tại số 8, đường Lê Minh Ngươn, thị xã Long Xuyên"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point","coordinates":[105.1282,9.9937]},
+      "properties": {
+        "Loai":"00",
+        "Toc":"5",
+        "DiaDanh":"30742",
+        "DeTai":"Trường, Luận án",
+        "MaChua":"500530742",
+        "GiaiMaChua":"Từ đường, Không rõ, Phúc Kiến, Phường Rạch Giá",
+        "TenUuTien":"",
+        "Phone":"0919181190",
+        "TenDanhSach":"Di Tích Lịch Sử Lăng Mộ Hội Đồng Suông",
+        "LinkMap":"https://maps.google.com/?q=9.9937,105.1282",
+        "LinkCSDL":"",
+        "DiaChi":"Đường Số 3, Khu Nam, Rạch Giá, Kiên Giang, Việt Nam"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point","coordinates":[105.1167,10.6874]},
+      "properties": {
+        "Loai":"01",
+        "Toc":"0",
+        "DiaDanh":"30316",
+        "DeTai":"Trường",
+        "MaChua":"301030316",
+        "GiaiMaChua":"Miếu, Bà Mã Châu - Thiên Hậu Thánh Mẫu, Không rõ, Phường Châu Đốc",
+        "TenUuTien":"Thiên Hậu Thánh Mẫu",
+        "Phone":"",
+        "TenDanhSach":"Thiên Hậu Thánh Mẫu (Thánh miếu)",
+        "LinkMap":"https://maps.google.com/?q=10.6874,105.1167",
+        "LinkCSDL":"",
+        "DiaChi":"Ấp Châu Long 1, xã Vĩnh Mỹ, thị xã Châu Đốc"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point","coordinates":[104.9850,9.8833]},
+      "properties": {
+        "Loai":"01",
+        "Toc":"0",
+        "DiaDanh":"31018",
+        "DeTai":"Trường",
+        "MaChua":"301031018",
+        "GiaiMaChua":"Miếu, Bà Mã Châu - Thiên Hậu Thánh Mẫu, Không rõ, Xã An Minh",
+        "TenUuTien":"",
+        "Phone":"",
+        "TenDanhSach":"Miếu Bà Mã Châu",
+        "LinkMap":"https://maps.google.com/?q=9.8833,104.9850",
+        "LinkCSDL":"",
+        "DiaChi":"Tổ 9, khu phố 1, thị trấn Thứ 11"
+      }
+    }
+  ]
+}
