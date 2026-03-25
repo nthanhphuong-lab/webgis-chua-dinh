@@ -1,137 +1,65 @@
-// ===== MAP =====
-var map = L.map('map', {
-  zoomControl: false // tắt zoom mặc định để custom vị trí
-}).setView([10.5, 105.3], 9);
+let map = L.map('map').setView([10.5, 105.4], 10);
 
-// Thêm zoom control góc phải trên
-L.control.zoom({ position: 'topright' }).addTo(map);
-
-// Base layers
-var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-var satellite = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-  subdomains: ['mt0','mt1','mt2','mt3']
-});
-
-osm.addTo(map);
-
-// Layer control
-L.control.layers({
-  "Bản đồ": osm,
-  "Vệ tinh": satellite
+// Bản đồ OpenStreetMap
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; OSM contributors'
 }).addTo(map);
 
-// ===== GLOBAL =====
-let allData = [];
-let markers = [];
+let loaiData = [], tocData = [], xaData = [], geoData;
+let markers = L.layerGroup().addTo(map);
 
-// ===== LOAD DATA =====
-fetch('data.geojson')
-  .then(res => res.json())
-  .then(data => {
-    allData = data.features;
-    renderList(allData);
-    renderMap(allData);
-    renderFilter(allData);
-  })
-  .catch(err => console.error('Không load được data.geojson', err));
+// Load dữ liệu JSON
+async function loadData() {
+  loaiData = await fetch('loai.json').then(res=>res.json());
+  tocData = await fetch('toc.json').then(res=>res.json());
+  xaData = await fetch('phuongxa.json').then(res=>res.json());
+  geoData = await fetch('data.geojson').then(res=>res.json());
+  
+  populateFilters();
+  updateMap();
+}
 
-// ===== RENDER MAP =====
-function renderMap(data) {
-  markers.forEach(m => map.removeLayer(m));
-  markers = [];
+// Điền filter
+function populateFilters() {
+  const loaiSel = document.getElementById('filterLoai');
+  loaiData.forEach(l=>loaiSel.innerHTML += `<option value="${l.id}">${l.ten}</option>`);
+  const tocSel = document.getElementById('filterToc');
+  tocData.forEach(t=>tocSel.innerHTML += `<option value="${t.id}">${t.ten}</option>`);
+  const xaSel = document.getElementById('filterXa');
+  xaData.forEach(x=>xaSel.innerHTML += `<option value="${x.id}">${x.ten}</option>`);
 
-  data.forEach(f => {
-    let lat = f.geometry.coordinates[1];
-    let lng = f.geometry.coordinates[0];
+  document.getElementById('filterLoai').addEventListener('change', updateMap);
+  document.getElementById('filterToc').addEventListener('change', updateMap);
+  document.getElementById('filterXa').addEventListener('change', updateMap);
+}
 
-    let popupContent = `
-      <b>${f.properties.tendanhSach}</b><br>
-      Loại: ${f.properties.loaithanchu}<br>
-      Tộc: ${f.properties.toc}<br>
-      Địa danh: ${f.properties.diadanh}<br>
-      Đề tài: ${f.properties.detai}<br>
-      Mã chùa: ${f.properties.machua}<br>
-      Địa chỉ: ${f.properties.diachiChiTiet}<br>
-      <a href="${f.properties.linkMap}" target="_blank">Xem trên Google Maps</a>
-    `;
+// Cập nhật bản đồ và danh sách theo filter
+function updateMap() {
+  const loai = document.getElementById('filterLoai').value;
+  const toc = document.getElementById('filterToc').value;
+  const xa = document.getElementById('filterXa').value;
 
-    let marker = L.marker([lat, lng])
-      .bindPopup(popupContent);
+  markers.clearLayers();
+  const listEl = document.getElementById('datalist');
+  listEl.innerHTML = '';
 
-    marker.addTo(map);
-    markers.push(marker);
+  geoData.features.forEach(f=>{
+    const p = f.properties;
+    if ((loai && p.loai !== loai) || 
+        (toc && p.toc !== toc) || 
+        (xa && p.diadanh !== xa)) return;
+
+    const xaInfo = xaData.find(x=>x.id===p.diadanh);
+    const marker = L.marker([xaInfo.lat, xaInfo.lng])
+      .bindPopup(`<b>${p.tenUuTien}</b><br>${p.giaimachu}<br><i>${p.diachiChiTiet}</i><br><a href="${p.linkMap}" target="_blank">Xem bản đồ</a>`);
+    marker.addTo(markers);
+
+    // Danh sách bên trái
+    const li = document.createElement('li');
+    li.innerText = p.tenUuTien || p.tendanhSach || 'Không tên';
+    li.onclick = ()=> { map.setView([xaInfo.lat, xaInfo.lng], 16); marker.openPopup(); };
+    listEl.appendChild(li);
   });
 }
 
-// ===== RENDER LIST =====
-function renderList(data) {
-  let list = document.getElementById("list");
-  list.innerHTML = "";
-
-  data.forEach(f => {
-    let li = document.createElement("li");
-    li.innerText = f.properties.tendanhSach;
-
-    li.onclick = () => {
-      let lat = f.geometry.coordinates[1];
-      let lng = f.geometry.coordinates[0];
-      map.setView([lat, lng], 15);
-      markers.find(m => {
-        let pos = m.getLatLng();
-        return pos.lat === lat && pos.lng === lng;
-      })?.openPopup();
-    };
-
-    list.appendChild(li);
-  });
-}
-
-// ===== SEARCH =====
-document.getElementById("search").addEventListener("input", function() {
-  let keyword = this.value.toLowerCase();
-
-  let filtered = allData.filter(f =>
-    f.properties.tendanhSach.toLowerCase().includes(keyword)
-  );
-
-  renderList(filtered);
-  renderMap(filtered);
-});
-
-// ===== FILTER ATTRIBUTES (theo Loại Thần Chủ) =====
-function renderFilter(data) {
-  let filterDiv = document.getElementById("filter");
-  filterDiv.innerHTML = "";
-
-  let categories = new Set();
-  data.forEach(f => {
-    if(f.properties.loaithanchu) categories.add(f.properties.loaithanchu);
-  });
-
-  categories.forEach(cat => {
-    let btn = document.createElement("button");
-    btn.innerText = cat;
-
-    btn.onclick = () => {
-      let filtered = allData.filter(f => f.properties.loaithanchu === cat);
-      renderList(filtered);
-      renderMap(filtered);
-    };
-
-    filterDiv.appendChild(btn);
-  });
-
-  // Reset button
-  let reset = document.createElement("button");
-  reset.innerText = "Tất cả";
-  reset.onclick = () => {
-    renderList(allData);
-    renderMap(allData);
-  };
-  filterDiv.appendChild(reset);
-}
-
-// ===== SIDEBAR TOGGLE =====
-document.getElementById("toggleBtn").onclick = () => {
-  document.getElementById("sidebar").classList.toggle("hidden");
-};
+loadData();
