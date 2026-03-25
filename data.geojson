@@ -5,52 +5,182 @@
       "type": "Feature",
       "geometry": { "type": "Point", "coordinates": [105.432, 10.379] },
       "properties": {
-        "Loai": "01",
-        "Toc": "6",
-        "DiaDanh": "30307",
-        "TenDanhSach": "Miếu Quan Đế",
-        "DiaChi": "Tại số 8, đường Lê Minh Ngươn, TP Long Xuyên",
-        "LinkMap": "https://maps.app.goo.gl/vdXKRMCNg8nxwYZHA",
-        "HinhAnh": "images/mieu1.jpg"
+        "Loai":"08",
+        "Toc":"6",
+        "DiaDanh":"30307",
+        "TenDanhSach":"Miếu Quan Đế",
+        "DiaChi":"Tại số 8, đường Lê Minh Ngươn, thị xã Long Xuyên. Có biển 'Minh Hương hội quán' phía sau biển 'Quan Đế miếu'.",
+        "HinhAnh":"",
+        "LinkDrive":""
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [105.433, 10.380] },
+      "geometry": { "type": "Point", "coordinates": [105.250, 10.400] },
       "properties": {
-        "Loai": "02",
-        "Toc": "5",
-        "DiaDanh": "30742",
-        "TenDanhSach": "Đền Bảo Sanh",
-        "DiaChi": "Phường Rạch Giá, An Giang",
-        "LinkMap": "https://maps.app.goo.gl/example2",
-        "HinhAnh": "images/mieu2.jpg"
+        "Loai":"00",
+        "Toc":"5",
+        "DiaDanh":"30742",
+        "TenDanhSach":"Di Tích Lịch Sử Lăng Mộ Hội Đồng Suông",
+        "DiaChi":"Đường Số 3, Khu Nam, Rạch Giá, Kiên Giang, Việt Nam",
+        "HinhAnh":"",
+        "LinkDrive":""
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [105.430, 10.378] },
+      "geometry": { "type": "Point", "coordinates": [105.445, 10.370] },
       "properties": {
-        "Loai": "08",
-        "Toc": "7",
-        "DiaDanh": "30316",
-        "TenDanhSach": "Miếu Quan Công",
-        "DiaChi": "Phường Châu Đốc, An Giang",
-        "LinkMap": "https://maps.app.goo.gl/example3",
-        "HinhAnh": "images/mieu3.jpg"
+        "Loai":"01",
+        "Toc":"0",
+        "DiaDanh":"30316",
+        "TenDanhSach":"Thiên Hậu Thánh Mẫu (Thánh miếu)",
+        "DiaChi":"Ấp Châu Long 1, xã Vĩnh Mỹ, thị xã Châu Đốc.",
+        "HinhAnh":"",
+        "LinkDrive":""
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [105.431, 10.377] },
+      "geometry": { "type": "Point", "coordinates": [105.120, 10.280] },
       "properties": {
-        "Loai": "09",
-        "Toc": "4",
-        "DiaDanh": "31018",
-        "TenDanhSach": "Đền Táo Quân",
-        "DiaChi": "Xã An Minh, An Giang",
-        "LinkMap": "https://maps.app.goo.gl/example4",
-        "HinhAnh": "images/mieu4.jpg"
+        "Loai":"01",
+        "Toc":"0",
+        "DiaDanh":"31018",
+        "TenDanhSach":"Miếu bà Mã Châu",
+        "DiaChi":"Tổ 9, khu phố 1, thị trấn Thứ 11",
+        "HinhAnh":"",
+        "LinkDrive":""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.445, 10.370] },
+      "properties": {
+        "Loai":"00",
+        "Toc":"4",
+        "DiaDanh":"30316",
+        "TenDanhSach":"Vệ Thủy Miếu",
+        "DiaChi":"242 Đ. Châu Long, Vĩnh Mỹ, Châu Đốc, An Giang, Việt Nam",
+        "HinhAnh":"",
+        "LinkDrive":""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.520, 10.330] },
+      "properties": {
+        "Loai":"01",
+        "Toc":"2",
+        "DiaDanh":"30505",
+        "TenDanhSach":"Miếu Bà Thiên Hậu Thánh Mẫu (Chùa Bà người Hẹ/Miếu Bà nước Hẹ)",
+        "DiaChi":"Chi Lăng, huyện Tịnh Biên (khu cư trú của người Hẹ, tức Tà Khet hay Tà Đốc).",
+        "HinhAnh":"",
+        "LinkDrive":""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [104.000, 10.200] },
+      "properties": {
+        "Loai":"07",
+        "Toc":"0",
+        "DiaDanh":"30938",
+        "TenDanhSach":"Dinh Ông Bổn",
+        "DiaChi":"Ấp Lê Bát, xã Cửa Cạn, Phú Quốc",
+        "HinhAnh":"",
+        "LinkDrive":""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.370, 10.300] },
+      "properties": {
+        "Loai":"02",
+        "Toc":"0",
+        "DiaDanh":"30376",
+        "TenDanhSach":"Bảo Sanh Đại Đế",
+        "DiaChi":"Q7G5+254, ĐT954, Long Sơn, Tân Châu, An Giang, Việt Nam",
+        "HinhAnh":"",
+        "LinkDrive":""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.360, 10.340] },
+      "properties": {
+        "Loai":"02",
+        "Toc":"0",
+        "DiaDanh":"30469",
+        "TenDanhSach":"Bảo Sanh Đại Đế",
+        "DiaChi":"Miếu ở ấp Mỹ Chánh, xã Mỹ Đức, huyện Châu Phú.",
+        "HinhAnh":"",
+        "LinkDrive":""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.445, 10.370] },
+      "properties": {
+        "Loai":"08",
+        "Toc":"8",
+        "DiaDanh":"30316",
+        "TenDanhSach":"Miếu Quan Đế (Miếu Quan Thánh)",
+        "DiaChi":"Số 35 đường Trần Hưng Đạo (Gia Long cũ), khóm 5 phường A thị xã Châu Đốc.",
+        "HinhAnh":"",
+        "LinkDrive":""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [104.000, 10.200] },
+      "properties": {
+        "Loai":"03",
+        "Toc":"0",
+        "DiaDanh":"30938",
+        "TenDanhSach":"Miếu Huê Quang Đại Đế",
+        "DiaChi":"Tổ 4, ấp Suối Đá, xã Dương Tơ",
+        "HinhAnh":"",
+        "LinkDrive":""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.250, 10.400] },
+      "properties": {
+        "Loai":"08",
+        "Toc":"0",
+        "DiaDanh":"30742",
+        "TenDanhSach":"Chùa Quan Đế",
+        "DiaChi":"Số 12, Hùng Vương, phường Vĩnh Thanh Vân",
+        "HinhAnh":"",
+        "LinkDrive":""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.250, 10.400] },
+      "properties": {
+        "Loai":"01",
+        "Toc":"6",
+        "DiaDanh":"30742",
+        "TenDanhSach":"Chùa Bà Thiên Hậu-Hội Quán Quảng Triệu",
+        "DiaChi":"37 Đ. Lê Lợi, Thanh Vân, Rạch Giá, Kiên Giang, Việt Nam",
+        "HinhAnh":"",
+        "LinkDrive":""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.250, 10.400] },
+      "properties": {
+        "Loai":"07",
+        "Toc":"3",
+        "DiaDanh":"30742",
+        "TenDanhSach":"Chùa Ông Bổn  (Nhị phủ miếu)",
+        "DiaChi":"41 Quang Trung, Vĩnh Thanh, Rạch Giá, Kiên Giang",
+        "HinhAnh":"",
+        "LinkDrive":""
       }
     }
   ]
