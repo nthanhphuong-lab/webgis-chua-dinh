@@ -22,11 +22,12 @@ html, body {
   z-index: 1000;
   padding: 10px;
   box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+  transition: all 0.3s;
 }
 
 /* Ẩn sidebar */
 #sidebar.hidden {
-  display: none;
+  left: -310px; /* ẩn sang trái */
 }
 
 /* Nút toggle */
@@ -40,17 +41,22 @@ html, body {
   border: none;
   padding: 8px 12px;
   cursor: pointer;
+  border-radius: 4px;
 }
 
-/* Zoom control tránh bị che */
-.leaflet-top.leaflet-left {
-  top: 60px;
+/* Input search */
+#search {
+  width: 100%;
+  padding: 6px;
+  margin-bottom: 8px;
+  box-sizing: border-box;
 }
 
 /* List */
 #list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 #list li {
@@ -63,9 +69,21 @@ html, body {
   background: #eee;
 }
 
-/* Filter */
+/* Filter buttons */
+#filter {
+  margin-bottom: 10px;
+}
+
 #filter button {
-  margin: 3px;
-  padding: 5px;
+  margin: 3px 3px 3px 0;
+  padding: 5px 8px;
   cursor: pointer;
+  border: none;
+  background: #3498db;
+  color: white;
+  border-radius: 4px;
+}
+
+#filter button:hover {
+  background: #2980b9;
 }
