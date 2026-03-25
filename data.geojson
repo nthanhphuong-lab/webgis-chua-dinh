@@ -3,156 +3,138 @@
   "features": [
     {
       "type": "Feature",
-      "geometry": {"type":"Point","coordinates":[105.435,10.384]},
-      "properties":{
-        "id":"quan_de_lx",
-        "loaithanchu":"Quan Công",
-        "toc":"Quảng Đông",
-        "diadanh":"Phường Long Xuyên",
-        "detai":"Trường",
-        "machua":"308630307",
-        "giaimachua":"Miếu, Quan Công, Quảng Đông, Phường Long Xuyên",
-        "tenuutien":"Quan Thánh Đế Quân",
-        "phone":"0983942119",
-        "tendanhSach":"Miếu Quan Đế",
-        "linkMap":"https://maps.app.goo.gl/vdXKRMCNg8nxwYZHA",
-        "linkCSDL":"",
-        "diachiChiTiet":"Tại số 8, đường Lê Minh Ngươn, thị xã Long Xuyên. Có biển 'Minh Hương hội quán' phía sau biển 'Quan Đế miếu'."
+      "geometry": { "type": "Point", "coordinates": [105.435, 10.384] },
+      "properties": {
+        "id": "quan_de_lx",
+        "loaithanchu": "Quan Công",
+        "toc": "Quảng Đông",
+        "diadanh": "Phường Long Xuyên",
+        "detai": "Trường",
+        "machua": "308630307",
+        "giaimachua": "Miếu, Quan Công, Quảng Đông, Phường Long Xuyên",
+        "tenuutien": "Quan Thánh Đế Quân",
+        "phone": "0983942119",
+        "tendanhSach": "Miếu Quan Đế",
+        "linkMap": "https://maps.app.goo.gl/vdXKRMCNg8nxwYZHA",
+        "linkCSDL": "",
+        "diachiChiTiet": "Tại số 8, đường Lê Minh Ngươn, thị xã Long Xuyên. Có biển 'Minh Hương hội quán' phía sau biển 'Quan Đế miếu'."
       }
     },
     {
-      "type":"Feature",
-      "geometry":{"type":"Point","coordinates":[105.442,10.385]},
-      "properties":{
-        "id":"di_tich_rg",
-        "loaithanchu":"Không rõ",
-        "toc":"Phúc Kiến",
-        "diadanh":"Phường Rạch Giá",
-        "detai":"Luận án",
-        "machua":"500530742",
-        "giaimachua":"Từ đường, Không rõ, Phúc Kiến, Phường Rạch Giá",
-        "tenuutien":"",
-        "phone":"0919181190",
-        "tendanhSach":"Di Tích Lịch Sử Lăng Mộ Hội Đồng Suông",
-        "linkMap":"https://maps.app.goo.gl/QdKacasTfVRaeQSq5",
-        "linkCSDL":"",
-        "diachiChiTiet":"Đường Số 3, Khu Nam, Rạch Giá, Kiên Giang, Việt Nam"
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.442, 10.385] },
+      "properties": {
+        "id": "di_tich_rg",
+        "loaithanchu": "Không rõ",
+        "toc": "Phúc Kiến",
+        "diadanh": "Phường Rạch Giá",
+        "detai": "Luận án",
+        "machua": "500530742",
+        "giaimachua": "Từ đường, Không rõ, Phúc Kiến, Phường Rạch Giá",
+        "tenuutien": "",
+        "phone": "0919181190",
+        "tendanhSach": "Di Tích Lịch Sử Lăng Mộ Hội Đồng Suông",
+        "linkMap": "https://maps.app.goo.gl/QdKacasTfVRaeQSq5",
+        "linkCSDL": "",
+        "diachiChiTiet": "Đường Số 3, Khu Nam, Rạch Giá, Kiên Giang, Việt Nam"
       }
     },
     {
-      "type":"Feature",
-      "geometry":{"type":"Point","coordinates":[105.116,10.702]},
-      "properties":{
-        "id":"thien_hau_cd",
-        "loaithanchu":"Bà Mã Châu - Thiên Hậu Thánh Mẫu",
-        "toc":"Không rõ",
-        "diadanh":"Phường Châu Đốc",
-        "detai":"Trường",
-        "machua":"301030316",
-        "giaimachua":"Miếu, Bà Mã Châu - Thiên Hậu Thánh Mẫu, Không rõ, Phường Châu Đốc",
-        "tenuutien":"Thiên Hậu Thánh Mẫu",
-        "phone":"",
-        "tendanhSach":"Thiên Hậu Thánh Mẫu (Thánh miếu)",
-        "linkMap":"https://maps.app.goo.gl/edTGLvuVXY6dh1tw9",
-        "linkCSDL":"",
-        "diachiChiTiet":"Ấp Châu Long 1, xã Vĩnh Mỹ, thị xã Châu Đốc."
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.116, 10.702] },
+      "properties": {
+        "id": "thien_hau_cd",
+        "loaithanchu": "Bà Mã Châu - Thiên Hậu Thánh Mẫu",
+        "toc": "Không rõ",
+        "diadanh": "Phường Châu Đốc",
+        "detai": "Trường",
+        "machua": "301030316",
+        "giaimachua": "Miếu, Bà Mã Châu - Thiên Hậu Thánh Mẫu, Không rõ, Phường Châu Đốc",
+        "tenuutien": "Thiên Hậu Thánh Mẫu",
+        "phone": "",
+        "tendanhSach": "Thiên Hậu Thánh Mẫu (Thánh miếu)",
+        "linkMap": "https://maps.app.goo.gl/edTGLvuVXY6dh1tw9",
+        "linkCSDL": "",
+        "diachiChiTiet": "Ấp Châu Long 1, xã Vĩnh Mỹ, thị xã Châu Đốc."
       }
     },
     {
-      "type":"Feature",
-      "geometry":{"type":"Point","coordinates":[105.118,10.718]},
-      "properties":{
-        "id":"ba_ma_chau_an_minh",
-        "loaithanchu":"Bà Mã Châu - Thiên Hậu Thánh Mẫu",
-        "toc":"Không rõ",
-        "diadanh":"Xã An Minh",
-        "detai":"Trường",
-        "machua":"301031018",
-        "giaimachua":"Miếu, Bà Mã Châu - Thiên Hậu Thánh Mẫu, Không rõ, Xã An Minh",
-        "tenuutien":"",
-        "phone":"",
-        "tendanhSach":"Miếu Bà Mã Châu",
-        "linkMap":"https://maps.app.goo.gl/9DibQ3rwrowjuzKaA",
-        "linkCSDL":"",
-        "diachiChiTiet":"Tổ 9, khu phố 1, thị trấn Thứ 11"
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.118, 10.718] },
+      "properties": {
+        "id": "ba_ma_chau_an_minh",
+        "loaithanchu": "Bà Mã Châu - Thiên Hậu Thánh Mẫu",
+        "toc": "Không rõ",
+        "diadanh": "Xã An Minh",
+        "detai": "Trường",
+        "machua": "301031018",
+        "giaimachua": "Miếu, Bà Mã Châu - Thiên Hậu Thánh Mẫu, Không rõ, Xã An Minh",
+        "tenuutien": "",
+        "phone": "",
+        "tendanhSach": "Miếu Bà Mã Châu",
+        "linkMap": "https://maps.app.goo.gl/9DibQ3rwrowjuzKaA",
+        "linkCSDL": "",
+        "diachiChiTiet": "Tổ 9, khu phố 1, thị trấn Thứ 11"
       }
     },
     {
-      "type":"Feature",
-      "geometry":{"type":"Point","coordinates":[105.116,10.702]},
-      "properties":{
-        "id":"ve_thuy_mieu",
-        "loaithanchu":"Không rõ",
-        "toc":"Minh Hương",
-        "diadanh":"Phường Châu Đốc",
-        "detai":"Trường",
-        "machua":"300430316",
-        "giaimachua":"Miếu, Không rõ, Minh Hương, Phường Châu Đốc",
-        "tenuutien":"Vệ Thủy Miếu",
-        "phone":"",
-        "tendanhSach":"Vệ Thủy Miếu",
-        "linkMap":"https://maps.app.goo.gl/TkUomdAopDccZ8kL9",
-        "linkCSDL":"",
-        "diachiChiTiet":"242 Đ. Châu Long, Vĩnh Mỹ, Châu Đốc, An Giang, Việt Nam"
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.305, 10.505] },
+      "properties": {
+        "id": "thien_hau_tb",
+        "loaithanchu": "Bà Mã Châu - Thiên Hậu Thánh Mẫu",
+        "toc": "Hẹ",
+        "diadanh": "Phường Chi Lăng",
+        "detai": "Trường",
+        "machua": "301230505",
+        "giaimachua": "Miếu, Bà Mã Châu - Thiên Hậu Thánh Mẫu, Hẹ, Phường Chi Lăng",
+        "tenuutien": "Thiên Hậu Thánh Cung",
+        "phone": "",
+        "tendanhSach": "Miếu Bà Thiên Hậu Thánh Mẫu (Chùa Bà người Hẹ/Miếu Bà nước Hẹ)",
+        "linkMap": "https://maps.app.goo.gl/9wi8xbrFG8Ej3atX9",
+        "linkCSDL": "",
+        "diachiChiTiet": "Chi Lăng, huyện Tịnh Biên (khu cư trú của người Hẹ, tức Tà Khet hay Tà Đốc)."
       }
     },
     {
-      "type":"Feature",
-      "geometry":{"type":"Point","coordinates":[105.305,10.505]},
-      "properties":{
-        "id":"thien_hau_tinh_bien",
-        "loaithanchu":"Bà Mã Châu - Thiên Hậu Thánh Mẫu",
-        "toc":"Hẹ",
-        "diadanh":"Phường Chi Lăng",
-        "detai":"Trường",
-        "machua":"301230505",
-        "giaimachua":"Miếu, Bà Mã Châu - Thiên Hậu Thánh Mẫu, Hẹ, Phường Chi Lăng",
-        "tenuutien":"Thiên Hậu Thánh Cung",
-        "phone":"",
-        "tendanhSach":"Miếu Bà Thiên Hậu Thánh Mẫu (Chùa Bà người Hẹ/Miếu Bà nước Hẹ)",
-        "linkMap":"https://maps.app.goo.gl/9wi8xbrFG8Ej3atX9",
-        "linkCSDL":"",
-        "diachiChiTiet":"Chi Lăng, huyện Tịnh Biên (khu cư trú của người Hẹ, tức Tà Khet hay Tà Đốc)."
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.376, 10.376] },
+      "properties": {
+        "id": "bao_sanh_tc",
+        "loaithanchu": "Bảo Sanh Đại đế",
+        "toc": "Không rõ",
+        "diadanh": "Phường Tân Châu",
+        "detai": "Trường (dự phòng)",
+        "machua": "302030376",
+        "giaimachua": "Miếu, Bảo Sanh Đại đế, Không rõ, Phường Tân Châu",
+        "tenuutien": "Bảo Sanh Đại Đế cổ miếu",
+        "phone": "",
+        "tendanhSach": "Bảo Sanh Đại Đế",
+        "linkMap": "https://maps.app.goo.gl/XmBDKfFUi96CYQMB",
+        "linkCSDL": "",
+        "diachiChiTiet": "Q7G5+254, ĐT954, Long Sơn, Tân Châu, An Giang, Việt Nam"
       }
     },
     {
-      "type":"Feature",
-      "geometry":{"type":"Point","coordinates":[105.938,10.938]},
-      "properties":{
-        "id":"chu_ong_bon_phu_quoc",
-        "loaithanchu":"Ông Bổn (Phúc Đức Chính Thần)",
-        "toc":"Không rõ",
-        "diadanh":"Đặc khu Phú Quốc",
-        "detai":"Trường (dự phòng)",
-        "machua":"107030938",
-        "giaimachua":"Chùa, Ông Bổn (Phúc Đức Chính Thần), Không rõ, Đặc khu Phú Quốc",
-        "tenuutien":"Chùa Ông Bổn - Bổn đầu công công",
-        "phone":"",
-        "tendanhSach":"Dinh Ông Bổn",
-        "linkMap":"",
-        "linkCSDL":"",
-        "diachiChiTiet":"Ấp Lê Bát, xã Cửa Cạn, Phú Quốc"
-      }
-    },
-    {
-      "type":"Feature",
-      "geometry":{"type":"Point","coordinates":[105.376,10.376]},
-      "properties":{
-        "id":"bao_sanh_tan_chau",
-        "loaithanchu":"Bảo Sanh Đại đế",
-        "toc":"Không rõ",
-        "diadanh":"Phường Tân Châu",
-        "detai":"Trường (dự phòng)",
-        "machua":"302030376",
-        "giaimachua":"Miếu, Bảo Sanh Đại đế, Không rõ, Phường Tân Châu",
-        "tenuutien":"Bảo Sanh Đại Đế cổ miếu",
-        "phone":"",
-        "tendanhSach":"Bảo Sanh Đại Đế",
-        "linkMap":"https://maps.app.goo.gl/XmBDKfFUi96CYQMB",
-        "linkCSDL":"",
-        "diachiChiTiet":"Q7G5+254, ĐT954, Long Sơn, Tân Châu, An Giang, Việt Nam"
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.938, 10.938] },
+      "properties": {
+        "id": "chu_ong_bon_pq",
+        "loaithanchu": "Ông Bổn (Phúc Đức Chính Thần)",
+        "toc": "Không rõ",
+        "diadanh": "Đặc khu Phú Quốc",
+        "detai": "Trường (dự phòng)",
+        "machua": "107030938",
+        "giaimachua": "Chùa, Ông Bổn (Phúc Đức Chính Thần), Không rõ, Đặc khu Phú Quốc",
+        "tenuutien": "Chùa Ông Bổn - Bổn đầu công công",
+        "phone": "",
+        "tendanhSach": "Dinh Ông Bổn",
+        "linkMap": "",
+        "linkCSDL": "",
+        "diachiChiTiet": "Ấp Lê Bát, xã Cửa Cạn, Phú Quốc"
       }
     }
-    // Thêm các entry còn lại cho đầy đủ ~50+ điểm theo cùng mẫu trên
+
+    // ... Tiếp tục thêm 40+ điểm khác theo cấu trúc này
   ]
 }
