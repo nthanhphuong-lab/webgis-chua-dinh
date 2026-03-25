@@ -1,13 +1,13 @@
 [
-  {"MaTC":"01","TenLoai":"Bà Mã Châu - Thiên Hậu Thánh Mẫu"},
-  {"MaTC":"02","TenLoai":"Bảo Sanh Đại đế"},
-  {"MaTC":"03","TenLoai":"Huê Quang đại đế"},
-  {"MaTC":"04","TenLoai":"Lỗ Ban"},
-  {"MaTC":"05","TenLoai":"Ngọc Hoàng Thượng Đế"},
-  {"MaTC":"06","TenLoai":"Ông Bắc (Huyền Thiên Thượng Đế)"},
-  {"MaTC":"07","TenLoai":"Ông Bổn (Phúc Đức Chính Thần)"},
-  {"MaTC":"08","TenLoai":"Quan Công"},
-  {"MaTC":"09","TenLoai":"Táo Quân"},
-  {"MaTC":"10","TenLoai":"Thần Tài"},
-  {"MaTC":"00","TenLoai":"Không rõ"}
+  {"id":"01","name":"Bà Mã Châu - Thiên Hậu Thánh Mẫu"},
+  {"id":"02","name":"Bảo Sanh Đại đế"},
+  {"id":"03","name":"Huê Quang đại đế"},
+  {"id":"04","name":"Lỗ Ban"},
+  {"id":"05","name":"Ngọc Hoàng Thượng Đế"},
+  {"id":"06","name":"Ông Bắc (Huyền Thiên Thượng Đế)"},
+  {"id":"07","name":"Ông Bổn (Phúc Đức Chính Thần)"},
+  {"id":"08","name":"Quan Công"},
+  {"id":"09","name":"Táo Quân"},
+  {"id":"10","name":"Thần Tài"},
+  {"id":"00","name":"Không rõ"}
 ]
