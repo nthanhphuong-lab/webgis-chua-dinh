@@ -6,7 +6,8 @@ Promise.all([
   fetch('phuongxa.json').then(r=>r.json()),
   fetch('data.geojson').then(r=>r.json())
 ]).then(([l, t, px, data])=>{
-  loai = l; toc = t; phuongxa = px; dataFeatures = data.features;
+  loai = l; toc = t; phuongxa = px; 
+  dataFeatures = data.features;
 
   initMap();
   populateFilters();
@@ -17,43 +18,74 @@ let map, markersLayer;
 
 function initMap() {
   map = L.map('map').setView([10.3791, 105.4317], 10);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'&copy; OSM'}).addTo(map);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OSM'
+  }).addTo(map);
 
   markersLayer = L.geoJSON(dataFeatures, {
     onEachFeature: (f, layer)=>{
-      const p=f.properties;
-      layer.bindPopup(`
-        <strong>${p.TenDanhSach}</strong><br>
-        Loại: ${loai.find(l=>l.id===p.Loai)?.name || p.Loai}<br>
-        Tộc: ${toc.find(t=>t.id===p.Toc)?.name || p.Toc}<br>
-        Phường/Xã: ${phuongxa.find(px=>px.id===p.id===p.DiaDanh)?.name || p.DiaDanh}<br>
-        Địa chỉ: ${p.DiaChi}<br>
-        <a href="${p.LinkMap}" target="_blank">Xem bản đồ</a>
-      `);
+      bindPopup(f, layer);
     }
   }).addTo(map);
 }
 
-// populate menu lọc
+function bindPopup(f, layer) {
+  const p = f.properties;
+  const phuongXaName = phuongxa.find(px => px.id === p.DiaDanh)?.name || p.DiaDanh;
+  const loaiName = loai.find(l => l.id === p.Loai)?.name || p.Loai;
+  const tocName = toc.find(t => t.id === p.Toc)?.name || p.Toc;
+
+  layer.bindPopup(`
+    <strong>${p.TenDanhSach}</strong><br>
+    Loại: ${loaiName}<br>
+    Tộc: ${tocName}<br>
+    Phường/Xã: ${phuongXaName}<br>
+    Địa chỉ: ${p.DiaChi}<br>
+    <a href="${p.LinkMap}" target="_blank">Xem bản đồ</a>
+  `);
+}
+
+// --- FILTER --- //
 function populateFilters() {
   const selectLoai = document.getElementById('filterLoai');
   loai.forEach(l=>selectLoai.innerHTML+=`<option value="${l.id}">${l.name}</option>`);
-  
+
   const selectToc = document.getElementById('filterToc');
   toc.forEach(t=>selectToc.innerHTML+=`<option value="${t.id}">${t.name}</option>`);
 
-  const selectPX = document.getElementById('filterPhuongXa');
-  phuongxa.forEach(px=>selectPX.innerHTML+=`<option value="${px.id}">${px.name}</option>`);
+  // Thêm filter Phường/Xã
+  let selectPX = document.getElementById('filterPhuongXa');
+  if(!selectPX){
+    const sidebar = document.getElementById('sidebar');
+    const label = document.createElement('label');
+    label.innerHTML = 'Phường/Xã: ';
+    selectPX = document.createElement('select');
+    selectPX.id = 'filterPhuongXa';
+    selectPX.innerHTML = '<option value="">Tất cả</option>';
+    phuongxa.forEach(px=>selectPX.innerHTML+=`<option value="${px.id}">${px.name}</option>`);
+    label.appendChild(selectPX);
+    sidebar.insertBefore(label, sidebar.querySelector('#placeList'));
+  }
 
   selectLoai.onchange = applyFilter;
   selectToc.onchange = applyFilter;
   selectPX.onchange = applyFilter;
-  document.getElementById('resetFilter').onclick = ()=>{
+
+  // Reset filter button
+  let resetBtn = document.getElementById('resetFilter');
+  if(!resetBtn){
+    resetBtn = document.createElement('button');
+    resetBtn.id='resetFilter';
+    resetBtn.textContent='Reset Filter';
+    document.getElementById('sidebar').appendChild(resetBtn);
+  }
+  resetBtn.onclick = ()=>{
     selectLoai.value=''; selectToc.value=''; selectPX.value=''; applyFilter();
   };
 }
 
-// lọc dữ liệu
+// --- APPLY FILTER --- //
 function applyFilter() {
   const fLoai = document.getElementById('filterLoai').value;
   const fToc = document.getElementById('filterToc').value;
@@ -66,31 +98,25 @@ function applyFilter() {
   );
 
   if(markersLayer) map.removeLayer(markersLayer);
-
   markersLayer = L.geoJSON(filtered, {
-    onEachFeature: (f, layer)=>{
-      const p=f.properties;
-      layer.bindPopup(`
-        <strong>${p.TenDanhSach}</strong><br>
-        Loại: ${loai.find(l=>l.id===p.Loai)?.name || p.Loai}<br>
-        Tộc: ${toc.find(t=>t.id===p.Toc)?.name || p.Toc}<br>
-        Phường/Xã: ${phuongxa.find(px=>px.id===p.id===p.DiaDanh)?.name || p.DiaDanh}<br>
-        Địa chỉ: ${p.DiaChi}<br>
-        <a href="${p.LinkMap}" target="_blank">Xem bản đồ</a>
-      `);
-    }
+    onEachFeature: (f, layer)=>{ bindPopup(f, layer); }
   }).addTo(map);
 
   populateList(filtered);
 }
 
-// danh sách
+// --- LIST SIDEBAR --- //
 function populateList(features) {
-  const ul=document.getElementById('listPoints'); ul.innerHTML='';
+  const ul = document.getElementById('placeList');
+  ul.innerHTML = '';
   features.forEach((f,i)=>{
-    const li=document.createElement('li');
-    li.textContent=f.properties.TenDanhSach;
-    li.onclick=()=>{ map.setView(f.geometry.coordinates.reverse(),17); markersLayer.getLayers()[i].openPopup(); };
+    const li = document.createElement('li');
+    li.textContent = f.properties.TenDanhSach;
+    li.onclick = ()=>{
+      const coords = [f.geometry.coordinates[1], f.geometry.coordinates[0]]; // lat,lng
+      map.setView(coords,17);
+      markersLayer.getLayers()[i].openPopup();
+    };
     ul.appendChild(li);
   });
 }
