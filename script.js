@@ -31,17 +31,16 @@ function bindPopup(f, layer){
   const loaiName = loai.find(l=>l.id===p.Loai)?.name || p.Loai;
   const tocName = toc.find(t=>t.id===p.Toc)?.name || p.Toc;
 
-  // Popup hiển thị hình ảnh + thông tin
+  let driveLink = p.HinhAnh ? `<br><a href="${p.HinhAnh}" target="_blank">Xem hình ảnh</a>` : '';
+
   layer.bindPopup(`
-    <div style="text-align:center">
-      ${p.HinhAnh ? `<img src="${p.HinhAnh}" alt="${p.TenDanhSach}" style="width:150px;height:auto;margin-bottom:5px;">` : ''}
-      <strong>${p.TenDanhSach}</strong><br>
-      Loại: ${loaiName}<br>
-      Tộc: ${tocName}<br>
-      Phường/Xã: ${phuongXaName}<br>
-      Địa chỉ: ${p.DiaChi || ''}<br>
-      <a href="${p.LinkMap || '#'}" target="_blank">Xem bản đồ</a>
-    </div>
+    <strong>${p.TenDanhSach}</strong><br>
+    Loại: ${loaiName}<br>
+    Tộc: ${tocName}<br>
+    Phường/Xã: ${phuongXaName}<br>
+    Địa chỉ: ${p.DiaChi || ''}<br>
+    <a href="${p.LinkMap || '#'}" target="_blank">Xem bản đồ</a>
+    ${driveLink}
   `);
 }
 
@@ -81,37 +80,19 @@ function applyFilter(){
   populateList(filtered);
 }
 
-// --- Sidebar list với thumbnail ---
+// --- Sidebar list (text only) ---
 function populateList(features){
   const ul = document.getElementById('placeList');
   ul.innerHTML='';
   features.forEach((f,i)=>{
     const li = document.createElement('li');
-    li.style.display='flex';
-    li.style.alignItems='center';
-    li.style.gap='5px';
-
-    if(f.properties.HinhAnh){
-      const img = document.createElement('img');
-      img.src = f.properties.HinhAnh;
-      img.alt = f.properties.TenDanhSach;
-      img.style.width='40px';
-      img.style.height='40px';
-      img.style.objectFit='cover';
-      img.style.borderRadius='3px';
-      li.appendChild(img);
-    }
-
-    const span = document.createElement('span');
-    span.textContent = f.properties.TenDanhSach;
-    li.appendChild(span);
-
+    li.textContent = f.properties.TenDanhSach;
+    li.style.cursor = 'pointer';
     li.onclick = ()=>{
       const coords = [f.geometry.coordinates[1], f.geometry.coordinates[0]];
       map.setView(coords,17);
       markersLayer.getLayers()[i].openPopup();
     };
-
     ul.appendChild(li);
   });
 }
