@@ -1,12 +1,6 @@
 [
-  {"MaPX":"30307","TenPX":"Phường Long Xuyên"},
-  {"MaPX":"30316","TenPX":"Phường Châu Đốc"},
-  {"MaPX":"30742","TenPX":"Phường Rạch Giá"},
-  {"MaPX":"30505","TenPX":"Phường Chi Lăng"},
-  {"MaPX":"31018","TenPX":"Xã An Minh"},
-  {"MaPX":"30520","TenPX":"Phường Tịnh Biên"},
-  {"MaPX":"30376","TenPX":"Phường Tân Châu"},
-  {"MaPX":"30388","TenPX":"Xã Tân An"},
-  {"MaPX":"30469","TenPX":"Xã Mỹ Đức"},
-  {"MaPX":"30938","TenPX":"Đặc khu Phú Quốc"}
+  {"id":"30307","name":"Phường Long Xuyên"},
+  {"id":"30742","name":"Phường Rạch Giá"},
+  {"id":"30316","name":"Phường Châu Đốc"},
+  {"id":"31018","name":"Xã An Minh"}
 ]
