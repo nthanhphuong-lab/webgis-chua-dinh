@@ -1,10 +1,10 @@
 [
-  {"id": "1", "ten": "Hải Nam"},
-  {"id": "2", "ten": "Hẹ"},
-  {"id": "3", "ten": "Khách Gia"},
-  {"id": "4", "ten": "Minh Hương"},
-  {"id": "5", "ten": "Phúc Kiến"},
-  {"id": "6", "ten": "Quảng Đông"},
-  {"id": "7", "ten": "Quảng Tây"},
-  {"id": "8", "ten": "Triều Châu"}
+  {"MaToc":"1","TenToc":"Hải Nam"},
+  {"MaToc":"2","TenToc":"Hẹ"},
+  {"MaToc":"3","TenToc":"Khách Gia"},
+  {"MaToc":"4","TenToc":"Minh Hương"},
+  {"MaToc":"5","TenToc":"Phúc Kiến"},
+  {"MaToc":"6","TenToc":"Quảng Đông"},
+  {"MaToc":"7","TenToc":"Quảng Tây"},
+  {"MaToc":"8","TenToc":"Triều Châu"}
 ]
