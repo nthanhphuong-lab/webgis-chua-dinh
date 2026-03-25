@@ -53,8 +53,14 @@ function populateFilters() {
 
   // Toggle sidebar
   document.getElementById('toggleSidebar').onclick = ()=>{
-    document.getElementById('sidebar').classList.toggle('hidden');
-    document.getElementById('map').style.left = document.getElementById('sidebar').classList.contains('hidden') ? '0' : '300px';
+    const sidebar = document.getElementById('sidebar');
+    const mapDiv = document.getElementById('map');
+    sidebar.classList.toggle('hidden');
+    if(sidebar.classList.contains('hidden')){
+      mapDiv.classList.add('full');
+    } else {
+      mapDiv.classList.remove('full');
+    }
   };
 }
 
