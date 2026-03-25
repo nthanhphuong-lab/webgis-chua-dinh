@@ -10,8 +10,12 @@ body, html {
   top: 0;
   bottom: 0;
   right: 0;
-  left: 300px; /* sidebar mặc định */
+  left: 300px;
   transition: left 0.3s;
+}
+
+#map.full {
+  left: 0;
 }
 
 #sidebar {
@@ -32,13 +36,15 @@ body, html {
   transform: translateX(-100%);
 }
 
-#sidebar button#toggleSidebar {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 5px;
-  cursor: pointer;
+#toggleSidebar {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1200;
   background: #fff;
   border: 1px solid #ccc;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
 #filters {
