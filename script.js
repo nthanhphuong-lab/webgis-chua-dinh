@@ -54,33 +54,14 @@ function populateFilters() {
   const selectToc = document.getElementById('filterToc');
   toc.forEach(t=>selectToc.innerHTML+=`<option value="${t.id}">${t.name}</option>`);
 
-  // Thêm filter Phường/Xã
-  let selectPX = document.getElementById('filterPhuongXa');
-  if(!selectPX){
-    const sidebar = document.getElementById('sidebar');
-    const label = document.createElement('label');
-    label.innerHTML = 'Phường/Xã: ';
-    selectPX = document.createElement('select');
-    selectPX.id = 'filterPhuongXa';
-    selectPX.innerHTML = '<option value="">Tất cả</option>';
-    phuongxa.forEach(px=>selectPX.innerHTML+=`<option value="${px.id}">${px.name}</option>`);
-    label.appendChild(selectPX);
-    sidebar.insertBefore(label, sidebar.querySelector('#placeList'));
-  }
+  const selectPX = document.getElementById('filterPhuongXa');
+  phuongxa.forEach(px=>selectPX.innerHTML+=`<option value="${px.id}">${px.name}</option>`);
 
   selectLoai.onchange = applyFilter;
   selectToc.onchange = applyFilter;
   selectPX.onchange = applyFilter;
 
-  // Reset filter button
-  let resetBtn = document.getElementById('resetFilter');
-  if(!resetBtn){
-    resetBtn = document.createElement('button');
-    resetBtn.id='resetFilter';
-    resetBtn.textContent='Reset Filter';
-    document.getElementById('sidebar').appendChild(resetBtn);
-  }
-  resetBtn.onclick = ()=>{
+  document.getElementById('resetFilter').onclick = ()=>{
     selectLoai.value=''; selectToc.value=''; selectPX.value=''; applyFilter();
   };
 }
