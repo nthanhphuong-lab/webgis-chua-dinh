@@ -2,37 +2,38 @@ let loai = [], toc = [], phuongxa = [], loaicoso = [];
 let dataFeatures = [];
 let map, markersLayer;
 
-// LOAD DATA
 Promise.all([
   fetch('loai.json').then(r => r.json()),
   fetch('toc.json').then(r => r.json()),
   fetch('phuongxa.json').then(r => r.json()),
   fetch('loaicoso.json').then(r => r.json()),
   fetch('data.geojson').then(r => r.json())
-]).then(([l, t, px, cs, data]) => {
+])
+.then(([l, t, px, cs, geo]) => {
   loai = l;
   toc = t;
   phuongxa = px;
   loaicoso = cs;
-  dataFeatures = data.features;
+  dataFeatures = geo.features || [];
 
   initMap();
   populateFilters();
   applyFilter();
-}).catch(err => {
-  console.error("Lỗi load dữ liệu:", err);
+})
+.catch(err => {
+  console.error("Lỗi load:", err);
 });
 
-// INIT MAP
+/* MAP */
 function initMap() {
-  map = L.map('map').setView([10.3791, 105.4317], 10);
+  map = L.map('map').setView([10.38, 105.43], 10);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap'
+    attribution: '&copy; OSM'
   }).addTo(map);
 }
 
-// LOAD FILTER
+/* FILTER */
 function populateFilters() {
   const fLoai = document.getElementById('filterLoai');
   const fToc = document.getElementById('filterToc');
@@ -44,11 +45,8 @@ function populateFilters() {
   phuongxa.forEach(x => fPX.innerHTML += `<option value="${x.id}">${x.name}</option>`);
   loaicoso.forEach(x => fCS.innerHTML += `<option value="${x.id}">${x.name}</option>`);
 
-  [fLoai, fToc, fPX, fCS].forEach(el => {
-    el.addEventListener('change', applyFilter);
-  });
+  [fLoai, fToc, fPX, fCS].forEach(el => el.onchange = applyFilter);
 
-  // RESET BUTTON
   document.getElementById('resetFilter').onclick = () => {
     fLoai.value = '';
     fToc.value = '';
@@ -57,7 +55,6 @@ function populateFilters() {
     applyFilter();
   };
 
-  // TOGGLE SIDEBAR
   document.getElementById('toggleSidebar').onclick = () => {
     const sb = document.getElementById('sidebar');
     sb.classList.toggle('hidden');
@@ -65,7 +62,7 @@ function populateFilters() {
   };
 }
 
-// FILTER LOGIC
+/* FILTER LOGIC */
 function applyFilter() {
   const fLoai = document.getElementById('filterLoai').value;
   const fToc = document.getElementById('filterToc').value;
@@ -74,7 +71,6 @@ function applyFilter() {
 
   const filtered = dataFeatures.filter(f => {
     const p = f.properties;
-
     return (!fLoai || p.Loai == fLoai)
         && (!fToc || p.Toc == fToc)
         && (!fPX || p.DiaDanh == fPX)
@@ -85,11 +81,9 @@ function applyFilter() {
   renderList(filtered);
 }
 
-// RENDER MAP
+/* MAP RENDER */
 function renderMap(features) {
-  if (markersLayer) {
-    map.removeLayer(markersLayer);
-  }
+  if (markersLayer) map.removeLayer(markersLayer);
 
   markersLayer = L.geoJSON(features, {
     onEachFeature: (f, layer) => {
@@ -98,27 +92,24 @@ function renderMap(features) {
       const loaiName = loai.find(x => x.id == p.Loai)?.name || "Không rõ";
       const tocName = toc.find(x => x.id == p.Toc)?.name || "Không rõ";
       const pxName = phuongxa.find(x => x.id == p.DiaDanh)?.name || p.DiaDanh;
-
       const cs = loaicoso.find(x => x.id == p.LoaiCoSo);
-      const loaiCS = cs?.name || "Không rõ";
-      const ghiChu = cs?.note || "";
 
       layer.bindPopup(`
         <b>${p.TenDanhSach}</b><br>
         Loại thần: ${loaiName}<br>
         Tộc: ${tocName}<br>
         Phường/Xã: ${pxName}<br>
-        Loại cơ sở: ${loaiCS}<br>
-        ${ghiChu ? "Ghi chú: " + ghiChu + "<br>" : ""}
-        ${p.Phone ? "Phone: " + p.Phone + "<br>" : ""}
-        Địa chỉ: ${p.DiaChi}<br>
-        <a href="${p.LinkDrive}" target="_blank">Xem hình ảnh</a>
+        Loại cơ sở: ${cs?.name || ""}<br>
+        ${cs?.note || ""}<br>
+        ${p.Phone || ""}<br>
+        ${p.DiaChi}<br>
+        <a href="${p.LinkDrive}" target="_blank">Hình ảnh</a>
       `);
     }
   }).addTo(map);
 }
 
-// RENDER LIST SIDEBAR
+/* LIST */
 function renderList(features) {
   const ul = document.getElementById('placeList');
   ul.innerHTML = '';
