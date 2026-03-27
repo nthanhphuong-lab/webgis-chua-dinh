@@ -8,7 +8,7 @@ Promise.all([
   fetch('toc.json').then(r => r.json()),
   fetch('phuongxa.json').then(r => r.json()),
   fetch('loaicoso.json').then(r => r.json()),
-  fetch('datageo.json').then(r => r.json())
+  fetch('data.geojson').then(r => r.json())
 ]).then(([l, t, px, cs, data]) => {
   loai = l;
   toc = t;
