@@ -7,31 +7,39 @@
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
 <div id="sidebar">
   <h2>Danh sách Thần Miếu</h2>
-  <div id="filters">
-    <label>Loại Thần:
-      <select id="filterLoai">
-        <option value="">Tất cả</option>
-      </select>
-    </label>
-    <label>Tộc người:
-      <select id="filterToc">
-        <option value="">Tất cả</option>
-      </select>
-    </label>
-    <label>Phường/Xã:
-      <select id="filterPhuongXa">
-        <option value="">Tất cả</option>
-      </select>
-    </label>
-    <button id="resetFilter">Reset</button>
-  </div>
-  <ul id="placeList"></ul>
-</div>
 
-<!-- Nút luôn hiển thị, đặt trên bản đồ -->
-<button id="toggleSidebar">☰ Ẩn / Hiện Sidebar</button>
+  <label>Loại cơ sở:
+    <select id="filterLoaiCoSo">
+      <option value="">Tất cả</option>
+    </select>
+  </label>
+  <label>Loại Thần:
+    <select id="filterLoai">
+      <option value="">Tất cả</option>
+    </select>
+  </label>
+
+  <label>Tộc người:
+    <select id="filterToc">
+      <option value="">Tất cả</option>
+    </select>
+  </label>
+
+  <label>Phường/Xã:
+    <select id="filterPhuongXa">
+      <option value="">Tất cả</option>
+    </select>
+  </label>
+
+  
+
+  <ul id="placeList"></ul>
+
+  <button id="toggleSidebar">Ẩn Sidebar</button>
+</div>
 
 <div id="map"></div>
 
