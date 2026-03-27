@@ -22,22 +22,17 @@ Promise.all([
 })
 .catch(err => console.error("Lỗi load:", err));
 
-/* MAP */
 function initMap() {
-  map = L.map('map', {
-    zoomControl: false
-  }).setView([10.38, 105.43], 10);
+  map = L.map('map', { zoomControl: false })
+    .setView([10.38, 105.43], 10);
 
-  L.control.zoom({
-    position: 'bottomright'
-  }).addTo(map);
+  L.control.zoom({ position: 'bottomright' }).addTo(map);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OSM'
   }).addTo(map);
 }
 
-/* FILTER */
 function populateFilters() {
   const fLoai = document.getElementById('filterLoai');
   const fToc = document.getElementById('filterToc');
@@ -66,7 +61,6 @@ function populateFilters() {
   };
 }
 
-/* FILTER LOGIC */
 function applyFilter() {
   const fLoai = document.getElementById('filterLoai').value;
   const fToc = document.getElementById('filterToc').value;
@@ -85,7 +79,6 @@ function applyFilter() {
   renderList(filtered);
 }
 
-/* MAP RENDER */
 function renderMap(features) {
   if (markersLayer) map.removeLayer(markersLayer);
 
@@ -104,16 +97,12 @@ function renderMap(features) {
         Tộc: ${tocName}<br>
         Phường/Xã: ${pxName}<br>
         Loại cơ sở: ${cs?.name || ""}<br>
-        ${cs?.note || ""}<br>
-        ${p.Phone || ""}<br>
-        ${p.DiaChi}<br>
-        <a href="${p.LinkDrive}" target="_blank">Hình ảnh</a>
+        ${p.DiaChi}
       `);
     }
   }).addTo(map);
 }
 
-/* LIST */
 function renderList(features) {
   const ul = document.getElementById('placeList');
   ul.innerHTML = '';
