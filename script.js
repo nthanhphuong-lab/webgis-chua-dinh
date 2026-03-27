@@ -1,12 +1,17 @@
-let loai=[], toc=[], phuongxa=[], dataFeatures=[];
+let loai=[], toc=[], phuongxa=[], dataFeatures=[], loaicoso=[];
 
 Promise.all([
   fetch('loai.json').then(r=>r.json()),
   fetch('toc.json').then(r=>r.json()),
   fetch('phuongxa.json').then(r=>r.json()),
+  fetch('loaicoso.json').then(r=>r.json()),
   fetch('data.geojson').then(r=>r.json())
-]).then(([l, t, px, data])=>{
-  loai = l; toc = t; phuongxa = px; dataFeatures = data.features;
+]).then(([l, t, px, cs, data])=>{
+  loai = l;
+  toc = t;
+  phuongxa = px;
+  loaicoso = cs;
+  dataFeatures = data.features;
 
   initMap();
   populateFilters();
@@ -21,14 +26,22 @@ function initMap() {
 
   markersLayer = L.geoJSON(dataFeatures, {
     onEachFeature: (f, layer)=>{
-      const p = f.properties;
-      let popupHTML = `<strong>${p.TenDanhSach}</strong><br>
-        Loại: ${loai.find(l=>l.id===p.Loai)?.name || p.Loai}<br>
+      const p=f.properties;
+      const loaiCS = loaicoso.find(l=>l.id===p.Loai)?.name || '';
+      const ghiChu = loaicoso.find(l=>l.id===p.Loai)?.note || '';
+      const pxName = phuongxa.find(pxItem=>pxItem.id===p.DiaDanh)?.name || p.DiaDanh;
+
+      layer.bindPopup(`
+        <strong>${p.TenDanhSach}</strong><br>
+        Loại Thần: ${loai.find(l=>l.id===p.Loai)?.name || p.Loai}<br>
         Tộc: ${toc.find(t=>t.id===p.Toc)?.name || p.Toc}<br>
-        Phường/Xã: ${phuongxa.find(px=>px.id===p.DiaDanh)?.name || p.DiaDanh}<br>
-        Địa chỉ: ${p.DiaChi}`;
-      if(p.LinkDrive) popupHTML += `<br><a href="${p.LinkDrive}" target="_blank">Hình ảnh</a>`;
-      layer.bindPopup(popupHTML);
+        Phường/Xã: ${pxName}<br>
+        Loại cơ sở: ${loaiCS}<br>
+        Ghi chú: ${ghiChu}<br>
+        Phone: ${p.Phone || ''}<br>
+        Địa chỉ: ${p.DiaChi}<br>
+        <a href="${p.LinkDrive || '#'}" target="_blank">Hình ảnh</a>
+      `);
     }
   }).addTo(map);
 }
@@ -43,23 +56,21 @@ function populateFilters() {
   const selectPX = document.getElementById('filterPhuongXa');
   phuongxa.forEach(px=>selectPX.innerHTML+=`<option value="${px.id}">${px.name}</option>`);
 
-  selectLoai.onchange = applyFilter;
-  selectToc.onchange = applyFilter;
-  selectPX.onchange = applyFilter;
+  const selectLoaiCS = document.getElementById('filterLoaiCoSo');
+  loaicoso.forEach(cs=>selectLoaiCS.innerHTML+=`<option value="${cs.id}">${cs.name}</option>`);
 
-  document.getElementById('resetFilter').onclick = ()=>{
-    selectLoai.value=''; selectToc.value=''; selectPX.value=''; applyFilter();
-  };
+  [selectLoai, selectToc, selectPX, selectLoaiCS].forEach(sel=>{
+    sel.onchange = applyFilter;
+  });
 
-  // Toggle sidebar
   document.getElementById('toggleSidebar').onclick = ()=>{
-    const sidebar = document.getElementById('sidebar');
-    const mapDiv = document.getElementById('map');
-    sidebar.classList.toggle('hidden');
-    if(sidebar.classList.contains('hidden')){
-      mapDiv.classList.add('full');
+    const sb = document.getElementById('sidebar');
+    if(sb.style.left==='-300px'){
+      sb.style.left='0';
+      map.invalidateSize();
     } else {
-      mapDiv.classList.remove('full');
+      sb.style.left='-300px';
+      map.invalidateSize();
     }
   };
 }
@@ -68,25 +79,35 @@ function applyFilter() {
   const fLoai = document.getElementById('filterLoai').value;
   const fToc = document.getElementById('filterToc').value;
   const fPX = document.getElementById('filterPhuongXa').value;
+  const fCS = document.getElementById('filterLoaiCoSo').value;
 
   const filtered = dataFeatures.filter(f=>
     (fLoai===''||f.properties.Loai===fLoai) &&
     (fToc===''||f.properties.Toc===fToc) &&
-    (fPX===''||f.properties.DiaDanh===fPX)
+    (fPX===''||f.properties.DiaDanh===fPX) &&
+    (fCS===''||f.properties.Loai===fCS)
   );
 
   if(markersLayer) map.removeLayer(markersLayer);
 
   markersLayer = L.geoJSON(filtered, {
     onEachFeature: (f, layer)=>{
-      const p = f.properties;
-      let popupHTML = `<strong>${p.TenDanhSach}</strong><br>
-        Loại: ${loai.find(l=>l.id===p.Loai)?.name || p.Loai}<br>
+      const p=f.properties;
+      const loaiCS = loaicoso.find(l=>l.id===p.Loai)?.name || '';
+      const ghiChu = loaicoso.find(l=>l.id===p.Loai)?.note || '';
+      const pxName = phuongxa.find(pxItem=>pxItem.id===p.DiaDanh)?.name || p.DiaDanh;
+
+      layer.bindPopup(`
+        <strong>${p.TenDanhSach}</strong><br>
+        Loại Thần: ${loai.find(l=>l.id===p.Loai)?.name || p.Loai}<br>
         Tộc: ${toc.find(t=>t.id===p.Toc)?.name || p.Toc}<br>
-        Phường/Xã: ${phuongxa.find(px=>px.id===p.DiaDanh)?.name || p.DiaDanh}<br>
-        Địa chỉ: ${p.DiaChi}`;
-      if(p.LinkDrive) popupHTML += `<br><a href="${p.LinkDrive}" target="_blank">Hình ảnh</a>`;
-      layer.bindPopup(popupHTML);
+        Phường/Xã: ${pxName}<br>
+        Loại cơ sở: ${loaiCS}<br>
+        Ghi chú: ${ghiChu}<br>
+        Phone: ${p.Phone || ''}<br>
+        Địa chỉ: ${p.DiaChi}<br>
+        <a href="${p.LinkDrive || '#'}" target="_blank">Hình ảnh</a>
+      `);
     }
   }).addTo(map);
 
@@ -95,14 +116,14 @@ function applyFilter() {
 
 function populateList(features) {
   const ul = document.getElementById('placeList');
-  ul.innerHTML = '';
+  ul.innerHTML='';
   features.forEach((f,i)=>{
-    const li = document.createElement('li');
-    li.textContent = f.properties.TenDanhSach;
-    li.onclick = ()=>{
-      const coords = f.geometry.coordinates;
-      map.setView([coords[1], coords[0]], 17);
-      markersLayer.getLayers()[i].openPopup();
+    const li=document.createElement('li');
+    li.textContent=f.properties.TenDanhSach;
+    li.onclick=()=>{ 
+      const coords = [...f.geometry.coordinates].reverse(); 
+      map.setView(coords,17); 
+      markersLayer.getLayers()[i].openPopup(); 
     };
     ul.appendChild(li);
   });
