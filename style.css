@@ -1,4 +1,4 @@
-html, body {
+body, html {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -26,10 +26,6 @@ html, body {
   z-index: 1000;
 }
 
-.filter-group {
-  margin-bottom: 10px;
-}
-
 #placeList {
   list-style: none;
   padding: 0;
@@ -44,9 +40,9 @@ html, body {
   background-color: #ddd;
 }
 
-button {
+#toggleSidebar, #resetFilter {
   display: block;
-  margin: 10px 0;
+  margin-top: 10px;
   width: 100%;
   padding: 5px;
 }
