@@ -6,10 +6,10 @@
       "geometry": { "type": "Point", "coordinates": [105.434, 10.380] },
       "properties": {
         "TenDanhSach": "Miếu Quan Đế",
-        "Loai": "3",
+        "LoaiCoSo": "3",
+        "Loai": "08",
         "Toc": "8",
         "DiaDanh": "30307",
-        "LoaiCoSo": "3",
         "Phone": "0983942119",
         "DiaChi": "Tại số 8, đường Lê Minh Ngươn, thị xã Long Xuyên. Có biển 'Minh Hương hội quán' phía sau biển 'Quan Đế miếu'.",
         "LinkDrive": "https://drive.google.com/drive/folders/1example1"
@@ -20,10 +20,10 @@
       "geometry": { "type": "Point", "coordinates": [105.370, 10.243] },
       "properties": {
         "TenDanhSach": "Di Tích Lịch Sử Lăng Mộ Hội Đồng Suông",
-        "Loai": "5",
+        "LoaiCoSo": "5",
+        "Loai": "00",
         "Toc": "0",
         "DiaDanh": "30742",
-        "LoaiCoSo": "5",
         "Phone": "0919181190",
         "DiaChi": "Đường Số 3, Khu Nam, Rạch Giá, Kiên Giang, Việt Nam",
         "LinkDrive": "https://drive.google.com/drive/folders/1example2"
@@ -34,10 +34,10 @@
       "geometry": { "type": "Point", "coordinates": [105.125, 10.407] },
       "properties": {
         "TenDanhSach": "Thiên Hậu Thánh Mẫu",
-        "Loai": "3",
+        "LoaiCoSo": "3",
+        "Loai": "01",
         "Toc": "0",
         "DiaDanh": "30316",
-        "LoaiCoSo": "3",
         "Phone": "",
         "DiaChi": "Ấp Châu Long 1, xã Vĩnh Mỹ, thị xã Châu Đốc",
         "LinkDrive": "https://drive.google.com/drive/folders/1example3"
@@ -48,10 +48,10 @@
       "geometry": { "type": "Point", "coordinates": [105.010, 10.340] },
       "properties": {
         "TenDanhSach": "Miếu Bà Mã Châu",
-        "Loai": "3",
+        "LoaiCoSo": "3",
+        "Loai": "01",
         "Toc": "0",
         "DiaDanh": "31018",
-        "LoaiCoSo": "3",
         "Phone": "",
         "DiaChi": "Tổ 9, khu phố 1, thị trấn Thứ 11",
         "LinkDrive": "https://drive.google.com/drive/folders/1example4"
@@ -62,10 +62,10 @@
       "geometry": { "type": "Point", "coordinates": [105.128, 10.402] },
       "properties": {
         "TenDanhSach": "Vệ Thủy Miếu",
-        "Loai": "3",
+        "LoaiCoSo": "3",
+        "Loai": "03",
         "Toc": "4",
         "DiaDanh": "30316",
-        "LoaiCoSo": "3",
         "Phone": "",
         "DiaChi": "242 Đ. Châu Long, Vĩnh Mỹ, Châu Đốc, An Giang, Việt Nam",
         "LinkDrive": "https://drive.google.com/drive/folders/1example5"
@@ -76,10 +76,10 @@
       "geometry": { "type": "Point", "coordinates": [105.505, 10.678] },
       "properties": {
         "TenDanhSach": "Miếu Bà Thiên Hậu Thánh Mẫu (Chùa Bà người Hẹ/Miếu Bà nước Hẹ)",
-        "Loai": "3",
+        "LoaiCoSo": "3",
+        "Loai": "01",
         "Toc": "2",
         "DiaDanh": "30505",
-        "LoaiCoSo": "3",
         "Phone": "",
         "DiaChi": "Chi Lăng, huyện Tịnh Biên (khu cư trú của người Hẹ, tức Tà Khet hay Tà Đốc).",
         "LinkDrive": "https://drive.google.com/drive/folders/1example6"
