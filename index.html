@@ -8,12 +8,15 @@
 </head>
 <body>
 
-<!-- SIDEBAR -->
 <div id="sidebar">
   <h3>Danh sách</h3>
 
-  <!-- FILTER -->
   <div class="filter-container">
+
+    <div class="filter-item">
+      <label>Loại cơ sở</label>
+      <select id="filterLoaiCoSo"><option value="">Tất cả</option></select>
+    </div>
 
     <div class="filter-item">
       <label>Loại thần</label>
@@ -30,11 +33,6 @@
       <select id="filterPhuongXa"><option value="">Tất cả</option></select>
     </div>
 
-    <div class="filter-item">
-      <label>Loại cơ sở</label>
-      <select id="filterLoaiCoSo"><option value="">Tất cả</option></select>
-    </div>
-
     <button id="resetFilter">Reset</button>
 
   </div>
@@ -42,10 +40,8 @@
   <ul id="placeList"></ul>
 </div>
 
-<!-- NÚT TOGGLE -->
 <button id="toggleSidebar">☰</button>
 
-<!-- MAP -->
 <div id="map"></div>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
