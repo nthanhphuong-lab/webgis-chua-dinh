@@ -1,6 +1,7 @@
 let loai=[], toc=[], phuongxa=[], dataFeatures=[], loaicoso=[];
 let map, markersLayer;
 
+// Load tất cả dữ liệu JSON
 Promise.all([
   fetch('loai.json').then(r=>r.json()),
   fetch('toc.json').then(r=>r.json()),
@@ -8,13 +9,9 @@ Promise.all([
   fetch('loaicoso.json').then(r=>r.json()),
   fetch('datageo.json').then(r=>r.json())
 ]).then(([l, t, px, cs, data])=>{
-  loai = l;
-  toc = t;
-  phuongxa = px;
-  loaicoso = cs;
-  dataFeatures = data.features;
+  loai = l; toc = t; phuongxa = px; loaicoso = cs; dataFeatures = data.features;
 
-  // Chuẩn hóa Loai để filter đúng (ví dụ "3" -> "03")
+  // Chuẩn hóa Loai trong datageo.json
   const loaiIds = loai.map(x=>x.id);
   dataFeatures.forEach(f=>{
     let val = f.properties.Loai;
@@ -27,6 +24,7 @@ Promise.all([
   applyFilter();
 });
 
+// Khởi tạo bản đồ
 function initMap() {
   map = L.map('map').setView([10.3791, 105.4317], 10);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -34,6 +32,7 @@ function initMap() {
   }).addTo(map);
 }
 
+// Khởi tạo filter dropdown và nút
 function populateFilters() {
   const selectLoai = document.getElementById('filterLoai');
   loai.forEach(l=>selectLoai.innerHTML+=`<option value="${l.id}">${l.name}</option>`);
@@ -47,26 +46,21 @@ function populateFilters() {
   const selectLoaiCS = document.getElementById('filterLoaiCoSo');
   loaicoso.forEach(cs=>selectLoaiCS.innerHTML+=`<option value="${cs.id}">${cs.name}</option>`);
 
-  [selectLoai, selectToc, selectPX, selectLoaiCS].forEach(sel=>{
-    sel.onchange = applyFilter;
-  });
+  [selectLoai, selectToc, selectPX, selectLoaiCS].forEach(sel=>{ sel.onchange = applyFilter; });
 
   document.getElementById('resetFilter').onclick = ()=>{
-    selectLoai.value = '';
-    selectToc.value = '';
-    selectPX.value = '';
-    selectLoaiCS.value = '';
+    [selectLoai, selectToc, selectPX, selectLoaiCS].forEach(s=>s.value='');
     applyFilter();
   };
 
   document.getElementById('toggleSidebar').onclick = ()=>{
     const sb = document.getElementById('sidebar');
-    if(sb.style.left==='-300px') sb.style.left='0';
-    else sb.style.left='-300px';
+    sb.style.left = (sb.style.left==='-300px') ? '0' : '-300px';
     map.invalidateSize();
   };
 }
 
+// Lọc dữ liệu và vẽ marker
 function applyFilter() {
   const fLoai = document.getElementById('filterLoai').value;
   const fToc = document.getElementById('filterToc').value;
@@ -85,7 +79,7 @@ function applyFilter() {
 
   markersLayer = L.geoJSON(filtered, {
     onEachFeature: (f, layer)=>{
-      const p = f.properties;
+      const p=f.properties;
       const loaiCS = loaicoso.find(l=>l.id===p.LoaiCoSo)?.name || '';
       const ghiChu = loaicoso.find(l=>l.id===p.LoaiCoSo)?.note || '';
       const pxName = phuongxa.find(pxItem=>pxItem.id===p.DiaDanh)?.name || p.DiaDanh;
@@ -109,6 +103,7 @@ function applyFilter() {
   populateList(filtered);
 }
 
+// Cập nhật danh sách sidebar
 function populateList(features) {
   const ul = document.getElementById('placeList');
   ul.innerHTML='';
