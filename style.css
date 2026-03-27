@@ -24,6 +24,7 @@ body, html {
   overflow-y: auto;
   box-shadow: 2px 0 5px rgba(0,0,0,0.3);
   z-index: 1000;
+  transition: left 0.3s;
 }
 
 #placeList {
@@ -40,9 +41,13 @@ body, html {
   background-color: #ddd;
 }
 
-#toggleSidebar, #resetFilter {
-  display: block;
+#buttons {
   margin-top: 10px;
-  width: 100%;
+  display: flex;
+  gap: 5px;
+}
+
+#buttons button {
+  flex: 1;
   padding: 5px;
 }
