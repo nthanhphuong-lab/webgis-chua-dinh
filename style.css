@@ -38,22 +38,33 @@ body {
   border-bottom: 1px solid #ddd;
 }
 
-.filter-item {
-  display: grid;
-  grid-template-columns: 110px 1fr;
-  align-items: center;
-  gap: 6px;
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
+/* mỗi dòng filter */
+.filter-item {
+  display: flex;
+  align-items: center;
+}
+
+/* label cố định chiều rộng */
 .filter-item label {
+  width: 120px;       /* CHÌA KHÓA: tất cả label bằng nhau */
   font-size: 13px;
   text-align: right;
+  margin-right: 8px;
 }
 
+/* select full phần còn lại */
 .filter-item select {
+  flex: 1;
   padding: 5px;
   font-size: 13px;
-  width: 100%;
 }
 
 #resetFilter {
