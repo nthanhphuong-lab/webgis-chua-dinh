@@ -20,13 +20,17 @@ Promise.all([
   populateFilters();
   applyFilter();
 })
-.catch(err => {
-  console.error("Lỗi load:", err);
-});
+.catch(err => console.error("Lỗi load:", err));
 
 /* MAP */
 function initMap() {
-  map = L.map('map').setView([10.38, 105.43], 10);
+  map = L.map('map', {
+    zoomControl: false
+  }).setView([10.38, 105.43], 10);
+
+  L.control.zoom({
+    position: 'bottomright'
+  }).addTo(map);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OSM'
