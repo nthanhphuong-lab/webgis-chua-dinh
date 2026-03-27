@@ -3,7 +3,6 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* MAP */
 #map {
   height: 100vh;
 }
@@ -30,33 +29,36 @@ body {
   margin: 10px;
 }
 
-/* FILTER */
+/* FILTER đẹp, thẳng hàng */
 .filter-container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 8px;
   padding: 10px;
   border-bottom: 1px solid #ddd;
 }
 
 .filter-item {
-  display: flex;
+  display: grid;
+  grid-template-columns: 110px 1fr;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
 }
 
 .filter-item label {
   font-size: 13px;
-  white-space: nowrap;
+  text-align: right;
 }
 
 .filter-item select {
-  padding: 4px;
+  padding: 5px;
   font-size: 13px;
+  width: 100%;
 }
 
 #resetFilter {
-  padding: 5px 10px;
+  margin-top: 5px;
+  padding: 6px;
   cursor: pointer;
 }
 
@@ -92,7 +94,6 @@ body {
   transition: left 0.3s ease;
 }
 
-/* khi sidebar ẩn → nút chạy vào trái */
 #sidebar.hidden ~ #toggleSidebar {
   left: 10px;
 }
