@@ -1,4 +1,5 @@
 let loai=[], toc=[], phuongxa=[], dataFeatures=[], loaicoso=[];
+let map, markersLayer;
 
 Promise.all([
   fetch('loai.json').then(r=>r.json()),
@@ -15,17 +16,17 @@ Promise.all([
 
   initMap();
   populateFilters();
-  applyFilter(); // hiển thị danh sách ban đầu
+  applyFilter();
 });
-
-let map, markersLayer;
 
 function initMap() {
   map = L.map('map').setView([10.3791, 105.4317], 10);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'&copy; OSM'}).addTo(map);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OSM'
+  }).addTo(map);
 }
 
-// Đổ select filters
 function populateFilters() {
   const selectLoai = document.getElementById('filterLoai');
   loai.forEach(l=>selectLoai.innerHTML+=`<option value="${l.id}">${l.name}</option>`);
@@ -39,10 +40,15 @@ function populateFilters() {
   const selectLoaiCS = document.getElementById('filterLoaiCoSo');
   loaicoso.forEach(cs=>selectLoaiCS.innerHTML+=`<option value="${cs.id}">${cs.name}</option>`);
 
-  // sự kiện onchange
-  [selectLoai, selectToc, selectPX, selectLoaiCS].forEach(sel=>{
-    sel.onchange = applyFilter;
-  });
+  [selectLoai, selectToc, selectPX, selectLoaiCS].forEach(sel=>{ sel.onchange = applyFilter; });
+
+  document.getElementById('resetFilters').onclick = ()=>{
+    selectLoai.value='';
+    selectToc.value='';
+    selectPX.value='';
+    selectLoaiCS.value='';
+    applyFilter();
+  };
 
   document.getElementById('toggleSidebar').onclick = ()=>{
     const sb = document.getElementById('sidebar');
@@ -56,23 +62,20 @@ function populateFilters() {
   };
 }
 
-// Áp dụng filter
 function applyFilter() {
   const fLoai = document.getElementById('filterLoai').value;
   const fToc = document.getElementById('filterToc').value;
   const fPX = document.getElementById('filterPhuongXa').value;
   const fCS = document.getElementById('filterLoaiCoSo').value;
 
-  // lọc data
   const filtered = dataFeatures.filter(f=>{
-    const p = f.properties;
+    const p=f.properties;
     return (fLoai==='' || p.Loai===fLoai)
         && (fToc==='' || p.Toc===fToc)
         && (fPX==='' || p.DiaDanh===fPX)
-        && (fCS==='' || p.LoaiCoSo===fCS); // LoaiCoSo là field mới trong geojson
+        && (fCS==='' || p.LoaiCoSo===fCS);
   });
 
-  // Xóa layer cũ
   if(markersLayer) map.removeLayer(markersLayer);
 
   markersLayer = L.geoJSON(filtered, {
@@ -99,17 +102,16 @@ function applyFilter() {
   populateList(filtered);
 }
 
-// Sidebar list
 function populateList(features) {
   const ul = document.getElementById('placeList');
   ul.innerHTML='';
   features.forEach((f,i)=>{
-    const li=document.createElement('li');
-    li.textContent=f.properties.TenDanhSach;
-    li.onclick=()=>{ 
-      const coords = [...f.geometry.coordinates].reverse(); 
-      map.setView(coords,17); 
-      markersLayer.getLayers()[i].openPopup(); 
+    const li = document.createElement('li');
+    li.textContent = f.properties.TenDanhSach;
+    li.onclick = ()=>{
+      const coords = [...f.geometry.coordinates].reverse();
+      map.setView(coords, 17);
+      markersLayer.getLayers()[i].openPopup();
     };
     ul.appendChild(li);
   });
