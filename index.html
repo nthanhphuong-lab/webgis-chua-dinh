@@ -11,30 +11,31 @@
 <div id="sidebar">
   <h2>Danh sách Thần Miếu</h2>
 
-  <label>Loại cơ sở:
-    <select id="filterLoaiCoSo">
-      <option value="">Tất cả</option>
-    </select>
-  </label>
-  <label>Loại Thần:
-    <select id="filterLoai">
-      <option value="">Tất cả</option>
-    </select>
-  </label>
+  <div class="filter-group">
+    <label>Loại cơ sở:
+      <select id="filterLoaiCoSo"><option value="">Tất cả</option></select>
+    </label>
+  </div>
 
-  <label>Tộc người:
-    <select id="filterToc">
-      <option value="">Tất cả</option>
-    </select>
-  </label>
+  <div class="filter-group">
+    <label>Loại Thần:
+      <select id="filterLoai"><option value="">Tất cả</option></select>
+    </label>
+  </div>
 
-  <label>Phường/Xã:
-    <select id="filterPhuongXa">
-      <option value="">Tất cả</option>
-    </select>
-  </label>
+  <div class="filter-group">
+    <label>Tộc người:
+      <select id="filterToc"><option value="">Tất cả</option></select>
+    </label>
+  </div>
 
-  
+  <div class="filter-group">
+    <label>Phường/Xã:
+      <select id="filterPhuongXa"><option value="">Tất cả</option></select>
+    </label>
+  </div>
+
+  <button id="resetFilters">Reset Filter</button>
 
   <ul id="placeList"></ul>
 
