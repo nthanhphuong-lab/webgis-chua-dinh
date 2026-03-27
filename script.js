@@ -1,120 +1,142 @@
-let loai=[], toc=[], phuongxa=[], dataFeatures=[], loaicoso=[];
+let loai = [], toc = [], phuongxa = [], loaicoso = [];
+let dataFeatures = [];
 let map, markersLayer;
 
-// Load tất cả dữ liệu JSON
+// LOAD DATA
 Promise.all([
-  fetch('loai.json').then(r=>r.json()),
-  fetch('toc.json').then(r=>r.json()),
-  fetch('phuongxa.json').then(r=>r.json()),
-  fetch('loaicoso.json').then(r=>r.json()),
-  fetch('datageo.json').then(r=>r.json())
-]).then(([l, t, px, cs, data])=>{
-  loai = l; toc = t; phuongxa = px; loaicoso = cs; dataFeatures = data.features;
-
-  // Chuẩn hóa Loai trong datageo.json
-  const loaiIds = loai.map(x=>x.id);
-  dataFeatures.forEach(f=>{
-    let val = f.properties.Loai;
-    let found = loaiIds.find(id=>id.endsWith(val));
-    f.properties.Loai = found || val;
-  });
+  fetch('loai.json').then(r => r.json()),
+  fetch('toc.json').then(r => r.json()),
+  fetch('phuongxa.json').then(r => r.json()),
+  fetch('loaicoso.json').then(r => r.json()),
+  fetch('datageo.json').then(r => r.json())
+]).then(([l, t, px, cs, data]) => {
+  loai = l;
+  toc = t;
+  phuongxa = px;
+  loaicoso = cs;
+  dataFeatures = data.features;
 
   initMap();
   populateFilters();
   applyFilter();
+}).catch(err => {
+  console.error("Lỗi load dữ liệu:", err);
 });
 
-// Khởi tạo bản đồ
+// INIT MAP
 function initMap() {
   map = L.map('map').setView([10.3791, 105.4317], 10);
+
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom:19, attribution:'&copy; OSM'
+    attribution: '&copy; OpenStreetMap'
   }).addTo(map);
 }
 
-// Khởi tạo filter dropdown và nút
+// LOAD FILTER
 function populateFilters() {
-  const selectLoai = document.getElementById('filterLoai');
-  loai.forEach(l=>selectLoai.innerHTML+=`<option value="${l.id}">${l.name}</option>`);
+  const fLoai = document.getElementById('filterLoai');
+  const fToc = document.getElementById('filterToc');
+  const fPX = document.getElementById('filterPhuongXa');
+  const fCS = document.getElementById('filterLoaiCoSo');
 
-  const selectToc = document.getElementById('filterToc');
-  toc.forEach(t=>selectToc.innerHTML+=`<option value="${t.id}">${t.name}</option>`);
+  loai.forEach(x => fLoai.innerHTML += `<option value="${x.id}">${x.name}</option>`);
+  toc.forEach(x => fToc.innerHTML += `<option value="${x.id}">${x.name}</option>`);
+  phuongxa.forEach(x => fPX.innerHTML += `<option value="${x.id}">${x.name}</option>`);
+  loaicoso.forEach(x => fCS.innerHTML += `<option value="${x.id}">${x.name}</option>`);
 
-  const selectPX = document.getElementById('filterPhuongXa');
-  phuongxa.forEach(px=>selectPX.innerHTML+=`<option value="${px.id}">${px.name}</option>`);
+  [fLoai, fToc, fPX, fCS].forEach(el => {
+    el.addEventListener('change', applyFilter);
+  });
 
-  const selectLoaiCS = document.getElementById('filterLoaiCoSo');
-  loaicoso.forEach(cs=>selectLoaiCS.innerHTML+=`<option value="${cs.id}">${cs.name}</option>`);
-
-  [selectLoai, selectToc, selectPX, selectLoaiCS].forEach(sel=>{ sel.onchange = applyFilter; });
-
-  document.getElementById('resetFilter').onclick = ()=>{
-    [selectLoai, selectToc, selectPX, selectLoaiCS].forEach(s=>s.value='');
+  // RESET BUTTON
+  document.getElementById('resetFilter').onclick = () => {
+    fLoai.value = '';
+    fToc.value = '';
+    fPX.value = '';
+    fCS.value = '';
     applyFilter();
   };
 
-  document.getElementById('toggleSidebar').onclick = ()=>{
+  // TOGGLE SIDEBAR
+  document.getElementById('toggleSidebar').onclick = () => {
     const sb = document.getElementById('sidebar');
-    sb.style.left = (sb.style.left==='-300px') ? '0' : '-300px';
-    map.invalidateSize();
+    sb.classList.toggle('hidden');
+    setTimeout(() => map.invalidateSize(), 300);
   };
 }
 
-// Lọc dữ liệu và vẽ marker
+// FILTER LOGIC
 function applyFilter() {
   const fLoai = document.getElementById('filterLoai').value;
   const fToc = document.getElementById('filterToc').value;
   const fPX = document.getElementById('filterPhuongXa').value;
   const fCS = document.getElementById('filterLoaiCoSo').value;
 
-  const filtered = dataFeatures.filter(f=>{
+  const filtered = dataFeatures.filter(f => {
     const p = f.properties;
-    return (fLoai==='' || p.Loai===fLoai)
-        && (fToc==='' || p.Toc===fToc)
-        && (fPX==='' || p.DiaDanh===fPX)
-        && (fCS==='' || p.LoaiCoSo===fCS);
+
+    return (!fLoai || p.Loai == fLoai)
+        && (!fToc || p.Toc == fToc)
+        && (!fPX || p.DiaDanh == fPX)
+        && (!fCS || p.LoaiCoSo == fCS);
   });
 
-  if(markersLayer) map.removeLayer(markersLayer);
+  renderMap(filtered);
+  renderList(filtered);
+}
 
-  markersLayer = L.geoJSON(filtered, {
-    onEachFeature: (f, layer)=>{
-      const p=f.properties;
-      const loaiCS = loaicoso.find(l=>l.id===p.LoaiCoSo)?.name || '';
-      const ghiChu = loaicoso.find(l=>l.id===p.LoaiCoSo)?.note || '';
-      const pxName = phuongxa.find(pxItem=>pxItem.id===p.DiaDanh)?.name || p.DiaDanh;
-      const loaiName = loai.find(l=>l.id===p.Loai)?.name || p.Loai;
-      const tocName = toc.find(t=>t.id===p.Toc)?.name || p.Toc;
+// RENDER MAP
+function renderMap(features) {
+  if (markersLayer) {
+    map.removeLayer(markersLayer);
+  }
+
+  markersLayer = L.geoJSON(features, {
+    onEachFeature: (f, layer) => {
+      const p = f.properties;
+
+      const loaiName = loai.find(x => x.id == p.Loai)?.name || "Không rõ";
+      const tocName = toc.find(x => x.id == p.Toc)?.name || "Không rõ";
+      const pxName = phuongxa.find(x => x.id == p.DiaDanh)?.name || p.DiaDanh;
+
+      const cs = loaicoso.find(x => x.id == p.LoaiCoSo);
+      const loaiCS = cs?.name || "Không rõ";
+      const ghiChu = cs?.note || "";
 
       layer.bindPopup(`
-        <strong>${p.TenDanhSach}</strong><br>
-        Loại Thần: ${loaiName}<br>
+        <b>${p.TenDanhSach}</b><br>
+        Loại thần: ${loaiName}<br>
         Tộc: ${tocName}<br>
         Phường/Xã: ${pxName}<br>
         Loại cơ sở: ${loaiCS}<br>
-        Ghi chú: ${ghiChu}<br>
-        Phone: ${p.Phone || ''}<br>
+        ${ghiChu ? "Ghi chú: " + ghiChu + "<br>" : ""}
+        ${p.Phone ? "Phone: " + p.Phone + "<br>" : ""}
         Địa chỉ: ${p.DiaChi}<br>
-        <a href="${p.LinkDrive || '#'}" target="_blank">Hình ảnh</a>
+        <a href="${p.LinkDrive}" target="_blank">Xem hình ảnh</a>
       `);
     }
   }).addTo(map);
-
-  populateList(filtered);
 }
 
-// Cập nhật danh sách sidebar
-function populateList(features) {
+// RENDER LIST SIDEBAR
+function renderList(features) {
   const ul = document.getElementById('placeList');
-  ul.innerHTML='';
-  features.forEach((f,i)=>{
-    const li=document.createElement('li');
-    li.textContent=f.properties.TenDanhSach;
-    li.onclick=()=>{
+  ul.innerHTML = '';
+
+  if (!features.length) {
+    ul.innerHTML = '<li>Không có dữ liệu</li>';
+    return;
+  }
+
+  features.forEach(f => {
+    const li = document.createElement('li');
+    li.textContent = f.properties.TenDanhSach;
+
+    li.onclick = () => {
       const coords = [...f.geometry.coordinates].reverse();
-      map.setView(coords,17);
-      markersLayer.getLayers()[i].openPopup();
+      map.setView(coords, 16);
     };
+
     ul.appendChild(li);
   });
 }
