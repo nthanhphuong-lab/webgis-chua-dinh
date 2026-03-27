@@ -1,4 +1,5 @@
 let loai=[], toc=[], phuongxa=[], dataFeatures=[], loaicoso=[];
+let map, markersLayer;
 
 Promise.all([
   fetch('loai.json').then(r=>r.json()),
@@ -13,21 +14,18 @@ Promise.all([
   loaicoso = cs;
   dataFeatures = data.features;
 
-  // --- Chuẩn hóa Loai field ---
-  const loaiIds = loai.map(x=>x.id); // ["01","02","03",...]
+  // Chuẩn hóa Loai để filter đúng (ví dụ "3" -> "03")
+  const loaiIds = loai.map(x=>x.id);
   dataFeatures.forEach(f=>{
     let val = f.properties.Loai;
-    // Tìm id trong loai.json mà kết thúc bằng giá trị Loai (ví dụ "3" → "03")
     let found = loaiIds.find(id=>id.endsWith(val));
     f.properties.Loai = found || val;
   });
 
   initMap();
   populateFilters();
-  applyFilter(); // hiển thị danh sách ban đầu
+  applyFilter();
 });
-
-let map, markersLayer;
 
 function initMap() {
   map = L.map('map').setView([10.3791, 105.4317], 10);
@@ -36,7 +34,6 @@ function initMap() {
   }).addTo(map);
 }
 
-// Populate select filters
 function populateFilters() {
   const selectLoai = document.getElementById('filterLoai');
   loai.forEach(l=>selectLoai.innerHTML+=`<option value="${l.id}">${l.name}</option>`);
@@ -50,24 +47,26 @@ function populateFilters() {
   const selectLoaiCS = document.getElementById('filterLoaiCoSo');
   loaicoso.forEach(cs=>selectLoaiCS.innerHTML+=`<option value="${cs.id}">${cs.name}</option>`);
 
-  // Sự kiện onchange
   [selectLoai, selectToc, selectPX, selectLoaiCS].forEach(sel=>{
     sel.onchange = applyFilter;
   });
 
-  // Toggle sidebar
+  document.getElementById('resetFilter').onclick = ()=>{
+    selectLoai.value = '';
+    selectToc.value = '';
+    selectPX.value = '';
+    selectLoaiCS.value = '';
+    applyFilter();
+  };
+
   document.getElementById('toggleSidebar').onclick = ()=>{
     const sb = document.getElementById('sidebar');
-    if(sb.style.left==='-300px'){
-      sb.style.left='0';
-    } else {
-      sb.style.left='-300px';
-    }
+    if(sb.style.left==='-300px') sb.style.left='0';
+    else sb.style.left='-300px';
     map.invalidateSize();
   };
 }
 
-// Apply filter
 function applyFilter() {
   const fLoai = document.getElementById('filterLoai').value;
   const fToc = document.getElementById('filterToc').value;
@@ -110,7 +109,6 @@ function applyFilter() {
   populateList(filtered);
 }
 
-// Sidebar list
 function populateList(features) {
   const ul = document.getElementById('placeList');
   ul.innerHTML='';
