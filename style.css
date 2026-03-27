@@ -1,4 +1,4 @@
-body, html {
+html, body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -26,6 +26,10 @@ body, html {
   z-index: 1000;
 }
 
+.filter-group {
+  margin-bottom: 10px;
+}
+
 #placeList {
   list-style: none;
   padding: 0;
@@ -40,9 +44,9 @@ body, html {
   background-color: #ddd;
 }
 
-#toggleSidebar {
+button {
   display: block;
-  margin-top: 10px;
+  margin: 10px 0;
   width: 100%;
   padding: 5px;
 }
