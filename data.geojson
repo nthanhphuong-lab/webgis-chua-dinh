@@ -99,7 +99,7 @@
 
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [105.505, 10.678] },
+      "geometry": { "type": "Point", "coordinates": [105.0265388, 10.5025575] },
       "properties": {
         "Ma": "H06",
         "MaChua": "301230505",
