@@ -102,7 +102,7 @@ function renderMap(features) {
       Loại cơ sở: ${cs?.name || ""}<br>
       ${p.DiaChi}<br><br>
     
-      <button onclick="showDetail('${p.MaChua}')">
+      <button onclick="showDetail('${p.Ma}')">
         🔍 Xem chi tiết
       </button>
     `);
