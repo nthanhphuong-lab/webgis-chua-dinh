@@ -120,3 +120,25 @@ body {
   cursor: pointer;
   font-size: 20px;
 }
+#routeBox {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1200;
+  background: white;
+  padding: 8px 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  font-size: 13px;
+}
+
+#routeBox button {
+  margin-top: 5px;
+  width: 100%;
+  padding: 5px;
+  border: none;
+  background: #dc3545;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
