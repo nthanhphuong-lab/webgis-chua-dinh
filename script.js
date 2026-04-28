@@ -206,8 +206,6 @@ function closeModal() {
 // 👇 THÊM Ở ĐÂY (dòng cuối file)
 window.showDetail = showDetail;
 
-let routingControl = null;
-
 function showRoute(lat, lng) {
 
   if (!navigator.geolocation) {
@@ -234,21 +232,16 @@ function showRoute(lat, lng) {
       addWaypoints: false,
       draggableWaypoints: false,
       fitSelectedRoutes: true,
-
-      // 👇 HIỂN THỊ THÔNG TIN
       show: true,
 
-      // 👇 style đường
       lineOptions: {
         styles: [{ color: '#007bff', weight: 5 }]
       },
 
-      // 👇 Ẩn marker mặc định
       createMarker: () => null
-
     }).addTo(map);
 
-    // 👇 Bắt event để lấy distance + time
+    // 👇 HIỂN THỊ KM + TIME
     routingControl.on('routesfound', function(e) {
       const route = e.routes[0];
 
@@ -262,4 +255,12 @@ function showRoute(lat, lng) {
   }, () => {
     alert("Không lấy được vị trí!");
   });
+}
+function clearRoute() {
+  if (routingControl) {
+    map.removeControl(routingControl);
+    routingControl = null;
+  }
+
+  document.getElementById("routeInfo").innerHTML = "Chưa có tuyến đường";
 }
