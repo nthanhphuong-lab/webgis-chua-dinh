@@ -2,6 +2,7 @@ let loai = [], toc = [], phuongxa = [], loaicoso = [];
 let dataFeatures = [];
 let map, markersLayer;
 let tongquatData = [];
+let routingControl = null;
 
 Promise.all([
   fetch('loai.json').then(r => r.json()),
@@ -105,6 +106,9 @@ function renderMap(features) {
       <button onclick="showDetail('${p.Ma}')">
         🔍 Xem chi tiết
       </button>
+      <button onclick="showRoute(${f.geometry.coordinates[1]}, ${f.geometry.coordinates[0]})">
+        🧭 Chỉ đường
+      </button>
     `);
     }
   }).addTo(map);
@@ -201,3 +205,61 @@ function closeModal() {
 }
 // 👇 THÊM Ở ĐÂY (dòng cuối file)
 window.showDetail = showDetail;
+
+let routingControl = null;
+
+function showRoute(lat, lng) {
+
+  if (!navigator.geolocation) {
+    alert("Trình duyệt không hỗ trợ GPS");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(pos => {
+
+    const userLat = pos.coords.latitude;
+    const userLng = pos.coords.longitude;
+
+    // Xóa route cũ
+    if (routingControl) {
+      map.removeControl(routingControl);
+    }
+
+    routingControl = L.Routing.control({
+      waypoints: [
+        L.latLng(userLat, userLng),
+        L.latLng(lat, lng)
+      ],
+      routeWhileDragging: false,
+      addWaypoints: false,
+      draggableWaypoints: false,
+      fitSelectedRoutes: true,
+
+      // 👇 HIỂN THỊ THÔNG TIN
+      show: true,
+
+      // 👇 style đường
+      lineOptions: {
+        styles: [{ color: '#007bff', weight: 5 }]
+      },
+
+      // 👇 Ẩn marker mặc định
+      createMarker: () => null
+
+    }).addTo(map);
+
+    // 👇 Bắt event để lấy distance + time
+    routingControl.on('routesfound', function(e) {
+      const route = e.routes[0];
+
+      const distance = (route.summary.totalDistance / 1000).toFixed(2);
+      const time = Math.round(route.summary.totalTime / 60);
+
+      document.getElementById("routeInfo").innerHTML =
+        `📏 ${distance} km | ⏱ ${time} phút`;
+    });
+
+  }, () => {
+    alert("Không lấy được vị trí!");
+  });
+}
