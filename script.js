@@ -265,7 +265,8 @@ function showRoute(lat, lng) {
         }
 
       }).addTo(map);
-
+       document.getElementById("routeBox").style.display = "block"; 
+      
       // 👇 hiển thị km + time
       routingControl.on('routesfound', function (e) {
         const route = e.routes[0];
@@ -296,9 +297,12 @@ function clearRoute() {
   if (routingControl) {
     map.removeControl(routingControl);
     routingControl = null;
-    }
-  
-    document.getElementById("routeInfo").innerHTML = "Chưa có tuyến đường";
+  }
+
+  document.getElementById("routeInfo").innerHTML = "Chưa có tuyến đường";
+
+  // 👇 ẨN BOX
+  document.getElementById("routeBox").style.display = "none";
 }
 window.showDetail = showDetail;
 window.showRoute = showRoute;
