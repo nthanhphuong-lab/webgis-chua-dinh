@@ -203,8 +203,7 @@ function showModal(html) {
 function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
-// 👇 THÊM Ở ĐÂY (dòng cuối file)
-window.showDetail = showDetail;
+
 
 function showRoute(lat, lng) {
 
@@ -224,6 +223,9 @@ function showRoute(lat, lng) {
     }
 
     routingControl = L.Routing.control({
+     router: L.Routing.osrmv1({
+      serviceUrl: 'https://router.project-osrm.org/route/v1'
+    }), 
       waypoints: [
         L.latLng(userLat, userLng),
         L.latLng(lat, lng)
@@ -264,3 +266,6 @@ function clearRoute() {
 
   document.getElementById("routeInfo").innerHTML = "Chưa có tuyến đường";
 }
+window.showDetail = showDetail;
+window.showRoute = showRoute;
+window.clearRoute = clearRoute;
