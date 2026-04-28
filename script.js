@@ -203,25 +203,32 @@ function showModal(html) {
 function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
-
 function showRoute(lat, lng) {
+
+  // ⚠️ nếu đang chạy HTTP -> không lấy GPS chuẩn
+  if (location.protocol !== "https:") {
+    alert("⚠️ Phải chạy HTTPS mới lấy được vị trí chính xác!");
+    return;
+  }
 
   if (!navigator.geolocation) {
     alert("Trình duyệt không hỗ trợ GPS");
     return;
   }
 
+  // 👇 lấy vị trí realtime, KHÔNG cache
   navigator.geolocation.getCurrentPosition(
-    function(pos) {
+    function (pos) {
 
       const userLat = pos.coords.latitude;
       const userLng = pos.coords.longitude;
 
       console.log("📍 GPS:", userLat, userLng);
-      console.log("🎯 DEST:", lat, lng);
 
-      // 👇 zoom về vị trí user
-      map.setView([userLat, userLng], 14);
+      // ❌ nếu sai quá (fallback IP) → cảnh báo
+      if (userLat < 10 || userLat > 11) {
+        alert("⚠️ Vị trí không chính xác (đang dùng IP). Bật GPS điện thoại!");
+      }
 
       // Xóa route cũ
       if (routingControl) {
@@ -229,9 +236,10 @@ function showRoute(lat, lng) {
         routingControl = null;
       }
 
+      // ✅ tạo route
       routingControl = L.Routing.control({
         router: L.Routing.osrmv1({
-          serviceUrl: 'https://routing.openstreetmap.de/routed-car/route/v1'
+          serviceUrl: 'https://router.project-osrm.org/route/v1'
         }),
 
         waypoints: [
@@ -243,19 +251,23 @@ function showRoute(lat, lng) {
         addWaypoints: false,
         draggableWaypoints: false,
         fitSelectedRoutes: true,
-        show: true,
+
+        show: true, // 👈 BẬT LẠI để có bảng chỉ đường
 
         lineOptions: {
           styles: [{ color: '#007bff', weight: 5 }]
         },
 
-        createMarker: function(i, wp) {
-          return L.marker(wp.latLng);
+        createMarker: function (i, wp) {
+          return L.marker(wp.latLng).bindPopup(
+            i === 0 ? "📍 Bạn đang ở đây" : "🎯 Điểm đến"
+          );
         }
 
       }).addTo(map);
 
-      routingControl.on('routesfound', function(e) {
+      // 👇 hiển thị km + time
+      routingControl.on('routesfound', function (e) {
         const route = e.routes[0];
 
         const distance = (route.summary.totalDistance / 1000).toFixed(2);
@@ -267,15 +279,15 @@ function showRoute(lat, lng) {
 
     },
 
-    function(err) {
-      console.log("GPS ERROR:", err);
-      alert("Không lấy được vị trí! Hãy bật GPS.");
+    function (err) {
+      console.log(err);
+      alert("❌ Không lấy được GPS. Hãy bật định vị + cho phép trình duyệt.");
     },
 
     {
-      enableHighAccuracy: true,
-      timeout: 20000,     // 👈 tăng lên
-      maximumAge: 0
+      enableHighAccuracy: true,   // 🔥 cực quan trọng
+      timeout: 15000,
+      maximumAge: 0               // 🔥 không dùng cache
     }
   );
 }
