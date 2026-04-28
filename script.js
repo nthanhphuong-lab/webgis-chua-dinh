@@ -265,10 +265,12 @@ function showRoute(lat, lng) {
         }
 
       }).addTo(map);
-       document.getElementById("routeBox").style.display = "block"; 
+        document.getElementById("routeBox").style.display = "block";
+        document.getElementById("routeInfo").innerHTML = "⏳ Đang tính đường...";
       
       // 👇 hiển thị km + time
       routingControl.on('routesfound', function (e) {
+        console.log("✅ Route OK");
         const route = e.routes[0];
 
         const distance = (route.summary.totalDistance / 1000).toFixed(2);
