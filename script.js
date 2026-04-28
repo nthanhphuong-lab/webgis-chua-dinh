@@ -212,6 +212,14 @@ function showRoute(lat, lng) {
   }
 
   navigator.geolocation.getCurrentPosition(
+  successCallback,
+  errorCallback,
+  {
+    enableHighAccuracy: true,
+    timeout: 10000,
+    maximumAge: 0
+  }
+);
     function(pos) {
 
       const userLat = pos.coords.latitude;
