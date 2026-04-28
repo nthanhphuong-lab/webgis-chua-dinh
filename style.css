@@ -123,11 +123,8 @@ body {
 #routeBox {
   position: absolute;
   top: 60px;
-  left: 10px;
-  z-index: 9999;   /* 👈 tăng cao */
-  background: white;
-  padding: 8px 10px;
-  border-radius: 6px;
+  left: 10px;   /* 👈 chuyển sang trái */
+  z-index: 9999;
 }
 
 #routeBox button {
