@@ -204,7 +204,6 @@ function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
 
-
 function showRoute(lat, lng) {
 
   if (!navigator.geolocation) {
@@ -212,52 +211,66 @@ function showRoute(lat, lng) {
     return;
   }
 
-  navigator.geolocation.getCurrentPosition(pos => {
+  navigator.geolocation.getCurrentPosition(
+    function(pos) {
 
-    const userLat = pos.coords.latitude;
-    const userLng = pos.coords.longitude;
+      const userLat = pos.coords.latitude;
+      const userLng = pos.coords.longitude;
 
-    // Xóa route cũ
-    if (routingControl) {
-      map.removeControl(routingControl);
+      console.log("📍 Vị trí hiện tại:", userLat, userLng);
+
+      if (routingControl) {
+        map.removeControl(routingControl);
+      }
+
+      routingControl = L.Routing.control({
+        router: L.Routing.osrmv1({
+          serviceUrl: 'https://router.project-osrm.org/route/v1'
+        }),
+
+        waypoints: [
+          L.latLng(userLat, userLng), // 👈 vị trí bạn
+          L.latLng(lat, lng)
+        ],
+
+        routeWhileDragging: false,
+        addWaypoints: false,
+        draggableWaypoints: false,
+        fitSelectedRoutes: true,
+
+        lineOptions: {
+          styles: [{ color: '#007bff', weight: 5 }]
+        },
+
+        createMarker: () => null
+      }).addTo(map);
+
+      routingControl.on('routesfound', function(e) {
+        const route = e.routes[0];
+        const distance = (route.summary.totalDistance / 1000).toFixed(2);
+        const time = Math.round(route.summary.totalTime / 60);
+
+        document.getElementById("routeInfo").innerHTML =
+          `📏 ${distance} km | ⏱ ${time} phút`;
+      });
+
+    },
+
+    function(error) {
+      console.error("❌ GPS lỗi:", error);
+
+      alert("Không lấy được vị trí hiện tại!\n👉 Hãy bật GPS hoặc cho phép trình duyệt.");
+
+    },
+
+    {
+      enableHighAccuracy: true,  // 👈 QUAN TRỌNG
+      timeout: 10000,
+      maximumAge: 0
     }
-
-    routingControl = L.Routing.control({
-     router: L.Routing.osrmv1({
-      serviceUrl: 'https://router.project-osrm.org/route/v1'
-    }), 
-      waypoints: [
-        L.latLng(userLat, userLng),
-        L.latLng(lat, lng)
-      ],
-      routeWhileDragging: false,
-      addWaypoints: false,
-      draggableWaypoints: false,
-      fitSelectedRoutes: true,
-      show: true,
-
-      lineOptions: {
-        styles: [{ color: '#007bff', weight: 5 }]
-      },
-
-      createMarker: () => null
-    }).addTo(map);
-
-    // 👇 HIỂN THỊ KM + TIME
-    routingControl.on('routesfound', function(e) {
-      const route = e.routes[0];
-
-      const distance = (route.summary.totalDistance / 1000).toFixed(2);
-      const time = Math.round(route.summary.totalTime / 60);
-
-      document.getElementById("routeInfo").innerHTML =
-        `📏 ${distance} km | ⏱ ${time} phút`;
-    });
-
-  }, () => {
-    alert("Không lấy được vị trí!");
-  });
+  );
 }
+
 function clearRoute() {
   if (routingControl) {
     map.removeControl(routingControl);
