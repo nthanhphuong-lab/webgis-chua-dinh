@@ -211,72 +211,68 @@ function showRoute(lat, lng) {
     return;
   }
 
-  navigator.geolocation.getCurrentPosition(
-  successCallback,
-  errorCallback,
-  {
-    enableHighAccuracy: true,
-    timeout: 10000,
-    maximumAge: 0
-  }
-);
-    function(pos) {
+  navigator.geolocation.getCurrentPosition(pos => {
 
-      const userLat = pos.coords.latitude;
-      const userLng = pos.coords.longitude;
+    const userLat = pos.coords.latitude;
+    const userLng = pos.coords.longitude;
 
-      console.log("📍 Vị trí hiện tại:", userLat, userLng);
+    console.log("📍 Vị trí hiện tại:", userLat, userLng);
 
-      if (routingControl) {
-        map.removeControl(routingControl);
+    // Xóa route cũ
+    if (routingControl) {
+      map.removeControl(routingControl);
+      routingControl = null;
+    }
+
+    // 👇 QUAN TRỌNG: dùng router + waypoints đúng format
+    routingControl = L.Routing.control({
+      router: L.Routing.osrmv1({
+        serviceUrl: 'https://router.project-osrm.org/route/v1'
+      }),
+
+      waypoints: [
+        L.latLng(userLat, userLng),   // 👈 vị trí hiện tại
+        L.latLng(lat, lng)            // 👈 điểm đến
+      ],
+
+      routeWhileDragging: false,
+      addWaypoints: false,
+      draggableWaypoints: false,
+      fitSelectedRoutes: true,
+      show: false, // 👈 ẩn panel mặc định (tránh bug)
+
+      lineOptions: {
+        styles: [{ color: '#007bff', weight: 5 }]
+      },
+
+      createMarker: function(i, wp) {
+        if (i === 0) {
+          return L.marker(wp.latLng).bindPopup("📍 Bạn đang ở đây");
+        }
+        return L.marker(wp.latLng).bindPopup("🎯 Điểm đến");
       }
 
-      routingControl = L.Routing.control({
-        router: L.Routing.osrmv1({
-          serviceUrl: 'https://router.project-osrm.org/route/v1'
-        }),
+    }).addTo(map);
 
-        waypoints: [
-          L.latLng(userLat, userLng), // 👈 vị trí bạn
-          L.latLng(lat, lng)
-        ],
+    // 👇 BẮT EVENT HIỂN THỊ KM + TIME
+    routingControl.on('routesfound', function(e) {
+      const route = e.routes[0];
 
-        routeWhileDragging: false,
-        addWaypoints: false,
-        draggableWaypoints: false,
-        fitSelectedRoutes: true,
+      const distance = (route.summary.totalDistance / 1000).toFixed(2);
+      const time = Math.round(route.summary.totalTime / 60);
 
-        lineOptions: {
-          styles: [{ color: '#007bff', weight: 5 }]
-        },
+      document.getElementById("routeInfo").innerHTML =
+        `📏 ${distance} km | ⏱ ${time} phút`;
+    });
 
-        createMarker: () => null
-      }).addTo(map);
-
-      routingControl.on('routesfound', function(e) {
-        const route = e.routes[0];
-        const distance = (route.summary.totalDistance / 1000).toFixed(2);
-        const time = Math.round(route.summary.totalTime / 60);
-
-        document.getElementById("routeInfo").innerHTML =
-          `📏 ${distance} km | ⏱ ${time} phút`;
-      });
-
-    },
-
-    function(error) {
-      console.error("❌ GPS lỗi:", error);
-
-      alert("Không lấy được vị trí hiện tại!\n👉 Hãy bật GPS hoặc cho phép trình duyệt.");
-
-    },
-
-    {
-      enableHighAccuracy: true,  // 👈 QUAN TRỌNG
-      timeout: 10000,
-      maximumAge: 0
-    }
-  );
+  }, (err) => {
+    console.log(err);
+    alert("Không lấy được vị trí! Hãy bật GPS + cho phép trình duyệt.");
+  }, {
+    enableHighAccuracy: true,   // 👈 QUAN TRỌNG
+    timeout: 10000,
+    maximumAge: 0
+  });
 }
 
 function clearRoute() {
