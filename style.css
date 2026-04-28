@@ -122,9 +122,14 @@ body {
 }
 #routeBox {
   position: absolute;
-  top: 60px;
-  left: 10px;   /* 👈 chuyển sang trái */
-  z-index: 9999;
+  top: 50px;        /* 👈 nằm dưới nút ☰ */
+  left: 10px;       /* 👈 sát mép trái */
+  z-index: 900;     /* 👈 THẤP hơn sidebar */
+  background: white;
+  padding: 8px 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  font-size: 13px;
 }
 
 #routeBox button {
