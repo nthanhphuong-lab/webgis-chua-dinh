@@ -95,3 +95,28 @@ body {
 #sidebar.hidden ~ #toggleSidebar {
   left: 10px;
 }
+/* MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background: #fff;
+  margin: 5% auto;
+  padding: 20px;
+  width: 60%;
+  max-height: 80%;
+  overflow-y: auto;
+  border-radius: 10px;
+}
+
+.close {
+  float: right;
+  cursor: pointer;
+  font-size: 20px;
+}
