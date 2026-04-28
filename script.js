@@ -217,7 +217,11 @@ function showRoute(lat, lng) {
       const userLat = pos.coords.latitude;
       const userLng = pos.coords.longitude;
 
-      console.log("📍 Vị trí hiện tại:", userLat, userLng);
+      console.log("📍 GPS:", userLat, userLng);
+      console.log("🎯 DEST:", lat, lng);
+
+      // 👇 zoom về vị trí user
+      map.setView([userLat, userLng], 14);
 
       // Xóa route cũ
       if (routingControl) {
@@ -264,13 +268,13 @@ function showRoute(lat, lng) {
     },
 
     function(err) {
-      console.log(err);
-      alert("Không lấy được vị trí!");
+      console.log("GPS ERROR:", err);
+      alert("Không lấy được vị trí! Hãy bật GPS.");
     },
 
     {
       enableHighAccuracy: true,
-      timeout: 10000,
+      timeout: 20000,     // 👈 tăng lên
       maximumAge: 0
     }
   );
