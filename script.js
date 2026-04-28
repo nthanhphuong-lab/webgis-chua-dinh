@@ -141,53 +141,53 @@ function showDetail(ma) {
 
   const t = item.ThongTinChung;
 
-  const html = `
-    <h2>${t.TenCoSo}</h2>
-    
-    <p><b>📍 Địa chỉ:</b> ${t.DiaChi}</p>
-    <p><b>🏮 Loại:</b> ${t.LoaiChua}</p>
-    <p><b>🙏 Thần chủ:</b> ${t.ThanChu}</p>
-    <p><b>👥 Tộc:</b> ${t.Toc}</p>
-    <p><b>🧭 Phường/Xã:</b> ${t.PhuongXa}</p>
-    
-    <hr>
-    
-    <h3>📜 Lịch sử</h3>
-    <p><b>Thời gian:</b> ${item.LichSu.ThoiGian}</p>
-    <p><b>Người sáng lập:</b> ${item.LichSu.NguoiSangLap}</p>
-    <p><b>Trùng tu:</b> ${item.LichSu.TrungTu}</p>
-    
-    <h3>🏛 Kiến trúc</h3>
-    <p><b>Phong cách:</b> ${item.KienTruc.PhongCach}</p>
-    <p><b>Bố cục:</b> ${item.KienTruc.BoCuc}</p>
-    <p><b>Vật liệu:</b> ${item.KienTruc.VatLieu}</p>
-    
-    <h3>🎎 Văn hóa</h3>
-    <p><b>Vai trò:</b> ${item.VanHoa.VaiTro}</p>
-    <p><b>Ý nghĩa:</b> ${item.VanHoa.YNgia}</p>
-    <p><b>Giá trị:</b> ${item.VanHoa.GiaTri}</p>
-    
-    <h3>🎉 Lễ hội</h3>
-    <p><b>Lễ chính:</b> ${item.LeHoi.LeHoiChinh}</p>
-    <p><b>Hoạt động:</b> ${item.LeHoi.HoatDong}</p>
-    
-    <h3>🌏 Ý nghĩa địa phương</h3>
-    <p><b>Du lịch:</b> ${item.YNgiaDiaPhuong.DuLich}</p>
-    <p><b>Đời sống:</b> ${item.YNgiaDiaPhuong.DoiSong}</p>
-    <p><b>Bảo tồn:</b> ${item.YNgiaDiaPhuong.BaoTon}</p>
-    
-    <h3>🛠 Bảo tồn</h3>
-    <p><b>Hiện trạng:</b> ${item.BaoTon.HienTrang}</p>
-    <p><b>Công tác:</b> ${item.BaoTon.CongTac}</p>
-    
-    <hr>
+   const html = `
+  <h2>${t.TenCoSo || ""}</h2>
+  
+  <p><b>📍 Địa chỉ:</b> ${t.DiaChi || ""}</p>
+  <p><b>🏮 Loại:</b> ${t.LoaiChua || ""}</p>
+  <p><b>🙏 Thần chủ:</b> ${t.ThanChu || ""}</p>
+  <p><b>👥 Tộc:</b> ${t.Toc || ""}</p>
+  <p><b>🧭 Phường/Xã:</b> ${t.PhuongXa || ""}</p>
+  
+  <hr>
+  
+  <h3>📜 Lịch sử</h3>
+  <p><b>Thời gian:</b> ${item.LichSu?.ThoiGian || ""}</p>
+  <p><b>Người sáng lập:</b> ${item.LichSu?.NguoiSangLap || ""}</p>
+  <p><b>Trùng tu:</b> ${item.LichSu?.TrungTu || ""}</p>
+  
+  <h3>🏛 Kiến trúc</h3>
+  <p><b>Phong cách:</b> ${item.KienTruc?.PhongCach || ""}</p>
+  <p><b>Bố cục:</b> ${item.KienTruc?.BoCuc || ""}</p>
+  <p><b>Vật liệu:</b> ${item.KienTruc?.VatLieu || ""}</p>
+  
+  <h3>🎎 Văn hóa</h3>
+  <p><b>Vai trò:</b> ${item.VanHoa?.VaiTro || ""}</p>
+  <p><b>Ý nghĩa:</b> ${item.VanHoa?.YNgia || ""}</p>
+  <p><b>Giá trị:</b> ${item.VanHoa?.GiaTri || ""}</p>
+  
+  <h3>🎉 Lễ hội</h3>
+  <p><b>Lễ chính:</b> ${item.LeHoi?.LeHoiChinh || ""}</p>
+  <p><b>Hoạt động:</b> ${item.LeHoi?.HoatDong || ""}</p>
+  
+  <h3>🌏 Ý nghĩa địa phương</h3>
+  <p><b>Du lịch:</b> ${item.YNgiaDiaPhuong?.DuLich || ""}</p>
+  <p><b>Đời sống:</b> ${item.YNgiaDiaPhuong?.DoiSong || ""}</p>
+  <p><b>Bảo tồn:</b> ${item.YNgiaDiaPhuong?.BaoTon || ""}</p>
+  
+  <h3>🛠 Bảo tồn</h3>
+  <p><b>Hiện trạng:</b> ${item.BaoTon?.HienTrang || ""}</p>
+  <p><b>Công tác:</b> ${item.BaoTon?.CongTac || ""}</p>
+  
+  <hr>
 
-<a href="${t.LinkMap}" target="_blank">🗺 Map</a> |
-<a href="${t.LinkHinh}" target="_blank">📷 Hình</a>
+  <a href="${t.LinkMap || "#"}" target="_blank">🗺 Map</a> |
+  <a href="${t.LinkHinh || "#"}" target="_blank">📷 Hình</a>
+
+  <hr>
+  <p>${item.ThongTinKhac || ""}</p>
 `;
-    <hr>
-    <p>${item.ThongTinKhac || ""}</p>
-  `;
 
   showModal(html);
 }
