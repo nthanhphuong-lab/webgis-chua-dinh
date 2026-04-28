@@ -243,7 +243,7 @@ function showRoute(lat, lng) {
         addWaypoints: false,
         draggableWaypoints: false,
         fitSelectedRoutes: true,
-        show: false,
+        show: true,
 
         lineOptions: {
           styles: [{ color: '#007bff', weight: 5 }]
