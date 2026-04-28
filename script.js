@@ -1,20 +1,23 @@
 let loai = [], toc = [], phuongxa = [], loaicoso = [];
 let dataFeatures = [];
 let map, markersLayer;
+let tongquatData = [];
 
 Promise.all([
   fetch('loai.json').then(r => r.json()),
   fetch('toc.json').then(r => r.json()),
   fetch('phuongxa.json').then(r => r.json()),
   fetch('loaicoso.json').then(r => r.json()),
-  fetch('data.geojson').then(r => r.json())
+  fetch('data.geojson').then(r => r.json()),
+  fetch('tongquat.json').then(r => r.json()) // 👈 thêm dòng này
 ])
-.then(([l, t, px, cs, geo]) => {
+.then(([l, t, px, cs, geo, tq]) => {
   loai = l;
   toc = t;
   phuongxa = px;
   loaicoso = cs;
   dataFeatures = geo.features || [];
+  tongquatData = tq; // 👈 lưu dữ liệu chi tiết
 
   initMap();
   populateFilters();
@@ -92,13 +95,17 @@ function renderMap(features) {
       const cs = loaicoso.find(x => x.id == p.LoaiCoSo);
 
       layer.bindPopup(`
-        <b>${p.TenDanhSach}</b><br>
-        Loại thần: ${loaiName}<br>
-        Tộc: ${tocName}<br>
-        Phường/Xã: ${pxName}<br>
-        Loại cơ sở: ${cs?.name || ""}<br>
-        ${p.DiaChi}
-      `);
+      <b>${p.TenDanhSach}</b><br>
+      Loại thần: ${loaiName}<br>
+      Tộc: ${tocName}<br>
+      Phường/Xã: ${pxName}<br>
+      Loại cơ sở: ${cs?.name || ""}<br>
+      ${p.DiaChi}<br><br>
+    
+      <button onclick="showDetail('${p.MaChua}')">
+        🔍 Xem chi tiết
+      </button>
+    `);
     }
   }).addTo(map);
 }
@@ -124,3 +131,63 @@ function renderList(features) {
     ul.appendChild(li);
   });
 }
+function showDetail(ma) {
+  const item = tongquatData.find(x => x.Ma === ma);
+
+  if (!item) {
+    alert("Không có dữ liệu chi tiết!");
+    return;
+  }
+
+  const t = item.ThongTinChung;
+
+  const html = `
+    <h2>${t.TenCoSo || ""}</h2>
+
+    <p><b>📍 Địa chỉ:</b> ${t.DiaChi || ""}</p>
+    <p><b>🏮 Loại:</b> ${t.LoaiChua || ""}</p>
+    <p><b>🙏 Thần chủ:</b> ${t.ThanChu || ""}</p>
+    <p><b>👥 Tộc:</b> ${t.Toc || ""}</p>
+    <p><b>🧭 Phường/Xã:</b> ${t.PhuongXa || ""}</p>
+
+    <p>
+      <a href="${t.LinkMap}" target="_blank">🗺 Google Map</a>
+    </p>
+
+    <p>
+      <a href="${t.LinkHinh}" target="_blank">📷 Hình ảnh</a>
+    </p>
+
+    <hr>
+
+    <h3>📜 Lịch sử</h3>
+    <p>${item.LichSu?.ThoiGian || ""}</p>
+
+    <h3>🏛 Kiến trúc</h3>
+    <p>${item.KienTruc?.PhongCach || ""}</p>
+
+    <h3>🎎 Văn hóa</h3>
+    <p>${item.VanHoa?.GiaTri || ""}</p>
+
+    <h3>🎉 Lễ hội</h3>
+    <p>${item.LeHoi?.LeHoiChinh || ""}</p>
+
+    <h3>🌏 Ý nghĩa địa phương</h3>
+    <p>${item.YNgiaDiaPhuong?.DuLich || ""}</p>
+
+    <hr>
+    <p>${item.ThongTinKhac || ""}</p>
+  `;
+
+  showModal(html);
+}
+function showModal(html) {
+  document.getElementById("modal-body").innerHTML = html;
+  document.getElementById("modal").style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+// 👇 THÊM Ở ĐÂY (dòng cuối file)
+window.showDetail = showDetail;
