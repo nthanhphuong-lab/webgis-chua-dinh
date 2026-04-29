@@ -321,7 +321,7 @@ function drawRoute(userLat, userLng, lat, lng) {
     fitSelectedRoutes: true,
 
     show: true,
-    language: 'vi', // 👈 THÊM DÒNG NÀY
+    
     lineOptions: {
       styles: [{ color: '#007bff', weight: 5 }]
     },
