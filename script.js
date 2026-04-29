@@ -47,16 +47,23 @@ function initMap() {
   if (manualMarker) map.removeLayer(manualMarker);
 
   manualMarker = L.marker(manualLocation, {
-    icon: L.icon({
-      iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x-red.png',
-      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-      iconSize: [25, 41],
-      iconAnchor: [12, 41]
-    })
+  icon: L.divIcon({
+    className: '',
+    html: `<div style="
+      width:18px;
+      height:18px;
+      background:red;
+      border-radius:50%;
+      border:3px solid white;
+      box-shadow:0 0 5px rgba(0,0,0,0.5);
+    "></div>`,
+    iconSize: [18, 18],
+    iconAnchor: [9, 9]
   })
-  .addTo(map)
-  .bindPopup("📍 Vị trí bạn chọn")
-  .openPopup();
+})
+.addTo(map)
+.bindPopup("📍 Vị trí bạn chọn")
+.openPopup();
 
   pickingLocation = false;
 
