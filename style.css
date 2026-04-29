@@ -122,8 +122,8 @@ body {
 /* ===== NÚT 📍 CHỌN VỊ TRÍ ===== */
 #btnPickLocation {
   position: absolute;
-  top: 10px;       /* 👈 QUAN TRỌNG: cùng hàng */
-  left: 380px;     /* 👈 nằm kế bên ☰ */
+  top: 10px;        /* 👈 cùng hàng với nút ☰ */
+  left: 380px;      /* 👈 nằm bên phải nút ☰ */
 
   z-index: 1200;
 
