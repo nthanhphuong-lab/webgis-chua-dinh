@@ -46,10 +46,17 @@ function initMap() {
 
   if (manualMarker) map.removeLayer(manualMarker);
 
-  manualMarker = L.marker(manualLocation)
-    .addTo(map)
-    .bindPopup("📍 Vị trí bạn chọn")
-    .openPopup();
+  manualMarker = L.marker(manualLocation, {
+    icon: L.icon({
+      iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x-red.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41]
+    })
+  })
+  .addTo(map)
+  .bindPopup("📍 Vị trí bạn chọn")
+  .openPopup();
 
   pickingLocation = false;
 
@@ -334,19 +341,30 @@ function drawRoute(userLat, userLng, lat, lng) {
       `📏 ${distance} km | ⏱ ${time} phút`;
   });
 }
-  
+  function clearRoute() {
 
-function clearRoute() {
+  // ❌ xóa đường
   if (routingControl) {
     map.removeControl(routingControl);
     routingControl = null;
   }
 
+  // ❌ xóa marker vị trí chọn tay
+  if (manualMarker) {
+    map.removeLayer(manualMarker);
+    manualMarker = null;
+  }
+
+  // ❌ reset vị trí
+  manualLocation = null;
+
   document.getElementById("routeInfo").innerHTML = "Chưa có tuyến đường";
 
-  // 👇 ẨN BOX
+  // ẩn box
   document.getElementById("routeBox").style.display = "none";
 }
+
+
 window.showDetail = showDetail;
 window.showRoute = showRoute;
 window.clearRoute = clearRoute;
