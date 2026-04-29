@@ -334,18 +334,7 @@ function drawRoute(userLat, userLng, lat, lng) {
       `📏 ${distance} km | ⏱ ${time} phút`;
   });
 }
-    function (err) {
-      console.log(err);
-      alert("❌ Không lấy được GPS. Hãy bật định vị + cho phép trình duyệt.");
-    },
-
-    {
-      enableHighAccuracy: true,   // 🔥 cực quan trọng
-      timeout: 15000,
-      maximumAge: 0               // 🔥 không dùng cache
-    }
-  );
-}
+  
 
 function clearRoute() {
   if (routingControl) {
