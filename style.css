@@ -77,27 +77,7 @@ body {
   background: #f0f0f0;
 }
 
-/* TOGGLE BUTTON */
-#toggleSidebar {
-  position: absolute;
-  top: 10px;
-  left: 330px;
-  z-index: 1100;
-  padding: 6px 10px;
-  background: #333;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: left 0.3s ease;
-}
 
-#sidebar.hidden ~ #toggleSidebar {
-  left: 10px;
-}
-#sidebar.hidden ~ #routeBox {
-  left: 10px;
-}
 
 /* MODAL */
 .modal {
@@ -124,10 +104,41 @@ body {
   cursor: pointer;
   font-size: 20px;
 }
+/* ===== NÚT ☰ ===== */
+#toggleSidebar {
+  position: absolute;
+  top: 10px;
+  left: 330px;
+  z-index: 1200;
+
+  padding: 6px 10px;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* ===== NÚT 📍 CHỌN VỊ TRÍ ===== */
+#btnPickLocation {
+  position: absolute;
+  top: 10px;       /* 👈 QUAN TRỌNG: cùng hàng */
+  left: 380px;     /* 👈 nằm kế bên ☰ */
+
+  z-index: 1200;
+
+  padding: 6px 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* ===== BOX CHỈ ĐƯỜNG ===== */
 #routeBox {
   position: absolute;
-
-  top: 90px;        /* 👈 nằm dưới nút chọn vị trí */
+  top: 50px;       /* 👈 nằm dưới 2 nút */
   left: 330px;
 
   z-index: 1200;
@@ -150,25 +161,16 @@ body {
   cursor: pointer;
   border-radius: 4px;
 }
-#routeBox {
-  display: none;
-}
-#btnPickLocation {
-  position: absolute;
 
-  top: 50px;        /* 👈 ngay dưới nút ☰ */
-  left: 330px;
-
-  z-index: 1200;
-
-  padding: 6px 10px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+/* ===== KHI ẨN SIDEBAR ===== */
+#sidebar.hidden ~ #toggleSidebar {
+  left: 10px;
 }
 
 #sidebar.hidden ~ #btnPickLocation {
+  left: 60px;   /* 👈 vẫn nằm ngang */
+}
+
+#sidebar.hidden ~ #routeBox {
   left: 10px;
 }
