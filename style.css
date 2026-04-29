@@ -150,3 +150,19 @@ body {
 #routeBox {
   display: none;
 }
+#btnPickLocation {
+  position: absolute;
+  top: 80px;
+  left: 330px; /* cùng hàng với nút sidebar */
+  z-index: 1200;
+  padding: 6px 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#sidebar.hidden ~ #btnPickLocation {
+  left: 10px;
+}
