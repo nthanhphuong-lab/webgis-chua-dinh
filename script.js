@@ -28,7 +28,19 @@ Promise.all([
   applyFilter();
 })
 .catch(err => console.error("Lỗi load:", err));
-
+function translateInstruction(text) {
+  return text
+    .replace("Head", "Đi")
+    .replace("Turn right", "Rẽ phải")
+    .replace("Turn left", "Rẽ trái")
+    .replace("Continue", "Tiếp tục")
+    .replace("Merge right", "Nhập làn bên phải")
+    .replace("Merge left", "Nhập làn bên trái")
+    .replace("Keep right", "Giữ bên phải")
+    .replace("Keep left", "Giữ bên trái")
+    .replace("You have arrived at your destination", "Bạn đã đến nơi")
+    .replace("Destination", "Điểm đến");
+}
 function initMap() {
   map = L.map('map', { zoomControl: false })
     .setView([10.38, 105.43], 10);
@@ -339,14 +351,27 @@ function drawRoute(userLat, userLng, lat, lng) {
   document.getElementById("routeInfo").innerHTML = "⏳ Đang tính đường...";
 
   routingControl.on('routesfound', function (e) {
-    const route = e.routes[0];
+  const route = e.routes[0];
 
-    const distance = (route.summary.totalDistance / 1000).toFixed(2);
-    const time = Math.round(route.summary.totalTime / 60);
+  const distance = (route.summary.totalDistance / 1000).toFixed(2);
+  const time = Math.round(route.summary.totalTime / 60);
 
-    document.getElementById("routeInfo").innerHTML =
-      `📏 ${distance} km | ⏱ ${time} phút`;
+  // 👇 hiển thị km + time
+  document.getElementById("routeInfo").innerHTML =
+    `📏 ${distance} km | ⏱ ${time} phút`;
+
+  // 👇 LẤY danh sách step
+  const steps = route.instructions;
+
+  let html = `<b>📍 Hướng dẫn:</b><br>`;
+
+  steps.forEach(s => {
+    html += "👉 " + translateInstruction(s.text) + "<br>";
   });
+
+  document.getElementById("routeInfo").innerHTML += "<br>" + html;
+});
+  
 }
   function clearRoute() {
 
