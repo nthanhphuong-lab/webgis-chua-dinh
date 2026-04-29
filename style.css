@@ -95,6 +95,10 @@ body {
 #sidebar.hidden ~ #toggleSidebar {
   left: 10px;
 }
+#sidebar.hidden ~ #routeBox {
+  left: 10px;
+}
+
 /* MODAL */
 .modal {
   display: none;
