@@ -38,6 +38,23 @@ function initMap() {
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OSM'
   }).addTo(map);
+
+  map.on('click', function(e) {
+  if (!pickingLocation) return;
+
+  manualLocation = e.latlng;
+
+  if (manualMarker) map.removeLayer(manualMarker);
+
+  manualMarker = L.marker(manualLocation)
+    .addTo(map)
+    .bindPopup("📍 Vị trí bạn chọn")
+    .openPopup();
+
+  pickingLocation = false;
+
+  alert("Đã chọn vị trí!");
+});
 }
 
 function populateFilters() {
@@ -65,6 +82,11 @@ function populateFilters() {
     const sb = document.getElementById('sidebar');
     sb.classList.toggle('hidden');
     setTimeout(() => map.invalidateSize(), 300);
+  };
+
+  document.getElementById("btnPickLocation").onclick = () => {
+    pickingLocation = true;
+    alert("👉 Click lên bản đồ để chọn vị trí");
   };
 }
 
@@ -208,82 +230,59 @@ function closeModal() {
 }
 function showRoute(lat, lng) {
 
-  // ⚠️ nếu đang chạy HTTP -> không lấy GPS chuẩn
-  if (location.protocol !== "https:") {
-    alert("⚠️ Phải chạy HTTPS mới lấy được vị trí chính xác!");
-    return;
-  }
+  // ✅ ƯU TIÊN vị trí chọn tay
+  if (manualLocation) {
 
-  if (!navigator.geolocation) {
-    alert("Trình duyệt không hỗ trợ GPS");
-    return;
-  }
+    const userLat = manualLocation.lat;
+    const userLng = manualLocation.lng;
 
-  // 👇 lấy vị trí realtime, KHÔNG cache
-  navigator.geolocation.getCurrentPosition(
-    function (pos) {
+    console.log("📍 Manual:", userLat, userLng);
 
-      const userLat = pos.coords.latitude;
-      const userLng = pos.coords.longitude;
+    // Xóa route cũ
+    if (routingControl) {
+      map.removeControl(routingControl);
+      routingControl = null;
+    }
 
-      console.log("📍 GPS:", userLat, userLng);
+    routingControl = L.Routing.control({
+      router: L.Routing.osrmv1({
+        serviceUrl: 'https://router.project-osrm.org/route/v1'
+      }),
 
-      // ❌ nếu sai quá (fallback IP) → cảnh báo
-      if (userLat < 10 || userLat > 11) {
-        alert("⚠️ Vị trí không chính xác (đang dùng IP). Bật GPS điện thoại!");
+      waypoints: [
+        L.latLng(userLat, userLng),
+        L.latLng(lat, lng)
+      ],
+
+      routeWhileDragging: false,
+      addWaypoints: false,
+      draggableWaypoints: false,
+      fitSelectedRoutes: true,
+      show: true,
+
+      lineOptions: {
+        styles: [{ color: '#007bff', weight: 5 }]
       }
 
-      // Xóa route cũ
-      if (routingControl) {
-        map.removeControl(routingControl);
-        routingControl = null;
-      }
+    }).addTo(map);
 
-      // ✅ tạo route
-      routingControl = L.Routing.control({
-        router: L.Routing.osrmv1({
-          serviceUrl: 'https://router.project-osrm.org/route/v1'
-        }),
+    document.getElementById("routeBox").style.display = "block";
+    document.getElementById("routeInfo").innerHTML = "⏳ Đang tính đường...";
 
-        waypoints: [
-          L.latLng(userLat, userLng),
-          L.latLng(lat, lng)
-        ],
+    routingControl.on('routesfound', function (e) {
+      const route = e.routes[0];
 
-        routeWhileDragging: false,
-        addWaypoints: false,
-        draggableWaypoints: false,
-        fitSelectedRoutes: true,
+      const distance = (route.summary.totalDistance / 1000).toFixed(2);
+      const time = Math.round(route.summary.totalTime / 60);
 
-        show: true, // 👈 BẬT LẠI để có bảng chỉ đường
+      document.getElementById("routeInfo").innerHTML =
+        `📏 ${distance} km | ⏱ ${time} phút`;
+    });
 
-        lineOptions: {
-          styles: [{ color: '#007bff', weight: 5 }]
-        },
+    return; // ⛔ QUAN TRỌNG: không chạy GPS nữa
+  }
 
-        createMarker: function (i, wp) {
-          return L.marker(wp.latLng).bindPopup(
-            i === 0 ? "📍 Bạn đang ở đây" : "🎯 Điểm đến"
-          );
-        }
-
-      }).addTo(map);
-        document.getElementById("routeBox").style.display = "block";
-        document.getElementById("routeInfo").innerHTML = "⏳ Đang tính đường...";
-      
-      // 👇 hiển thị km + time
-      routingControl.on('routesfound', function (e) {
-        console.log("✅ Route OK");
-        const route = e.routes[0];
-
-        const distance = (route.summary.totalDistance / 1000).toFixed(2);
-        const time = Math.round(route.summary.totalTime / 60);
-
-        document.getElementById("routeInfo").innerHTML =
-          `📏 ${distance} km | ⏱ ${time} phút`;
-      });
-
-    },
+  // ⬇️ GIỮ NGUYÊN CODE GPS CŨ CỦA BẠN ⬇️
 
     function (err) {
       console.log(err);
