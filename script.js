@@ -3,6 +3,9 @@ let dataFeatures = [];
 let map, markersLayer;
 let tongquatData = [];
 let routingControl = null;
+let manualLocation = null;
+let pickingLocation = false;
+let manualMarker = null;
 
 Promise.all([
   fetch('loai.json').then(r => r.json()),
