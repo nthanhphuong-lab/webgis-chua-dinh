@@ -123,33 +123,85 @@ function applyFilter() {
 }
 
 function renderMap(features) {
-  if (markersLayer) map.removeLayer(markersLayer);
+  // Nếu lớp marker cũ đang tồn tại thì xóa trước
+  if (markersLayer) {
+    map.removeLayer(markersLayer);
+  }
+
+  // Tạo icon ghim màu đỏ
+  // Hình dạng và kích thước giống icon mặc định của Leaflet
+  const redIcon = L.icon({
+    iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
+
+    shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
 
   markersLayer = L.geoJSON(features, {
-    onEachFeature: (f, layer) => {
+
+    /*
+      Quy định icon cho từng điểm.
+
+      Chỉ cơ sở có:
+      MaChua = 108030742
+
+      mới sử dụng ghim đỏ.
+      Các cơ sở khác sử dụng ghim xanh mặc định.
+    */
+    pointToLayer: function (feature, latlng) {
+      const p = feature.properties;
+
+      if (String(p.MaChua) === "108030742") {
+        return L.marker(latlng, {
+          icon: redIcon
+        });
+      }
+
+      // Ghim xanh mặc định của Leaflet
+      return L.marker(latlng);
+    },
+
+    // Tạo nội dung popup cho từng điểm
+    onEachFeature: function (f, layer) {
       const p = f.properties;
 
-      const loaiName = loai.find(x => x.id == p.Loai)?.name || "Không rõ";
-      const tocName = toc.find(x => x.id == p.Toc)?.name || "Không rõ";
-      const pxName = phuongxa.find(x => x.id == p.DiaDanh)?.name || p.DiaDanh;
-      const cs = loaicoso.find(x => x.id == p.LoaiCoSo);
+      const loaiName =
+        loai.find(x => x.id == p.Loai)?.name || "Không rõ";
+
+      const tocName =
+        toc.find(x => x.id == p.Toc)?.name || "Không rõ";
+
+      const pxName =
+        phuongxa.find(x => x.id == p.DiaDanh)?.name || p.DiaDanh;
+
+      const cs =
+        loaicoso.find(x => x.id == p.LoaiCoSo);
 
       layer.bindPopup(`
-      <b>${p.TenDanhSach}</b><br>
-      Loại thần: ${loaiName}<br>
-      Tộc: ${tocName}<br>
-      Phường/Xã: ${pxName}<br>
-      Loại cơ sở: ${cs?.name || ""}<br>
-      ${p.DiaChi}<br><br>
-    
-      <button onclick="showDetail('${p.Ma}')">
-        🔍 Xem chi tiết
-      </button>
-      <button onclick="showRoute(${f.geometry.coordinates[1]}, ${f.geometry.coordinates[0]})">
-        🧭 Chỉ đường
-      </button>
-    `);
+        <b>${p.TenDanhSach}</b><br>
+        Loại thần: ${loaiName}<br>
+        Tộc: ${tocName}<br>
+        Phường/Xã: ${pxName}<br>
+        Loại cơ sở: ${cs?.name || ""}<br>
+        ${p.DiaChi || ""}<br><br>
+
+        <button onclick="showDetail('${p.Ma}')">
+          🔍 Xem chi tiết
+        </button>
+
+        <button onclick="showRoute(
+          ${f.geometry.coordinates[1]},
+          ${f.geometry.coordinates[0]}
+        )">
+          🧭 Chỉ đường
+        </button>
+      `);
     }
+
   }).addTo(map);
 }
 
