@@ -180,16 +180,28 @@ body {
 
 #toggleTourPanel {
   position: absolute;
-  top: 10px;
+
+  /* Không đặt nút ở phía trên nữa */
+  top: auto;
+
+  /* Đưa nút xuống phía dưới */
+  bottom: 25px;
+
+  /* Cách mép phải để không đè nút phóng to/thu nhỏ */
   right: 70px;
+
   z-index: 1300;
+
   border: 0;
   border-radius: 6px;
   padding: 9px 12px;
+
   background: #7a3e00;
   color: #fff;
+
   font-weight: 700;
   cursor: pointer;
+
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
 }
 
@@ -379,9 +391,10 @@ body {
 /* Trên màn hình nhỏ */
 @media (max-width: 700px) {
   #toggleTourPanel {
-    top: 55px;
-    right: 10px;
-  }
+  top: auto;
+  bottom: 20px;
+  right: 65px;
+}
 
   #tourPanel {
     top: 98px;
