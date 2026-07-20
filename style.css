@@ -174,3 +174,228 @@ body {
 #sidebar.hidden ~ #routeBox {
   left: 10px;
 }
+/* =========================================================
+   TOUR HÀNH HƯƠNG NHIỀU ĐIỂM
+   ========================================================= */
+
+#toggleTourPanel {
+  position: absolute;
+  top: 10px;
+  right: 70px;
+  z-index: 1300;
+  border: 0;
+  border-radius: 6px;
+  padding: 9px 12px;
+  background: #7a3e00;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+}
+
+#tourPanel {
+  position: absolute;
+  top: 55px;
+  right: 12px;
+  z-index: 1250;
+  width: min(380px, calc(100vw - 24px));
+  max-height: calc(100vh - 75px);
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 12px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+#tourPanel.tour-hidden {
+  transform: translateX(calc(100% + 30px));
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tour-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 17px;
+}
+
+.tour-close {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: #eee;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.tour-help {
+  margin: 4px 0 10px;
+  color: #555;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.tour-stop-row {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.tour-stop-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #1769e0;
+  color: #fff;
+  font-weight: 700;
+}
+
+.tour-place-select {
+  width: 100%;
+  min-width: 0;
+  padding: 8px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.tour-order-buttons {
+  display: flex;
+  gap: 3px;
+}
+
+.tour-order-buttons button {
+  min-width: 29px;
+  height: 30px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 4px;
+  background: #e9ecef;
+  cursor: pointer;
+}
+
+.tour-order-buttons .tour-remove {
+  background: #dc3545;
+  color: #fff;
+  font-size: 18px;
+}
+
+.tour-order-buttons button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.tour-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.tour-actions button {
+  padding: 9px;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#addTourStop {
+  background: #6c757d;
+  color: #fff;
+}
+
+#calculateTour {
+  background: #1769e0;
+  color: #fff;
+  font-weight: 700;
+}
+
+#clearTour {
+  grid-column: 1 / -1;
+  background: #f0f0f0;
+  color: #222;
+}
+
+#tourInfo {
+  margin-top: 10px;
+  padding: 9px;
+  border-radius: 6px;
+  background: #f6f7f9;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.tour-summary-list {
+  margin: 8px 0 0 20px;
+  padding: 0;
+}
+
+.tour-numbered-marker-wrapper {
+  background: transparent;
+  border: 0;
+}
+
+.tour-numbered-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 3px solid #fff;
+  border-radius: 50% 50% 50% 0;
+  background: #1769e0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  transform: rotate(-45deg);
+}
+
+.tour-numbered-marker::first-line {
+  transform: rotate(45deg);
+}
+
+/* Giữ số thẳng trong ghim */
+.tour-numbered-marker {
+  line-height: 1;
+}
+
+.tour-numbered-marker {
+  text-indent: 0;
+}
+
+/* Trên màn hình nhỏ */
+@media (max-width: 700px) {
+  #toggleTourPanel {
+    top: 55px;
+    right: 10px;
+  }
+
+  #tourPanel {
+    top: 98px;
+    right: 8px;
+    width: calc(100vw - 16px);
+    max-height: calc(100vh - 110px);
+  }
+
+  .tour-stop-row {
+    grid-template-columns: 28px minmax(0, 1fr);
+  }
+
+  .tour-order-buttons {
+    grid-column: 2;
+    justify-content: flex-end;
+  }
+}
