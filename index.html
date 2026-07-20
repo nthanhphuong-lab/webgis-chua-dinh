@@ -56,6 +56,35 @@
     <div id="modal-body"></div>
   </div>
 </div> 
+<!-- Nút mở/đóng Tour hành hương: đặt gần nút "Chọn vị trí" -->
+<button id="toggleTourPanel" type="button">🛕 Tour hành hương</button>
+
+<!-- Hộp Tour hành hương: đặt sau #routeBox và trước thẻ đóng </body> -->
+<section id="tourPanel" class="tour-hidden" aria-label="Lập tuyến qua nhiều chùa và miếu">
+  <div class="tour-panel-header">
+    <strong>🛕 Tour hành hương</strong>
+    <button
+      type="button"
+      class="tour-close"
+      onclick="document.getElementById('tourPanel').classList.add('tour-hidden')"
+      aria-label="Đóng"
+    >×</button>
+  </div>
+
+  <p class="tour-help">
+    Chọn các địa điểm theo đúng thứ tự muốn đi. Dùng ↑ ↓ để đổi thứ tự.
+  </p>
+
+  <div id="tourStopList"></div>
+
+  <div class="tour-actions">
+    <button id="addTourStop" type="button">➕ Thêm điểm dừng</button>
+    <button id="calculateTour" type="button">🧭 Tính tuyến</button>
+    <button id="clearTour" type="button">🗑 Xóa tour</button>
+  </div>
+
+  <div id="tourInfo">Chưa tính tuyến.</div>
+</section>
   
 </body>
 </html>
