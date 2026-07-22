@@ -56,7 +56,7 @@ function createBaseMaps() {
     crossOrigin: true
   };
 
-  // Nền mặc định ít nhãn: tránh các nhãn đa ngôn ngữ gây rối khi chụp luận văn.
+  // Nền sáng, ít nhãn, phù hợp khi trình bày hoặc chụp hình phục vụ nghiên cứu.
   const cartoPositron = L.tileLayer(
     'https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
     {
@@ -104,11 +104,11 @@ function createBaseMaps() {
   );
 
   return {
-    'Carto Positron': cartoPositron,
-    'OpenStreetMap': openStreetMap,
-    'Esri World Street': esriWorldStreet,
-    'Esri Light Gray': esriLightGray,
-    'Esri Satellite': esriSatellite
+    '🗺 Bản đồ tiêu chuẩn': openStreetMap,
+    '☀️ Bản đồ sáng': cartoPositron,
+    '🌍 Bản đồ giao thông': esriWorldStreet,
+    '📄 Bản đồ nền xám': esriLightGray,
+    '🛰 Ảnh vệ tinh': esriSatellite
   };
 }
 
@@ -120,9 +120,25 @@ function initMap() {
 
   // V3.4: Bộ chuyển đổi nền bản đồ. Không thay đổi các lớp marker/cơ sở thờ tự.
   const baseMaps = createBaseMaps();
-  const savedBaseMap = localStorage.getItem('webgisBaseMap') || 'Carto Positron';
-  const defaultBaseMapName = baseMaps[savedBaseMap] ? savedBaseMap : 'Carto Positron';
+
+  // V3.4.1: Việt hóa tên lớp và dùng OpenStreetMap làm nền mặc định.
+  // Bảng chuyển đổi giúp người đã dùng V3.4 vẫn giữ được lựa chọn cũ.
+  const legacyBaseMapNames = {
+    'OpenStreetMap': '🗺 Bản đồ tiêu chuẩn',
+    'Carto Positron': '☀️ Bản đồ sáng',
+    'Esri World Street': '🌍 Bản đồ giao thông',
+    'Esri Light Gray': '📄 Bản đồ nền xám',
+    'Esri Satellite': '🛰 Ảnh vệ tinh'
+  };
+
+  const savedBaseMap = localStorage.getItem('webgisBaseMap');
+  const migratedBaseMapName = legacyBaseMapNames[savedBaseMap] || savedBaseMap;
+  const defaultBaseMapName = baseMaps[migratedBaseMapName]
+    ? migratedBaseMapName
+    : '🗺 Bản đồ tiêu chuẩn';
+
   baseMaps[defaultBaseMapName].addTo(map);
+  localStorage.setItem('webgisBaseMap', defaultBaseMapName);
 
   const baseMapControl = L.control.layers(baseMaps, null, {
     position: 'topright',
