@@ -49,15 +49,95 @@ Promise.all([
   alert("Không tải được dữ liệu. Hãy kiểm tra các file JSON/GeoJSON.");
 });
 
+
+function createBaseMaps() {
+  const commonOptions = {
+    maxZoom: 20,
+    crossOrigin: true
+  };
+
+  // Nền mặc định ít nhãn: tránh các nhãn đa ngôn ngữ gây rối khi chụp luận văn.
+  const cartoPositron = L.tileLayer(
+    'https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
+    {
+      ...commonOptions,
+      subdomains: 'abcd',
+      attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+    }
+  );
+
+  const openStreetMap = L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      ...commonOptions,
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }
+  );
+
+  const esriWorldStreet = L.tileLayer(
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+    {
+      ...commonOptions,
+      maxZoom: 19,
+      attribution: 'Tiles &copy; Esri'
+    }
+  );
+
+  // Dùng lớp nền xám không nhãn để các marker và tuyến nổi bật hơn.
+  const esriLightGray = L.tileLayer(
+    'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+    {
+      ...commonOptions,
+      maxZoom: 16,
+      attribution: 'Tiles &copy; Esri'
+    }
+  );
+
+  const esriSatellite = L.tileLayer(
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    {
+      ...commonOptions,
+      maxZoom: 19,
+      attribution: 'Tiles &copy; Esri'
+    }
+  );
+
+  return {
+    'Carto Positron': cartoPositron,
+    'OpenStreetMap': openStreetMap,
+    'Esri World Street': esriWorldStreet,
+    'Esri Light Gray': esriLightGray,
+    'Esri Satellite': esriSatellite
+  };
+}
+
 function initMap() {
   map = L.map('map', { zoomControl: false })
     .setView([10.38, 105.43], 10);
 
   L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OSM'
+  // V3.4: Bộ chuyển đổi nền bản đồ. Không thay đổi các lớp marker/cơ sở thờ tự.
+  const baseMaps = createBaseMaps();
+  const savedBaseMap = localStorage.getItem('webgisBaseMap') || 'Carto Positron';
+  const defaultBaseMapName = baseMaps[savedBaseMap] ? savedBaseMap : 'Carto Positron';
+  baseMaps[defaultBaseMapName].addTo(map);
+
+  const baseMapControl = L.control.layers(baseMaps, null, {
+    position: 'topright',
+    collapsed: true
   }).addTo(map);
+
+  map.on('baselayerchange', function(e) {
+    localStorage.setItem('webgisBaseMap', e.name);
+  });
+
+  // Hiển thị tên nền đang dùng khi rê chuột vào nút chọn nền.
+  const controlContainer = baseMapControl.getContainer();
+  if (controlContainer) {
+    controlContainer.title = 'Chọn nền bản đồ';
+  }
 
   // Lớp ghim đỏ đánh số cho các địa điểm đang có trong Tour hành hương.
   tourPreviewMarkersLayer = L.layerGroup().addTo(map);
