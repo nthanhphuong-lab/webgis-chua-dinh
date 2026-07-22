@@ -269,7 +269,7 @@ body {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #1769e0;
+  background: #d71920;
   color: #fff;
   font-weight: 700;
 }
@@ -482,4 +482,10 @@ body {
 .tour-numbered-marker span {
   display: block;
   transform: rotate(45deg);
+}
+
+
+/* V3.2 cập nhật: địa điểm đã nạp vào Tour hiển thị ghim đỏ đánh số */
+.tour-numbered-marker {
+  background: #d71920;
 }

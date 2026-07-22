@@ -12,6 +12,8 @@ let manualMarker = null;
 
 // Tour nhiều chùa/miếu
 let tourRoutingControl = null;
+let tourPreviewMarkersLayer = null;
+const markerLayersByMa = new Map();
 let tourStopCounter = 0;
 const MAX_TOUR_STOPS = 10;
 
@@ -52,6 +54,9 @@ function initMap() {
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OSM'
   }).addTo(map);
+
+  // Lớp ghim đỏ đánh số cho các địa điểm đang có trong Tour hành hương.
+  tourPreviewMarkersLayer = L.layerGroup().addTo(map);
 
   map.on('click', function(e) {
     if (!pickingLocation) return;
@@ -137,6 +142,7 @@ function applyFilter() {
 
 function renderMap(features) {
   if (markersLayer) map.removeLayer(markersLayer);
+  markerLayersByMa.clear();
 
   const redIcon = L.icon({
     iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
@@ -161,6 +167,9 @@ function renderMap(features) {
 
     onEachFeature: (f, layer) => {
       const p = f.properties || {};
+      if (p.Ma !== undefined && p.Ma !== null) {
+        markerLayersByMa.set(String(p.Ma), layer);
+      }
 
       const loaiName = loai.find(x => x.id == p.Loai)?.name || "Không rõ";
       const tocName = toc.find(x => x.id == p.Toc)?.name || "Không rõ";
@@ -189,6 +198,9 @@ function renderMap(features) {
       `);
     }
   }).addTo(map);
+
+  // Giữ đúng màu đỏ và số thứ tự sau khi lọc hoặc vẽ lại lớp bản đồ.
+  refreshTourMapMarkers();
 }
 
 function renderList(features) {
@@ -595,6 +607,7 @@ function addTourStop(selectedMa = "") {
   row.querySelector(".tour-up").onclick = () => moveTourStop(row, -1);
   row.querySelector(".tour-down").onclick = () => moveTourStop(row, 1);
   row.querySelector(".tour-remove").onclick = () => removeTourStop(row);
+  row.querySelector(".tour-place-select").onchange = updateTourStopLabels;
 
   list.appendChild(row);
   updateTourStopLabels();
@@ -671,6 +684,63 @@ function updateTourStopLabels() {
 
     if (removeBtn) removeBtn.disabled = rows.length <= 2;
   });
+
+  refreshTourMapMarkers();
+}
+
+/**
+ * Đồng bộ các điểm đang chọn trong Tour hành hương lên bản đồ:
+ * - Ghim đỏ.
+ * - Số thứ tự 1, 2, 3... đúng với danh sách bên phải.
+ * - Tự cập nhật khi nạp chặng, thêm/xóa điểm hoặc đổi thứ tự.
+ */
+function refreshTourMapMarkers() {
+  if (!map || !tourPreviewMarkersLayer) return;
+
+  tourPreviewMarkersLayer.clearLayers();
+
+  // Hiện lại các ghim gốc trước khi áp dụng trạng thái Tour mới.
+  markerLayersByMa.forEach(layer => {
+    if (typeof layer.setOpacity === "function") layer.setOpacity(1);
+  });
+
+  const rows = [...document.querySelectorAll("#tourStopList .tour-stop-row")];
+
+  rows.forEach((row, index) => {
+    const ma = row.querySelector(".tour-place-select")?.value || "";
+    if (!ma) return;
+
+    const feature = getFeatureByMa(ma);
+    if (!feature || !isValidPointFeature(feature)) return;
+
+    const [lng, lat] = feature.geometry.coordinates.map(Number);
+    const p = feature.properties || {};
+    const baseLayer = markerLayersByMa.get(String(ma));
+
+    // Ẩn ghim xanh gốc để chỉ còn một ghim đỏ đánh số.
+    if (baseLayer && typeof baseLayer.setOpacity === "function") {
+      baseLayer.setOpacity(0);
+    }
+
+    const marker = L.marker([lat, lng], {
+      icon: createNumberedTourIcon(index + 1),
+      zIndexOffset: 1000 + index
+    });
+
+    // Dùng lại popup đầy đủ của ghim gốc nếu điểm đang hiện trong bộ lọc.
+    const originalPopup = baseLayer?.getPopup?.();
+    if (originalPopup) {
+      marker.bindPopup(originalPopup.getContent());
+    } else {
+      marker.bindPopup(`
+        <b>${index + 1}. ${escapeHtml(p.TenDanhSach || p.TenCong || "Không tên")}</b><br>
+        ${escapeHtml(p.DiaChi || "")}<br><br>
+        <button onclick="showDetail('${escapeJsString(p.Ma)}')">🔍 Xem chi tiết</button>
+      `);
+    }
+
+    marker.addTo(tourPreviewMarkersLayer);
+  });
 }
 
 function calculateTourRoute() {
@@ -733,13 +803,10 @@ function drawTourRoute(waypoints, features) {
         opacity: 0.85
       }]
     },
-    createMarker: function(index, waypoint) {
-      const feature = features[index];
-      const name = feature?.properties?.TenDanhSach || `Điểm ${index + 1}`;
-
-      return L.marker(waypoint.latLng, {
-        icon: createNumberedTourIcon(index + 1)
-      }).bindPopup(`<b>${index + 1}. ${escapeHtml(name)}</b>`);
+    // Ghim đỏ đánh số đã do refreshTourMapMarkers() quản lý.
+    // Không tạo thêm ghim của Leaflet Routing Machine để tránh bị trùng.
+    createMarker: function() {
+      return null;
     }
   }).addTo(map);
 
