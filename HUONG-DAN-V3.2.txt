@@ -1,0 +1,23 @@
+WEBGIS V3.2 – TUYẾN DU LỊCH LIÊN KẾT VÙNG KẾT HỢP TOUR HÀNH HƯƠNG
+
+Nội dung cập nhật:
+1. Đổi tên “Tuyến du lịch mẫu” thành “Tuyến du lịch liên kết vùng”.
+2. Tổ chức đúng 4 chặng theo mục 3.7.2:
+   - Chặng 1: TP. Long Xuyên.
+   - Chặng 2: TP. Châu Đốc – TX. Tân Châu.
+   - Chặng 3: TP. Rạch Giá.
+   - Chặng 4: Đảo Ngọc Phú Quốc.
+3. Bổ sung lựa chọn “Toàn bộ tuyến du lịch liên kết vùng”.
+4. Mỗi chặng có mô tả, chủ đề, phương tiện, thời gian và danh sách điểm đúng theo nội dung nghiên cứu.
+5. Nút “Nạp vào Tour hành hương” đưa các địa điểm đã có tọa độ vào danh sách Tour để tính đường.
+6. Địa điểm chưa nhập đủ dữ liệu được ghi rõ “dữ liệu đang cập nhật” và không làm website lỗi.
+
+Lưu ý dữ liệu:
+- Một số điểm trong nội dung nghiên cứu chưa có Feature/tọa độ trong data.geojson, gồm Chùa Ông Bắc (Long Xuyên), không gian Lễ hội Hành xác, không gian nghề dệt lụa Tân Châu và Chùa Ông Cửa Lấp.
+- Các điểm này đã được khai báo trong tours.json bằng mã PENDING_*.
+- Khi nhập đầy đủ dữ liệu, nên thay mã PENDING_* bằng mã Ma thật trong data.geojson, hoặc dùng đúng mã đó làm thuộc tính Ma của Feature mới.
+- Chỉ các địa điểm có tọa độ mới được đưa vào tính tuyến. Phần giới thiệu vẫn hiển thị đầy đủ các điểm dự kiến.
+
+Cách chạy:
+python -m http.server 8000
+Mở http://localhost:8000 và nhấn Ctrl+F5.

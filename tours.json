@@ -1,0 +1,89 @@
+[
+  {
+    "id": "chang-1-long-xuyen",
+    "name": "Chặng 1 – TP. Long Xuyên",
+    "shortName": "Chặng 1 – Long Xuyên",
+    "description": "Khởi hành tại TP. Long Xuyên: Tham quan Chùa Quan Thánh Đế (Long Xuyên) kết hợp Chùa Ông Bắc (Quảng Đông tỉnh hội quán), tìm hiểu lịch sử bang hội Hoa đầu tiên tại An Giang.",
+    "theme": "Quan Thánh Đế Quân và lịch sử bang hội người Hoa tại An Giang",
+    "vehicle": "Ô tô, xe máy hoặc xe đạp",
+    "estimatedVisit": "Nửa ngày",
+    "color": "#1769e0",
+    "points": ["H01", "PENDING_ONG_BAC_LONG_XUYEN"],
+    "pointLabels": {
+      "H01": "Chùa Quan Thánh Đế (Long Xuyên)",
+      "PENDING_ONG_BAC_LONG_XUYEN": "Chùa Ông Bắc (Quảng Đông tỉnh hội quán) – dữ liệu đang cập nhật"
+    }
+  },
+  {
+    "id": "chang-2-chau-doc-tan-chau",
+    "name": "Chặng 2 – TP. Châu Đốc – TX. Tân Châu",
+    "shortName": "Chặng 2 – Châu Đốc – Tân Châu",
+    "description": "Chiêm bái tượng gỗ Quan Công lớn nhất miền Nam tại Châu Đốc, sau đó chuyển qua Tân Châu trải nghiệm không gian tâm linh huyền bí của Lễ hội Hành xác và nghề dệt lụa xứ lụa.",
+    "theme": "Tín ngưỡng Quan Công, Lễ hội Hành xác và nghề dệt lụa Tân Châu",
+    "vehicle": "Ô tô hoặc xe máy",
+    "estimatedVisit": "Nửa ngày đến 1 ngày",
+    "color": "#198754",
+    "points": ["H10", "PENDING_LE_HOI_HANH_XAC", "PENDING_LANG_DET_LUA_TAN_CHAU"],
+    "pointLabels": {
+      "H10": "Điểm thờ Quan Công tại Châu Đốc",
+      "PENDING_LE_HOI_HANH_XAC": "Không gian Lễ hội Hành xác tại Tân Châu – dữ liệu đang cập nhật",
+      "PENDING_LANG_DET_LUA_TAN_CHAU": "Không gian nghề dệt lụa Tân Châu – dữ liệu đang cập nhật"
+    }
+  },
+  {
+    "id": "chang-3-rach-gia",
+    "name": "Chặng 3 – TP. Rạch Giá",
+    "shortName": "Chặng 3 – Rạch Giá",
+    "description": "Tham quan Chùa Quan Đế cổ kính, chiêm ngưỡng tượng ngựa Xích Thố kích thước thật và các cổ vật quý thời nhà Thanh.",
+    "theme": "Quan Đế, tượng ngựa Xích Thố và cổ vật thời nhà Thanh",
+    "vehicle": "Xe máy, ô tô hoặc xe đạp",
+    "estimatedVisit": "2–3 giờ",
+    "color": "#fd7e14",
+    "points": ["H12"],
+    "pointLabels": {
+      "H12": "Chùa Quan Đế, Rạch Giá"
+    }
+  },
+  {
+    "id": "chang-4-phu-quoc",
+    "name": "Chặng 4 – Đảo Ngọc Phú Quốc",
+    "shortName": "Chặng 4 – Phú Quốc",
+    "description": "Kết thúc hành trình tại Chùa Ông Cửa Lấp, chiêm bái Phúc Đức Chính Thần và tìm hiểu sự giao thoa văn hóa biển đảo đặc sắc.",
+    "theme": "Phúc Đức Chính Thần và sự giao thoa văn hóa biển đảo",
+    "vehicle": "Xe máy hoặc ô tô",
+    "estimatedVisit": "2–3 giờ",
+    "color": "#dc3545",
+    "points": ["PENDING_CHUA_ONG_CUA_LAP"],
+    "pointLabels": {
+      "PENDING_CHUA_ONG_CUA_LAP": "Chùa Ông Cửa Lấp, Phú Quốc – dữ liệu đang cập nhật"
+    }
+  },
+  {
+    "id": "toan-bo-tuyen-lien-ket-vung",
+    "name": "Toàn bộ tuyến du lịch liên kết vùng",
+    "shortName": "Toàn bộ tuyến liên kết vùng",
+    "description": "Tuyến du lịch liên kết các sắc thái nổi bật của tín thờ Quan Thánh Đế Quân tiêu biểu trên địa bàn tỉnh An Giang mới, gồm bốn chặng: Long Xuyên; Châu Đốc – Tân Châu; Rạch Giá; và Đảo Ngọc Phú Quốc.",
+    "theme": "Tín thờ Quan Thánh Đế Quân và văn hóa người Hoa liên kết vùng",
+    "vehicle": "Kết hợp ô tô, xe máy và phương tiện đi Phú Quốc",
+    "estimatedVisit": "Nhiều ngày",
+    "color": "#7b2cbf",
+    "points": [
+      "H01",
+      "PENDING_ONG_BAC_LONG_XUYEN",
+      "H10",
+      "PENDING_LE_HOI_HANH_XAC",
+      "PENDING_LANG_DET_LUA_TAN_CHAU",
+      "H12",
+      "PENDING_CHUA_ONG_CUA_LAP"
+    ],
+    "pointLabels": {
+      "H01": "Chùa Quan Thánh Đế (Long Xuyên)",
+      "PENDING_ONG_BAC_LONG_XUYEN": "Chùa Ông Bắc (Quảng Đông tỉnh hội quán) – dữ liệu đang cập nhật",
+      "H10": "Điểm thờ Quan Công tại Châu Đốc",
+      "PENDING_LE_HOI_HANH_XAC": "Không gian Lễ hội Hành xác tại Tân Châu – dữ liệu đang cập nhật",
+      "PENDING_LANG_DET_LUA_TAN_CHAU": "Không gian nghề dệt lụa Tân Châu – dữ liệu đang cập nhật",
+      "H12": "Chùa Quan Đế, Rạch Giá",
+      "PENDING_CHUA_ONG_CUA_LAP": "Chùa Ông Cửa Lấp, Phú Quốc – dữ liệu đang cập nhật"
+    }
+  }
+]

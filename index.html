@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Bản đồ cơ sở thờ tự</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+  <script src="script.js"></script>
+  
+</head>
+<body>
+
+<div id="sidebar">
+  <h3>Danh sách cơ sở thờ tự</h3>
+
+  <!-- FILTER -->
+  <div class="filter-container">
+
+    <label>Loại cơ sở</label>
+    <select id="filterLoaiCoSo"><option value="">Tất cả</option></select>
+
+    <label>Loại thần</label>
+    <select id="filterLoai"><option value="">Tất cả</option></select>
+
+    <label>Tộc</label>
+    <select id="filterToc"><option value="">Tất cả</option></select>
+
+    <label>Phường/Xã</label>
+    <select id="filterPhuongXa"><option value="">Tất cả</option></select>
+
+    <button id="resetFilter">Reset</button>
+
+  </div>
+
+  <ul id="placeList"></ul>
+</div>
+
+<button id="toggleSidebar">☰</button>
+<button id="btnPickLocation">📍 Chọn vị trí</button>  
+<div id="routeBox">
+  <div id="routeInfo">Chưa có tuyến đường</div>
+   <button onclick="clearRoute()">❌ Xóa</button>
+</div>
+ 
+<div id="map"></div>
+
+
+
+ <!-- MODAL CHI TIẾT -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div id="modal-body"></div>
+  </div>
+</div> 
+<!-- Nút mở/đóng Tour hành hương: đặt gần nút "Chọn vị trí" -->
+<button id="toggleTourPanel" type="button">🛕 Tour hành hương</button>
+
+<!-- Hộp Tour hành hương: đặt sau #routeBox và trước thẻ đóng </body> -->
+<section id="tourPanel" class="tour-hidden" aria-label="Lập tuyến qua nhiều chùa và miếu">
+  <div class="tour-panel-header">
+    <strong>🛕 Tour hành hương</strong>
+    <button
+      type="button"
+      class="tour-close"
+      onclick="document.getElementById('tourPanel').classList.add('tour-hidden')"
+      aria-label="Đóng"
+    >×</button>
+  </div>
+
+  <p class="tour-help">
+    Chọn một chặng của Tuyến du lịch liên kết vùng hoặc tự tạo Tour hành hương. Có thể dùng ↑ ↓ để đổi thứ tự.
+  </p>
+
+  <div class="preset-tour-box">
+    <label for="presetTourSelect"><b>🗺 Tuyến du lịch liên kết vùng</b></label>
+    <select id="presetTourSelect">
+      <option value="">-- Tự tạo Tour --</option>
+    </select>
+    <button id="loadPresetTour" type="button">📥 Nạp vào Tour hành hương</button>
+    <button id="showPresetInfo" type="button">📖 Giới thiệu tuyến</button>
+    <div id="presetTourNotice" class="preset-tour-notice"></div>
+  </div>
+
+  <div id="tourStopList"></div>
+
+  <div class="tour-actions">
+    <button id="addTourStop" type="button">➕ Thêm điểm dừng</button>
+    <button id="calculateTour" type="button">🧭 Tính tuyến</button>
+    <button id="clearTour" type="button">🗑 Xóa tour</button>
+  </div>
+
+  <div id="tourInfo">Chưa tính tuyến.</div>
+</section>
+  
+</body>
+</html>
