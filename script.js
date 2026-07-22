@@ -3,6 +3,8 @@ let dataFeatures = [];
 let map, markersLayer;
 let tongquatData = [];
 let presetTours = [];
+let originalPresetTours = [];
+let tourManagerDraftPoints = [];
 
 // Tuyến đường đơn hiện có
 let routingControl = null;
@@ -34,6 +36,8 @@ Promise.all([
   dataFeatures = geo.features || [];
   tongquatData = Array.isArray(tq) ? tq : [];
   presetTours = Array.isArray(tours) ? tours : [];
+  originalPresetTours = JSON.parse(JSON.stringify(presetTours));
+  applySavedTourOverrides();
 
   initMap();
   populateFilters();
@@ -455,6 +459,9 @@ function initPilgrimageTour() {
   document.getElementById("clearTour").onclick = clearTour;
   document.getElementById("loadPresetTour").onclick = loadSelectedPresetTour;
   document.getElementById("showPresetInfo").onclick = showSelectedPresetInfo;
+  const manageBtn = document.getElementById("managePresetTours");
+  if (manageBtn) manageBtn.onclick = openTourManager;
+  initTourManager();
   populatePresetTourSelect();
 
   // Mặc định tạo 3 điểm: xuất phát, điểm dừng, điểm đến
@@ -926,3 +933,187 @@ window.addTourStop = addTourStop;
 window.addFeatureToTour = addFeatureToTour;
 window.calculateTourRoute = calculateTourRoute;
 window.clearTour = clearTour;
+
+
+/* =========================================================
+   V3.3 — QUẢN LÝ ĐỊA ĐIỂM TRONG TUYẾN LIÊN KẾT VÙNG
+   Dữ liệu được lưu tạm bằng localStorage và có thể xuất tours.json.
+   ========================================================= */
+const TOUR_OVERRIDES_KEY = "webgis_tours_v33";
+
+function applySavedTourOverrides() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(TOUR_OVERRIDES_KEY) || "null");
+    if (!Array.isArray(saved)) return;
+    const byId = new Map(saved.map(t => [String(t.id), t]));
+    presetTours = presetTours.map(t => byId.has(String(t.id)) ? byId.get(String(t.id)) : t);
+  } catch (error) {
+    console.warn("Không đọc được cấu hình tuyến đã lưu:", error);
+  }
+}
+
+function initTourManager() {
+  const modal = document.getElementById("tourManagerModal");
+  if (!modal) return;
+  document.getElementById("closeTourManager").onclick = closeTourManager;
+  modal.addEventListener("click", e => { if (e.target === modal) closeTourManager(); });
+  document.getElementById("tourManagerSelect").onchange = loadTourManagerDraft;
+  document.getElementById("tourManagerSearch").oninput = renderTourManagerPlaces;
+  document.getElementById("tourManagerSave").onclick = saveTourManagerDraft;
+  document.getElementById("tourManagerExport").onclick = exportToursJson;
+  document.getElementById("tourManagerReset").onclick = resetTourManagerData;
+  document.getElementById("tourManagerSelectVisible").onclick = selectVisibleManagerPlaces;
+  document.getElementById("tourManagerClearAvailable").onclick = clearAvailableManagerPlaces;
+}
+
+function openTourManager() {
+  const modal = document.getElementById("tourManagerModal");
+  const select = document.getElementById("tourManagerSelect");
+  if (!modal || !select) return;
+  select.innerHTML = presetTours.map(t =>
+    `<option value="${escapeHtml(t.id)}">${escapeHtml(t.name)}</option>`
+  ).join("");
+  const current = document.getElementById("presetTourSelect")?.value;
+  if (current && presetTours.some(t => String(t.id) === String(current))) select.value = current;
+  modal.classList.add("is-open");
+  modal.setAttribute("aria-hidden", "false");
+  loadTourManagerDraft();
+}
+
+function closeTourManager() {
+  const modal = document.getElementById("tourManagerModal");
+  modal?.classList.remove("is-open");
+  modal?.setAttribute("aria-hidden", "true");
+}
+
+function getManagerTour() {
+  const id = document.getElementById("tourManagerSelect")?.value || "";
+  return presetTours.find(t => String(t.id) === String(id));
+}
+
+function loadTourManagerDraft() {
+  const tour = getManagerTour();
+  tourManagerDraftPoints = Array.isArray(tour?.points) ? [...tour.points] : [];
+  renderTourManagerSelected();
+  renderTourManagerPlaces();
+}
+
+function managerFeatureLabel(ma) {
+  const feature = getFeatureByMa(ma);
+  if (feature) {
+    const p = feature.properties || {};
+    return p.TenDanhSach || p.TenCong || p.Ma || ma;
+  }
+  const tour = getManagerTour();
+  return tour?.pointLabels?.[ma] || `${ma} — dữ liệu đang cập nhật`;
+}
+
+function renderTourManagerSelected() {
+  const box = document.getElementById("tourManagerSelected");
+  const count = document.getElementById("tourManagerCount");
+  if (!box) return;
+  if (count) count.textContent = `(${tourManagerDraftPoints.length})`;
+  if (!tourManagerDraftPoints.length) {
+    box.innerHTML = '<div class="tour-manager-empty">Chưa chọn địa điểm.</div>';
+    return;
+  }
+  box.innerHTML = tourManagerDraftPoints.map((ma, index) => {
+    const missing = !getFeatureByMa(ma);
+    return `<div class="tour-manager-selected-row${missing ? ' is-missing' : ''}">
+      <span class="manager-order">${index + 1}</span>
+      <span class="manager-name"><b>${escapeHtml(managerFeatureLabel(ma))}</b><small>${escapeHtml(ma)}${missing ? ' · chưa có trong data.geojson' : ''}</small></span>
+      <button type="button" onclick="moveManagerPoint(${index},-1)" ${index===0?'disabled':''}>↑</button>
+      <button type="button" onclick="moveManagerPoint(${index},1)" ${index===tourManagerDraftPoints.length-1?'disabled':''}>↓</button>
+      <button type="button" class="danger" onclick="removeManagerPoint(${index})">×</button>
+    </div>`;
+  }).join("");
+}
+
+function renderTourManagerPlaces() {
+  const box = document.getElementById("tourManagerPlaces");
+  if (!box) return;
+  const query = (document.getElementById("tourManagerSearch")?.value || "").trim().toLocaleLowerCase("vi");
+  const list = [...dataFeatures].filter(isValidPointFeature).sort((a,b) =>
+    (a.properties?.TenDanhSach || "").localeCompare(b.properties?.TenDanhSach || "", "vi")
+  ).filter(f => {
+    const p=f.properties||{};
+    const hay=`${p.Ma||''} ${p.TenDanhSach||''} ${p.TenCong||''} ${p.DiaChi||''}`.toLocaleLowerCase("vi");
+    return !query || hay.includes(query);
+  });
+  box.innerHTML = list.map(f => {
+    const p=f.properties||{}; const ma=String(p.Ma||"");
+    const checked=tourManagerDraftPoints.includes(ma) ? " checked" : "";
+    return `<label class="tour-manager-place-item">
+      <input type="checkbox" data-manager-ma="${escapeHtml(ma)}"${checked} onchange="toggleManagerPoint('${escapeJsString(ma)}',this.checked)">
+      <span><b>${escapeHtml(p.TenDanhSach||p.TenCong||ma)}</b><small>${escapeHtml(ma)}${p.DiaChi ? ' · '+escapeHtml(p.DiaChi) : ''}</small></span>
+    </label>`;
+  }).join("") || '<div class="tour-manager-empty">Không tìm thấy địa điểm.</div>';
+}
+
+function toggleManagerPoint(ma, checked) {
+  const idx=tourManagerDraftPoints.indexOf(ma);
+  if (checked && idx<0) tourManagerDraftPoints.push(ma);
+  if (!checked && idx>=0) tourManagerDraftPoints.splice(idx,1);
+  renderTourManagerSelected();
+}
+function moveManagerPoint(index, direction) {
+  const target=index+direction;
+  if (target<0 || target>=tourManagerDraftPoints.length) return;
+  [tourManagerDraftPoints[index],tourManagerDraftPoints[target]]=[tourManagerDraftPoints[target],tourManagerDraftPoints[index]];
+  renderTourManagerSelected(); renderTourManagerPlaces();
+}
+function removeManagerPoint(index) {
+  tourManagerDraftPoints.splice(index,1); renderTourManagerSelected(); renderTourManagerPlaces();
+}
+function selectVisibleManagerPlaces() {
+  document.querySelectorAll('#tourManagerPlaces input[data-manager-ma]').forEach(input => {
+    const ma=input.dataset.managerMa;
+    if (!tourManagerDraftPoints.includes(ma)) tourManagerDraftPoints.push(ma);
+    input.checked=true;
+  });
+  renderTourManagerSelected();
+}
+function clearAvailableManagerPlaces() {
+  tourManagerDraftPoints=tourManagerDraftPoints.filter(ma => !getFeatureByMa(ma));
+  renderTourManagerSelected(); renderTourManagerPlaces();
+}
+
+function saveTourManagerDraft() {
+  const tour=getManagerTour();
+  if (!tour) return;
+  tour.points=[...tourManagerDraftPoints];
+  tour.pointLabels=tour.pointLabels||{};
+  tourManagerDraftPoints.forEach(ma => {
+    const f=getFeatureByMa(ma);
+    if (f) tour.pointLabels[ma]=f.properties?.TenDanhSach||f.properties?.TenCong||ma;
+  });
+  localStorage.setItem(TOUR_OVERRIDES_KEY, JSON.stringify(presetTours));
+  populatePresetTourSelect();
+  const mainSelect=document.getElementById('presetTourSelect');
+  if (mainSelect) mainSelect.value=tour.id;
+  const notice=document.getElementById('presetTourNotice');
+  if (notice) notice.innerHTML=`✅ Đã lưu tạm ${tour.points.length} điểm cho ${escapeHtml(tour.name)}. Hãy xuất tours.json để cập nhật lên GitHub.`;
+  alert('Đã lưu và áp dụng trên trình duyệt này.');
+}
+
+function exportToursJson() {
+  saveTourManagerDraft();
+  const blob=new Blob([JSON.stringify(presetTours,null,2)+'\n'],{type:'application/json;charset=utf-8'});
+  const url=URL.createObjectURL(blob); const a=document.createElement('a');
+  a.href=url; a.download='tours.json'; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+function resetTourManagerData() {
+  if (!confirm('Khôi phục toàn bộ tuyến theo file tours.json gốc? Các thay đổi lưu tạm trên trình duyệt sẽ bị xóa.')) return;
+  localStorage.removeItem(TOUR_OVERRIDES_KEY);
+  presetTours=JSON.parse(JSON.stringify(originalPresetTours));
+  populatePresetTourSelect();
+  const select=document.getElementById('tourManagerSelect');
+  if (select) select.innerHTML=presetTours.map(t=>`<option value="${escapeHtml(t.id)}">${escapeHtml(t.name)}</option>`).join('');
+  loadTourManagerDraft();
+}
+
+window.toggleManagerPoint=toggleManagerPoint;
+window.moveManagerPoint=moveManagerPoint;
+window.removeManagerPoint=removeManagerPoint;

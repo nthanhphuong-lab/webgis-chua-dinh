@@ -82,6 +82,7 @@
     </select>
     <button id="loadPresetTour" type="button">📥 Nạp vào Tour hành hương</button>
     <button id="showPresetInfo" type="button">📖 Giới thiệu tuyến</button>
+    <button id="managePresetTours" type="button">⚙️ Quản lý địa điểm trong chặng</button>
     <div id="presetTourNotice" class="preset-tour-notice"></div>
   </div>
 
@@ -96,5 +97,48 @@
   <div id="tourInfo">Chưa tính tuyến.</div>
 </section>
   
+<!-- V3.3: Quản lý địa điểm trong Tuyến du lịch liên kết vùng -->
+<div id="tourManagerModal" class="tour-manager-modal" aria-hidden="true">
+  <div class="tour-manager-dialog">
+    <div class="tour-manager-header">
+      <div>
+        <strong>⚙️ Quản lý tuyến du lịch liên kết vùng</strong>
+        <div class="tour-manager-subtitle">Chọn địa điểm, sắp xếp thứ tự rồi xuất tours.json để cập nhật GitHub.</div>
+      </div>
+      <button id="closeTourManager" type="button" aria-label="Đóng">×</button>
+    </div>
+
+    <div class="tour-manager-toolbar">
+      <label for="tourManagerSelect">Chặng cần chỉnh</label>
+      <select id="tourManagerSelect"></select>
+      <input id="tourManagerSearch" type="search" placeholder="Tìm theo tên, mã hoặc địa chỉ...">
+    </div>
+
+    <div class="tour-manager-columns">
+      <section>
+        <h4>Địa điểm đã chọn <span id="tourManagerCount"></span></h4>
+        <div id="tourManagerSelected" class="tour-manager-selected"></div>
+      </section>
+      <section>
+        <h4>Danh sách từ data.geojson</h4>
+        <div class="tour-manager-quick">
+          <button id="tourManagerSelectVisible" type="button">☑ Chọn kết quả đang hiện</button>
+          <button id="tourManagerClearAvailable" type="button">☐ Bỏ các điểm có dữ liệu</button>
+        </div>
+        <div id="tourManagerPlaces" class="tour-manager-places"></div>
+      </section>
+    </div>
+
+    <div class="tour-manager-note">
+      Trình duyệt không thể tự ghi file trên GitHub. Nút <b>Lưu tạm</b> áp dụng ngay trên máy này; nút <b>Xuất tours.json</b> tạo file để bạn upload ghi đè lên GitHub.
+    </div>
+    <div class="tour-manager-actions">
+      <button id="tourManagerSave" type="button">💾 Lưu tạm và áp dụng</button>
+      <button id="tourManagerExport" type="button">⬇ Xuất tours.json</button>
+      <button id="tourManagerReset" type="button">↩ Khôi phục theo file gốc</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
